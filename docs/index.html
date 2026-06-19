@@ -4,246 +4,869 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>agent-studio — AI Agent Developer's Toolkit</title>
-  <style>
-    :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --border: #1e1e2e;
-      --accent: #7c6af7;
-      --accent2: #06d6a0;
-      --text: #e0e0e8;
-      --muted: #8888aa;
-      --code: #ff79c6;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'SF Mono', 'Fira Code', monospace;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-      min-height: 100vh;
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { color: var(--accent2); }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <style>
+    /* ─── Design Tokens ─── */
+    :root {
+      --bg:           #09090b;
+      --surface:      #18181b;
+      --surface-2:    #27272a;
+      --border:       #3f3f46;
+      --text-1:      #fafafa;
+      --text-2:      #a1a1aa;
+      --text-3:      #71717a;
+      --accent:       #22d3ee;      /* cyan — confident, technical */
+      --accent-glow:  rgba(34,211,238,0.15);
+      --accent-2:     #a78bfa;      /* violet for secondary tags */
+      --green:        #4ade80;
+      --red:          #f87171;
+
+      --font-sans: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+      --radius:  6px;
+      --radius-lg: 12px;
+
+      --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text-1);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--accent); text-decoration: none; transition: color var(--transition); }
+    a:hover { color: var(--text-1); }
+
+    img { max-width: 100%; display: block; }
+
+    ::selection { background: var(--accent); color: var(--bg); }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ─── Layout ─── */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .section { padding: 80px 0; }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .section { padding: 56px 0; }
+    }
+
+    /* ─── Nav ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(9,9,11,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-1);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+      transition: color var(--transition);
+    }
+    .nav-links a:hover { color: var(--text-1); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      text-decoration: none;
+      line-height: 1;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: #67e8f9;
+      color: var(--bg);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(34,211,238,0.3);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-2);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .btn-sm { padding: 6px 12px; font-size: 12px; }
+
+    /* ─── Tags / Badges ─── */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .tag-cyan  { background: rgba(34,211,238,0.1);  color: var(--accent);  border: 1px solid rgba(34,211,238,0.2); }
+    .tag-violet{ background: rgba(167,139,250,0.1); color: var(--accent-2); border: 1px solid rgba(167,139,250,0.2); }
+    .tag-green { background: rgba(74,222,128,0.1);  color: var(--green);   border: 1px solid rgba(74,222,128,0.2); }
+
+    /* ─── Code Blocks ─── */
+    code, pre {
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      overflow-x: auto;
+      line-height: 1.7;
+    }
+    pre .kw  { color: var(--accent-2); }   /* keyword */
+    pre .fn  { color: var(--accent); }     /* function */
+    pre .str { color: var(--green); }      /* string */
+    pre .cm  { color: var(--text-3); }      /* comment */
+    pre .op  { color: var(--text-2); }      /* operator */
+    pre .nb  { color: var(--red); }         /* number */
+
+    /* ─── Section Label ─── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 16px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .section-title {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--text-1);
+      margin-bottom: 12px;
+    }
+    .section-desc {
+      font-size: 15px;
+      color: var(--text-2);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ─── Hero ─── */
     .hero {
-      padding: 120px 40px 80px;
-      text-align: center;
+      padding: 140px 0 100px;
       position: relative;
-      overflow: hidden;
     }
     .hero::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,106,247,0.15), transparent);
+      top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(34,211,238,0.06) 0%, transparent 70%);
       pointer-events: none;
     }
-    .hero-emoji { font-size: 64px; margin-bottom: 24px; }
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-2);
+    }
+    .hero-badge .pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
     .hero h1 {
-      font-size: 3rem;
+      font-size: clamp(2.4rem, 7vw, 4.2rem);
       font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      color: var(--text-1);
+      margin-bottom: 24px;
+      max-width: 680px;
+    }
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--muted);
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--text-2);
       max-width: 520px;
-      margin: 0 auto 32px;
+      line-height: 1.7;
+      margin-bottom: 36px;
     }
-    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn {
-      padding: 12px 28px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-family: inherit;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 56px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
     }
-    .btn-primary:hover { background: #6a5ae0; color: #fff; }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-    }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
-
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-
-    .section { padding: 80px 0; border-top: 1px solid var(--border); }
-    .section-title {
+    .hero-stat-value {
+      font-family: var(--font-mono);
       font-size: 1.5rem;
-      margin-bottom: 32px;
+      font-weight: 600;
+      color: var(--text-1);
+    }
+    .hero-stat-label {
+      font-size: 12px;
+      color: var(--text-3);
+      margin-top: 2px;
+    }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all var(--transition);
+    }
+    .card:hover {
+      border-color: rgba(34,211,238,0.4);
+      background: rgba(34,211,238,0.03);
+    }
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .card-icon-cyan   { background: rgba(34,211,238,0.1);  }
+    .card-icon-violet { background: rgba(167,139,250,0.1); }
+    .card-icon-green  { background: rgba(74,222,128,0.1);  }
+    .card h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-1);
+    }
+    .card p {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.65;
+    }
+    .card-footer {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    /* ─── Module Tile ─── */
+    .module-tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .module-tile:hover { border-color: rgba(34,211,238,0.4); }
+    .module-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
-    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      transition: all 0.2s;
+    .module-header-icon { font-size: 20px; }
+    .module-header h3 {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-1);
     }
-    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .card-icon { font-size: 2rem; margin-bottom: 12px; }
-    .card h3 { font-size: 1rem; margin-bottom: 8px; }
-    .card p { font-size: 0.85rem; color: var(--muted); }
-
-    .code-block {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
-      overflow-x: auto;
-      font-size: 0.85rem;
-      color: var(--code);
-      margin: 16px 0;
+    .module-header .lang-tag {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-3);
+      background: var(--surface-2);
+      padding: 2px 8px;
+      border-radius: 4px;
     }
-
-    .status-bar {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 24px;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    .status-bar span { color: var(--accent2); }
-
-    .modules {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-    .module {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .module-header {
-      background: linear-gradient(135deg, rgba(124,106,247,0.2), rgba(6,214,160,0.1));
-      padding: 20px;
-      border-bottom: 1px solid var(--border);
-    }
-    .module-header .module-icon { font-size: 1.5rem; }
-    .module-header h3 { font-size: 1rem; margin-top: 8px; }
-    .module-body { padding: 16px 20px; }
-    .module-body ul { list-style: none; }
-    .module-body li {
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.85rem;
+    .module-body { padding: 0; }
+    .module-item {
       display: flex;
+      align-items: center;
       justify-content: space-between;
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(63,63,70,0.5);
+      font-size: 13px;
+      transition: background var(--transition);
     }
-    .module-body li:last-child { border-bottom: none; }
-    .module-body .lang { color: var(--accent2); font-size: 0.75rem; }
+    .module-item:last-child { border-bottom: none; }
+    .module-item:hover { background: rgba(34,211,238,0.04); }
+    .module-item-name {
+      font-family: var(--font-mono);
+      color: var(--text-1);
+    }
+    .module-item-desc {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+    .module-item .tag {
+      font-size: 10px;
+      padding: 2px 8px;
+    }
 
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      .hero { padding: 80px 20px 60px; }
+    /* ─── Architecture Diagram ─── */
+    .arch {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .arch-node {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 280px;
+      justify-content: center;
+    }
+    .arch-node.primary {
+      border-color: var(--accent);
+      background: rgba(34,211,238,0.06);
+      color: var(--accent);
+    }
+    .arch-arrow {
+      color: var(--text-3);
+      font-size: 16px;
+      font-family: var(--font-mono);
+    }
+    @media (max-width: 640px) {
+      .arch { padding: 20px; }
+      .arch-node { min-width: auto; width: 100%; }
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-3);
+    }
+    .footer-links a:hover { color: var(--text-1); }
+
+    /* ─── Live Demo Banner ─── */
+    .demo-banner {
+      background: linear-gradient(90deg, rgba(34,211,238,0.08), rgba(167,139,250,0.08));
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .demo-banner-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+    .demo-banner-text h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .demo-banner-text p {
+      font-size: 13px;
+      color: var(--text-2);
+    }
+    .demo-banner .btn { margin-left: auto; flex-shrink: 0; }
+
+    @media (max-width: 640px) {
+      .demo-banner { flex-direction: column; align-items: flex-start; }
+      .demo-banner .btn { margin-left: 0; }
+      .hero-stats { gap: 20px; }
     }
   </style>
 </head>
 <body>
 
-<div class="hero">
-  <div class="hero-emoji">🤖</div>
-  <h1>agent-studio</h1>
-  <p>AI Agent developer's toolkit — scripts, skills, workflows, and automation patterns. Built for builders.</p>
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="https://github.com/nima54851/agent-studio">View on GitHub</a>
-    <a class="btn btn-outline" href="#modules">Explore Modules</a>
+<!-- ── Navigation ── -->
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">
+      <div class="dot"></div>
+      agent-studio
+    </a>
+    <ul class="nav-links">
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#architecture">Architecture</a></li>
+      <li><a href="https://github.com/nima54851/agent-studio" target="_blank" rel="noopener">GitHub</a></li>
+      <li><a href="https://github.com/nima54851/agent-studio/releases" target="_blank" rel="noopener">Changelog</a></li>
+    </ul>
+    <a href="https://github.com/nima54851/agent-studio" class="btn btn-primary btn-sm" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      Star on GitHub
+    </a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <div class="hero-badge"><div class="pulse"></div> Open Source · MIT License</div>
+    </div>
+
+    <h1>
+      Build AI Agents<br>
+      <span class="gradient">Ship Real Tools.</span>
+    </h1>
+
+    <p class="hero-desc">
+      A production-ready toolkit for AI agent developers. Scripts, skills, workflows, and automation patterns — everything you need to go from prototype to production.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://github.com/nima54851/agent-studio" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        View on GitHub
+      </a>
+      <a href="#modules" class="btn btn-outline">Explore Modules</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-value">4</div>
+        <div class="hero-stat-label">Skills & Templates</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">4</div>
+        <div class="hero-stat-label">Scripts</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">1</div>
+        <div class="hero-stat-label">n8n Workflow</div>
+      </div>
+      <div>
+        <div class="hero-stat-value">MIT</div>
+        <div class="hero-stat-label">License</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Live Demo Banner ── -->
+<div class="container" style="margin-top: -48px;">
+  <div class="demo-banner">
+    <div class="demo-banner-icon">📡</div>
+    <div class="demo-banner-text">
+      <h4>Daily operations running automatically</h4>
+      <p>GitHub trending analysis, quality comments, and repo tracking — scheduled daily at 09:00 Beijing time.</p>
+    </div>
+    <a href="https://github.com/nima54851/agent-studio" class="btn btn-outline btn-sm" target="_blank" rel="noopener">See How</a>
   </div>
 </div>
 
-<div class="container">
-  <div class="section" id="modules">
-    <h2 class="section-title">📦 Modules</h2>
-    <div class="modules">
-      <div class="module">
+<!-- ── Modules ── -->
+<section class="section" id="modules">
+  <div class="container">
+    <div class="section-label">What's Inside</div>
+    <h2 class="section-title">Everything an AI agent developer needs.</h2>
+    <p class="section-desc" style="margin-bottom: 40px;">
+      Modular, composable tools that work independently or together. Pick what you need.
+    </p>
+
+    <div class="grid-3" style="margin-bottom: 16px;">
+      <!-- scripts -->
+      <div class="module-tile">
         <div class="module-header">
-          <div class="module-icon">🔍</div>
+          <span class="module-header-icon">🔍</span>
           <h3>scripts/</h3>
+          <span class="lang-tag">Python</span>
         </div>
         <div class="module-body">
-          <ul>
-            <li>github_trending.py <span class="lang">Python</span></li>
-            <li>webhook_dispatcher.py <span class="lang">Python</span></li>
-          </ul>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">github_trending.py</div>
+              <div class="module-item-desc">Track AI/ML repos daily</div>
+            </div>
+            <span class="tag tag-cyan">ready</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">mcp_client.py</div>
+              <div class="module-item-desc">MCP protocol client</div>
+            </div>
+            <span class="tag tag-cyan">ready</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">memory.py</div>
+              <div class="module-item-desc">Long-term agent memory</div>
+            </div>
+            <span class="tag tag-cyan">ready</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">webhook_dispatcher.py</div>
+              <div class="module-item-desc">Event routing gateway</div>
+            </div>
+            <span class="tag tag-cyan">ready</span>
+          </div>
         </div>
       </div>
-      <div class="module">
+
+      <!-- skills -->
+      <div class="module-tile">
         <div class="module-header">
-          <div class="module-icon">⚙️</div>
+          <span class="module-header-icon">⚙️</span>
           <h3>skills/</h3>
+          <span class="lang-tag">OpenClaw</span>
         </div>
         <div class="module-body">
-          <ul>
-            <li>github-trending-monitor <span class="lang">OpenClaw</span></li>
-            <li>webhook-dispatcher <span class="lang">OpenClaw</span></li>
-          </ul>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">github-trending-monitor</div>
+              <div class="module-item-desc">Daily AI trends tracking</div>
+            </div>
+            <span class="tag tag-violet">skill</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">agent-memory</div>
+              <div class="module-item-desc">Structured agent memory</div>
+            </div>
+            <span class="tag tag-violet">skill</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">mcp-integration</div>
+              <div class="module-item-desc">MCP ecosystem guide</div>
+            </div>
+            <span class="tag tag-violet">skill</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">webhook-dispatcher</div>
+              <div class="module-item-desc">Event routing skill</div>
+            </div>
+            <span class="tag tag-violet">skill</span>
+          </div>
         </div>
       </div>
-      <div class="module">
+
+      <!-- workflows -->
+      <div class="module-tile">
         <div class="module-header">
-          <div class="module-icon">⚡</div>
+          <span class="module-header-icon">⚡</span>
           <h3>workflows/</h3>
+          <span class="lang-tag">n8n + CI</span>
         </div>
         <div class="module-body">
-          <ul>
-            <li>daily-report.yml <span class="lang">GitHub Actions</span></li>
-          </ul>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">github-ai-digest.json</div>
+              <div class="module-item-desc">n8n daily digest workflow</div>
+            </div>
+            <span class="tag tag-green">workflow</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">daily-report.yml</div>
+              <div class="module-item-desc">GitHub Actions CI/CD</div>
+            </div>
+            <span class="tag tag-green">workflow</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">daily_ops.py</div>
+              <div class="module-item-desc">Automated GitHub ops</div>
+            </div>
+            <span class="tag tag-green">workflow</span>
+          </div>
+          <div class="module-item">
+            <div>
+              <div class="module-item-name">github-ai-digest-runbook</div>
+              <div class="module-item-desc">Setup guide + docs</div>
+            </div>
+            <span class="tag tag-green">docs</span>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <h2 class="section-title">⚡ Quick Start</h2>
-    <div class="code-block">git clone https://github.com/nima54851/agent-studio.git
-cd agent-studio
-python3 scripts/github_trending.py</div>
-  </div>
+<!-- ── Architecture ── -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="grid-2" style="align-items: center; gap: 48px;">
+      <div>
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">Built on a simple stack.</h2>
+        <p class="section-desc">
+          No bloat. Just Python, GitHub Actions, and the tools you already use.
+          Run locally or deploy to any server in minutes.
+        </p>
 
-  <div class="section">
-    <h2 class="section-title">🔧 Architecture</h2>
-    <div class="card">
-      <h3>How it works</h3>
-      <p>
-        AI Agent (灵犀 / OpenClaw) → scripts → GitHub Actions / n8n webhooks →
-        structured output (Markdown, JSON) → automated reports delivered daily.
-      </p>
+        <div style="margin-top: 32px; display: flex; flex-direction: column; gap: 16px;">
+          <div class="card">
+            <h3 style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">🔍</span>
+              Intelligent Tracking
+            </h3>
+            <p>Monitors GitHub for trending AI projects using the Search API. Daily snapshots with star counts, descriptions, and links.</p>
+          </div>
+          <div class="card">
+            <h3 style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">🔌</span>
+              Open Integration
+            </h3>
+            <p>Connects to n8n, MCP servers, webhooks, and any REST API. The dispatcher routes events where you need them.</p>
+          </div>
+          <div class="card">
+            <h3 style="display:flex;align-items:center;gap:8px;">
+              <span style="font-size:18px;">🤖</span>
+              Agent-Native
+            </h3>
+            <p>Skills are designed for AI agents first. Long-term memory, structured context, and tool-agnostic patterns.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch">
+        <div class="arch-node primary">🤖 AI Agent (OpenClaw)</div>
+        <div class="arch-arrow">↓ ↑</div>
+        <div class="arch-node">⚡ daily_ops.py</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-node">📊 GitHub API</div>
+        <div class="arch-arrow">↑</div>
+        <div class="arch-node">📄 Report · ⭐ Star · 💬 Comment</div>
+        <div class="arch-arrow">↘</div>
+        <div class="arch-node">⚡ n8n Workflows</div>
+        <div class="arch-arrow">↓</div>
+        <div class="arch-node">🔔 Webhook → Telegram / Email</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="section">
-    <h2 class="section-title">🤝 Contributing</h2>
-    <div class="card">
-      <p>
-        Open issues, submit PRs, or contribute skill templates. All contributions welcome —
-        especially agent workflows and prompt patterns.
-      </p>
+<!-- ── Quick Start ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-label">Get Started</div>
+    <h2 class="section-title">Up and running in 60 seconds.</h2>
+
+    <div class="grid-2" style="margin-top: 32px; gap: 32px;">
+      <div>
+        <pre><span class="cm"># Clone the repo</span>
+<span class="kw">git</span> clone https://github.com/nima54851/agent-studio
+<span class="kw">cd</span> agent-studio
+
+<span class="cm"># Run the trending tracker</span>
+<span class="kw">pip</span> install requests
+<span class="fn">python3</span> scripts/github_trending.py
+
+<span class="cm"># Daily automation (09:00 Beijing)</span>
+<span class="fn">./</span>daily_scheduler.sh
+
+<span class="cm"># Import n8n workflow</span>
+<span class="cm"># → Copy workflows/github-ai-digest.json</span>
+<span class="cm"># → Paste into n8n → Import</span></pre>
+      </div>
+
+      <div>
+        <div class="card" style="margin-bottom: 16px;">
+          <h3 style="margin-bottom: 12px;">📦 Requirements</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);">
+              <span class="tag tag-cyan">req</span> Python 3.10+
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);">
+              <span class="tag tag-cyan">req</span> GitHub PAT (for API access)
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);">
+              <span class="tag tag-violet">opt</span> n8n (for workflow automation)
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);">
+              <span class="tag tag-green">opt</span> OpenClaw (for agent skills)
+            </div>
+          </div>
+        </div>
+        <div class="card" style="background: rgba(34,211,238,0.04); border-color: rgba(34,211,238,0.2);">
+          <h3 style="margin-bottom: 8px;">💡 Pro Tip</h3>
+          <p style="font-size:13px;">Set <code style="background:var(--surface-2);padding:2px 6px;border-radius:4px;">GITHUB_TOKEN</code> as an environment variable to get 5,000 API requests/hour instead of 60.</p>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
-<div class="status-bar">
-  agent-studio · <span>nima54851</span> · Built by 灵犀 AI · MIT License
-</div>
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--accent);opacity:0.6;"></div>
+        agent-studio · Built by <a href="https://github.com/nima54851" target="_blank" rel="noopener">nima54851</a> with 灵犀 AI
+      </div>
+      <ul class="footer-links">
+        <li><a href="https://github.com/nima54851/agent-studio" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://github.com/nima54851/agent-studio/issues" target="_blank" rel="noopener">Issues</a></li>
+        <li><a href="https://github.com/nima54851/agent-studio/releases" target="_blank" rel="noopener">Releases</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
 
 </body>
 </html>
