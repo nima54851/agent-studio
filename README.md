@@ -40,9 +40,8 @@ This repo runs automated daily operations via `daily_ops.py`:
 - 📊 GitHub Trending report generated and committed
 - 💬 Quality comment posted on a trending AI project issue
 - ⭐ Random star on a relevant AI repo
-- 🔄 agent-studio self-starred
 
-Scheduler: `daily_scheduler.sh` (runs 09:00 Beijing time)
+Scheduler: `daily_scheduler.sh` (runs 09:00 Beijing time daily)
 
 ## 🤝 Contributing
 
