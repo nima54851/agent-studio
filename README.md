@@ -12,11 +12,16 @@ A curated, production-ready collection of tools and patterns for AI Agent develo
 | Module | Description |
 |--------|-------------|
 | [`scripts/`](scripts/) | Ready-to-run Python scripts (GitHub trending, webhooks, data processing) |
-| [`skills/`](skills/) | OpenClaw-compatible agent skill templates |
+| [`skills/`](skills/) | OpenClaw agent skills: github-trending, webhook, **agent-memory** |
 | [`workflows/`](workflows/) | n8n workflow JSON + GitHub Actions pipelines |
 | [`prompts/`](prompts/) | Proven prompt patterns for agentic tasks |
 
 ## 🚀 Quick Start
+
+```bash
+pip install requests  # for scripts
+python3 scripts/memory.py  # demo memory manager
+```
 
 ```bash
 git clone https://github.com/nima54851/agent-studio.git
