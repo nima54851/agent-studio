@@ -12,16 +12,11 @@ A curated, production-ready collection of tools and patterns for AI Agent develo
 | Module | Description |
 |--------|-------------|
 | [`scripts/`](scripts/) | Ready-to-run Python scripts (GitHub trending, webhooks, data processing) |
-| [`skills/`](skills/) | OpenClaw agent skills: github-trending, webhook, **agent-memory** |
+| [`skills/`](skills/) | OpenClaw-compatible agent skill templates |
 | [`workflows/`](workflows/) | n8n workflow JSON + GitHub Actions pipelines |
 | [`prompts/`](prompts/) | Proven prompt patterns for agentic tasks |
 
 ## 🚀 Quick Start
-
-```bash
-pip install requests  # for scripts
-python3 scripts/memory.py  # demo memory manager
-```
 
 ```bash
 git clone https://github.com/nima54851/agent-studio.git
@@ -38,6 +33,16 @@ python3 scripts/github_trending.py
 ## 🌐 Live Demo
 
 GitHub Pages: https://nima54851.github.io/agent-studio
+
+## ⏰ Daily Automation
+
+This repo runs automated daily operations via `daily_ops.py`:
+- 📊 GitHub Trending report generated and committed
+- 💬 Quality comment posted on a trending AI project issue
+- ⭐ Random star on a relevant AI repo
+- 🔄 agent-studio self-starred
+
+Scheduler: `daily_scheduler.sh` (runs 09:00 Beijing time)
 
 ## 🤝 Contributing
 
