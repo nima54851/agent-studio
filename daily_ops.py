@@ -156,6 +156,23 @@ def run():
     # 3. Star agent-studio 自己
     star(OWNER, REPO)
 
+    # 4. 记录 GitHub 活动数据（star/fork 增长趋势）
+    log("Step 4: Recording GitHub activity stats...")
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["python3", "scripts/github_activity_tracker.py", f"{OWNER}/{REPO}", "--add"],
+            capture_output=True, text=True, timeout=15,
+            cwd="/root/.openclaw/workspace/projects/agent-studio",
+            env={**os.environ, "GITHUB_TOKEN": TOKEN}
+        )
+        if result.returncode == 0:
+            log(f"✅ Activity tracked via API")
+        else:
+            log(f"⚠️ Activity tracker: {result.stderr[:100] or result.stdout[:100]}")
+    except Exception as e:
+        log(f"⚠️ Activity tracker error: {e}")
+
     log(f"=== Run complete {datetime.now().strftime('%H:%M:%S')} ===\n")
 
 if __name__ == "__main__":
