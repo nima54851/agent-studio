@@ -11,9 +11,10 @@ A curated, production-ready collection of tools and patterns for AI Agent develo
 
 | Module | Description |
 |--------|-------------|
+| [`integrations/`](integrations/) | Telegram bot, webhook → AI → storage pipelines |
 | [`scripts/`](scripts/) | Ready-to-run Python scripts (GitHub trending, activity tracker, webhooks, data processing) |
 | [`skills/`](skills/) | OpenClaw-compatible agent skill templates |
-| [`workflows/`](workflows/) | n8n workflow JSON + GitHub Actions pipelines |
+| [`docker/`](docker/) | Docker Compose setup for zero-config deployment |
 | [`prompts/`](prompts/) | Proven prompt patterns (code review, architecture, task planning) |
 
 ## 🚀 Quick Start
