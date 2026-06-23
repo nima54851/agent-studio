@@ -119,6 +119,22 @@ Supported: n8n · Discord Bot · Telegram Bot · Webhook listeners
 
 ---
 
+## 🛒 Ready-to-Use Products
+
+Want a **production AI agent automation system** up and running today?
+
+| Product | Description | Price |
+|---------|-------------|-------|
+| **AI 社交媒体自动运营系统** | n8n workflow — 自动抓 GitHub Trending / AI 评论 / Star / 报告推送 | **¥99**（一次性） |
+| 含入门版（免费） | 基础 GitHub Trending + Webhook推送 | ¥0 |
+| 含企业版 | 私有部署 + 定制 + 无限使用 | ¥399（一次性） |
+
+> 🎯 [👉 查看完整产品页（含免费版）](https://nima54851.github.io/agent-studio/product.html)
+
+Free version: https://github.com/nima54851/agent-studio/tree/main/products/github-agent-automation
+
+---
+
 ## 🌟 Why agent-studio?
 
 | Regular Template Repo | agent-studio |
