@@ -10,7 +10,7 @@
 |---|---|---|
 | ⏰ 自动定时 | 每天 09:00 北京时间自动运行 | ✅ |
 | 🔍 热点追踪 | 抓取当天 AI/ML 热门项目 | ✅ |
-| ✍️ AI 评论 | GPT 生成高质量技术评论 | ✅ |
+| ✍️ AI 评论 | GPT / 本地 Ollama 生成高质量评论 | ✅ |
 | ⭐ 自动 Star | 每天自动 Star 优质项目 | ✅ |
 | 📊 报告生成 | 自动生成每日资讯报告 | ✅ |
 | 📡 多平台推送 | 支持 Telegram / 邮件 / Webhook | ✅ |
@@ -37,93 +37,112 @@ github-agent-automation/
    - 生成新 Token（classic），勾选 `repo` scope
    - 复制保存（格式：`ghp_xxxx`）
 
-2. **OpenAI API Key（可选，用于 AI 评论生成）**
+2. **AI 评论（选一种，免费推荐）**
+
+   **方案A：本地 Ollama（免费，无需 API Key）**
+   ```bash
+   # 安装 Ollama
+   curl -fsSL https://ollama.com/install.sh | sh
+   ollama pull llama3.2
+
+   # n8n 节点中连接 http://localhost:11434
+   ```
+
+   **方案B：OpenAI API（付费，更强）**
    - 访问：https://platform.openai.com/api-keys
+   - 填入 `sk-...` 格式的 API Key
 
 ### 第二步：导入 n8n
 
 ```bash
-# 1. 打开 n8n
-http://localhost:5678
+# 方式1：本地 n8n
+npx n8n
+# 或
+docker run -it --rm \
+  --name n8n \
+  -p 5678:5678 \
+  -v ~/.n8n:/home/node/.n8n \
+  n8nio/n8n
 
-# 2. 点击右上角「Import from File」
-# 3. 上传 workflow.json
-
-# 4. 配置凭证
-#    - GitHub API：填入 GitHub Token
-#    - Email SMTP（如需要）：填入邮箱配置
+# 方式2：已有 n8n
+# 直接导入 workflow.json
 ```
 
-### 第三步：修改配置
+### 第三步：导入工作流并配置
 
-在 n8n 编辑器中修改以下节点：
+1. n8n 右上角 → **Import from File** → 上传 `workflow.json`
+2. 配置凭证：
+   - GitHub API：填入 GitHub Token
+   - Ollama 或 OpenAI：根据方案选择
+   - SMTP（如需邮件）：填入邮箱配置
 
-```
-💬 发评论/Issue 节点
-  → owner: 你的 GitHub 用户名
-  → repository: 你的目标仓库
+3. 修改关键节点：
+   ```
+   💬 AI 评论节点
+     → 选择 Ollama 或 OpenAI
 
-⭐ 自动 Star 节点
-  → repoOwner: 要 Star 的仓库所有者
-  → repoName: 仓库名
+   ⭐ 自动 Star 节点
+     → 设置要 Star 的仓库
+   ```
 
-📡 推送 Webhook 节点
-  → url: 你的 webhook 地址
-```
+### 第四步：激活
 
-### 第四步：激活运行
-
-1. 点击右上角 **「Activate」** 按钮
-2. 工作流将在每天 09:00 北京时间自动执行
-3. 查看 **Executions** 标签确认运行状态
+1. 点击右上角 **「Activate」**
+2. 每天 09:00 北京时间自动执行
+3. 查看 **Executions** 确认运行状态
 
 ---
 
 ## 🛠 架构说明
 
 ```
-Schedule Trigger (09:00)
+Schedule Trigger (09:00 北京时间)
         ↓
-GitHub API — 抓取 Trending
+GitHub API — 抓取 AI/ML Trending（近30天）
         ↓
-数据整理（提取项目信息）
+数据整理（提取 star数、描述、语言）
     ↓           ↓
-自动 Star    AI 评论生成
+自动 Star    AI 评论生成（Ollama/OpenAI）
     ↓           ↓
-Webhook → Telegram / 邮件
+Webhook → Telegram / 飞书 / 邮件 / Discord
 ```
 
 ---
 
 ## ⚙️ 环境要求
 
-- **Node.js**: 18.x+
-- **n8n**: 1.x（推荐最新版）
-- **GitHub Token**: 具有 repo 权限
-- **网络**: 可访问 api.github.com
+| 组件 | 最低要求 | 推荐 |
+|---|---|---|
+| Node.js | 18.x+ | 最新 LTS |
+| n8n | 1.x | 最新版 |
+| GitHub Token | repo 权限 | classic token |
+| Ollama（免费方案） | 2GB RAM | 8GB RAM + llama3.2 |
 
 ---
 
 ## ❓ 常见问题
 
 **Q: Token 怎么生成？**
-A: GitHub → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 `repo` 和 `workflow`
+A: GitHub → Settings → Developer settings → Personal access tokens → Generate new token → 勾选 `repo`
 
 **Q: 每天能运行几次？**
 A: GitHub API 免费版 60次/小时，带 Token 5000次/小时
 
 **Q: 如何自定义评论内容？**
-A: 在 n8n 的 Code 节点中修改 `jsCode` 部分的 prompt 模板
+A: 在 n8n 的 Code 节点中修改 prompt 模板
 
 **Q: 支持其他平台吗？**
 A: 支持任意有 Webhook 的平台（Telegram、飞书、钉钉、Discord）
+
+**Q: Ollama 和 OpenAI 哪个好？**
+A: OpenAI GPT-4 评论质量更高；Ollama 完全免费且离线可用。建议先用 Ollama 测试，再用 OpenAI 优化。
 
 ---
 
 ## 🔒 安全说明
 
 - Token 建议存储在 n8n 的「Credentials」中，不要硬编码在工作流里
-- 生产环境建议使用只读权限的 Token
+- 生产环境建议使用只读权限 Token
 - 定期轮换 Token（建议每90天）
 
 ---

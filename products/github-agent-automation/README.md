@@ -11,21 +11,22 @@
 
 | 功能 | 详情 |
 |---|---|
-| 🔍 GitHub 热点追踪 | 自动抓取当天 AI/ML 热门项目 |
-| ✍️ 智能评论生成 | AI 生成高质量技术评论（不是模板套话） |
-| ⭐ 自动 Star | 每天 Star 1-2 个优质项目 |
+| ⏰ 定时执行 | 每天 09:00 北京时间自动运行 |
+| 🔍 GitHub 热点追踪 | 自动抓取近30天 AI/ML 热门项目 |
+| ✍️ 智能评论生成 | AI 生成高质量技术评论（Ollama 免费 / GPT 可选） |
+| ⭐ 自动 Star | 每天 Star 优质项目 |
 | 📊 数据报告 | 生成每日 AI 资讯报告 |
-| 📡 Webhook 分发 | 推送报告到任意平台（Telegram / 微信 / Email） |
+| 📡 Webhook 分发 | 推送报告到任意平台（Telegram / 飞书 / 邮件） |
 
 ---
 
 ## 产品包含
 
 - ✅ `workflow.json` — n8n 完整工作流（直接导入）
-- ✅ `.env` 配置模板 — 填写 Token 即可运行
 - ✅ `SETUP.md` — 5分钟部署指南
 - ✅ `README.md` — 产品说明
-- ✅ 技术支持群（购买后提供）
+- ✅ 技术支持（GitHub Issues）
+- ✅ 免费方案：本地 Ollama（无需 API Key）
 
 ---
 
@@ -33,20 +34,34 @@
 
 | 版本 | 价格 | 包含内容 |
 |---|---|---|
-| 入门版 | ¥99 | 基础工作流 + SETUP 指南 |
-| 专业版 | ¥299 | 完整系统 + 多平台分发 + 技术支持 |
-| 企业版 | ¥999 | 私有部署 + 定制 + 无限使用 |
+| 入门版 | **免费** | 基础工作流 + 部署指南 + Ollama 免费方案 |
+| 专业版 | ¥299 | 完整系统 + OpenAI GPT-4 评论 + 多平台分发 + 技术支持 |
+| 企业版 | ¥999 | 私有部署 + 定制工作流 + 无限使用 |
 
 ---
 
-## 购买方式
+## 快速开始（免费）
 
-- **微信/支付宝：** 联系购买
-- **Gumroad：** coming soon
+```bash
+# 1. 克隆产品
+git clone https://github.com/nima54851/agent-studio.git
+cd agent-studio/products/github-agent-automation
+
+# 2. 安装 Ollama（免费 AI）
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3.2
+
+# 3. 启动 n8n
+docker run -it --rm -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n
+
+# 4. 导入 workflow.json，配置 GitHub Token，开始运行
+```
+
+完整部署指南见 [SETUP.md](SETUP.md)
 
 ---
 
 ## 作者
 
 Built with ❤️ by [nima54851](https://github.com/nima54851)  
-Powered by [agent-studio](https://github.com/nima54851/agent-studio) + OpenClaw
+Powered by [agent-studio](https://github.com/nima54851/agent-studio) + [OpenClaw](https://github.com/openclaw/openclaw)
