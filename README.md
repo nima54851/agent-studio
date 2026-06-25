@@ -35,6 +35,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 |----------|----------|-------|
 | **Skills** | OpenClaw-compatible agent skill templates | `skills/` |
 | **Scripts** | Python automation (GitHub trending, MCP, webhooks) | `scripts/` |
+| **Security** | Secret scanner, CVE audit, security reports | `skills/security-auditor/` |
+| **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
 | **Integrations** | Discord Bot, Telegram Bot, Webhook → AI pipelines | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
@@ -56,6 +58,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[test-master](skills/test-master)** | Automated testing patterns for AI agent outputs |
 | **[github-trending-monitor](skills/github-trending-monitor)** | Track GitHub trending in real time |
 | **[agent-health-monitor](skills/agent-health-monitor)** | Monitor agent health and uptime |
+| **[performance-testing-toolkit](skills/performance-testing-toolkit)** | HTTP/WebSocket/API stress testing + benchmarks |
+| **[security-auditor](skills/security-auditor)** | Secret scanning, CVE detection, API security audit |
 
 ---
 
