@@ -8,6 +8,20 @@ from datetime import datetime
 
 TOKEN = os.environ.get("GITHUB_TOKEN", "")
 if not TOKEN:
+    # fallback: read from ~/.openclaw/workspace/TOOLS.md
+    try:
+        with open(os.path.expanduser("~/.openclaw/workspace/TOOLS.md"), "r") as f:
+            for line in f:
+                if "GitHub Token" in line or "ghp_" in line:
+                    for part in line.split():
+                        if part.startswith("ghp_"):
+                            TOKEN = part
+                            break
+                    if TOKEN:
+                        break
+    except Exception:
+        pass
+if not TOKEN:
     print("ERROR: GITHUB_TOKEN environment variable not set")
     sys.exit(1)
 OWNER = "nima54851"

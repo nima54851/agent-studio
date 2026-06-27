@@ -37,7 +37,7 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Scripts** | Python automation (GitHub trending, MCP, webhooks) | `scripts/` |
 | **Security** | Secret scanner, CVE audit, security reports | `skills/security-auditor/` |
 | **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
-| **Integrations** | Discord Bot, Telegram Bot, Webhook → AI pipelines | `integrations/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, Webhook → AI pipelines | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
 | **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
@@ -58,6 +58,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[test-master](skills/test-master)** | Automated testing patterns for AI agent outputs |
 | **[github-trending-monitor](skills/github-trending-monitor)** | Track GitHub trending in real time |
 | **[agent-health-monitor](skills/agent-health-monitor)** | Monitor agent health and uptime |
+| **[content-promoter](skills/content-promoter)** | AI-powered social media content generation & scheduling |
+| **[product-launch-assistant](skills/product-launch-assistant)** | End-to-end AI product launch automation — landing page, social posts, email templates |
 | **[performance-testing-toolkit](skills/performance-testing-toolkit)** | HTTP/WebSocket/API stress testing + benchmarks |
 | **[security-auditor](skills/security-auditor)** | Secret scanning, CVE detection, API security audit |
 
@@ -87,11 +89,17 @@ GitHub API → Filter AI/ML repos → AI summarize → REPORT.md → GitHub Page
 ```
 Runs daily via GitHub Actions · [See workflow](.github/workflows/daily-report.yml)
 
-### Webhook → AI Agent → Social Post
+### AI Product Launch Pipeline
 ```
-External webhook → OpenClaw Agent → AI process → Discord/Telegram notification
+产品定义 → 发布材料包 → n8n 自动化 → Twitter/Email/社区 发布 → 数据追踪复盘
 ```
-Zero-config with n8n · [See integration](integrations/)
+Script + Skill + Checklist · [See skill](skills/product-launch-assistant/) · [See checklist](workflows/product-launch-checklist.md)
+
+### Slack → AI Agent → Team Notification
+```
+@mention in Slack → n8n route by intent → AI Agent process → Slack reply
+```
+Multi-agent routing built-in · [See integration](integrations/slack-bot/)
 
 ### AI Code Review Pipeline
 ```
