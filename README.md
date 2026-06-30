@@ -57,6 +57,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[self-hosted-ai](skills/self-hosted-ai)** | Deploy Ollama, n8n, Open WebUI — full local AI stack |
 | **[agent-memory](skills/agent-memory)** | Long-term memory for AI agents |
 | **[test-master](skills/test-master)** | Automated testing patterns for AI agent outputs |
+| **[cloudflare-workers-ai](skills/cloudflare-workers-ai)** | Deploy AI inference on Cloudflare Workers AI globally |
+| **[email-automation](skills/email-automation)** | AI auto-reply, drip campaigns, Gmail/SMTP via n8n |
+| **[social-media-automation](skills/social-media-automation)** | Auto-post Twitter/LinkedIn, content repurposing, AI threads |
 | **[github-trending-monitor](skills/github-trending-monitor)** | Track GitHub trending in real time |
 | **[agent-health-monitor](skills/agent-health-monitor)** | Monitor agent health and uptime |
 | **[content-promoter](skills/content-promoter)** | AI-powered social media content generation & scheduling |
