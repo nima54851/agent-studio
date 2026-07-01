@@ -1,8 +1,1 @@
-#!/bin/bash
-set -e
-
-echo "🧪 Starting local dev server (with Workers AI emulation)..."
-echo "📍 Visit http://localhost:8787/v1/chat"
-echo "Press Ctrl+C to stop."
-
-wrangler dev --local --port 8787
+IyEvYmluL2Jhc2gKc2V0IC1lCgplY2hvICLwn6eqIFN0YXJ0aW5nIGxvY2FsIGRldiBzZXJ2ZXIgKHdpdGggV29ya2VycyBBSSBlbXVsYXRpb24pLi4uIgplY2hvICLwn5ONIFZpc2l0IGh0dHA6Ly9sb2NhbGhvc3Q6ODc4Ny92MS9jaGF0IgplY2hvICJQcmVzcyBDdHJsK0MgdG8gc3RvcC4iCgp3cmFuZ2xlciBkZXYgLS1sb2NhbCAtLXBvcnQgODc4Nwo=

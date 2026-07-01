@@ -1,16 +1,1 @@
-# 🤖 Prompts — Proven AI Agent Patterns
-
-Production-ready prompts for common agentic tasks. Each prompt is tested and optimized for real-world use.
-
-## 📁 Files
-
-| File | Use Case |
-|------|----------|
-| `code-review.md` | Ask AI to review code with security + style focus |
-| `github-digest.md` | Summarize a GitHub repo or trending digest |
-| `task-planner.md` | Break a complex task into executable steps |
-| `architecture-review.md` | Comprehensive software architecture review framework |
-
----
-
-*Submit your own prompts via PR!*
+IyDwn6SWIFByb21wdHMg4oCUIFByb3ZlbiBBSSBBZ2VudCBQYXR0ZXJucwoKUHJvZHVjdGlvbi1yZWFkeSBwcm9tcHRzIGZvciBjb21tb24gYWdlbnRpYyB0YXNrcy4gRWFjaCBwcm9tcHQgaXMgdGVzdGVkIGFuZCBvcHRpbWl6ZWQgZm9yIHJlYWwtd29ybGQgdXNlLgoKIyMg8J+TgSBGaWxlcwoKfCBGaWxlIHwgVXNlIENhc2UgfAp8LS0tLS0tfC0tLS0tLS0tLS18CnwgYGNvZGUtcmV2aWV3Lm1kYCB8IEFzayBBSSB0byByZXZpZXcgY29kZSB3aXRoIHNlY3VyaXR5ICsgc3R5bGUgZm9jdXMgfAp8IGBnaXRodWItZGlnZXN0Lm1kYCB8IFN1bW1hcml6ZSBhIEdpdEh1YiByZXBvIG9yIHRyZW5kaW5nIGRpZ2VzdCB8CnwgYHRhc2stcGxhbm5lci5tZGAgfCBCcmVhayBhIGNvbXBsZXggdGFzayBpbnRvIGV4ZWN1dGFibGUgc3RlcHMgfAp8IGBhcmNoaXRlY3R1cmUtcmV2aWV3Lm1kYCB8IENvbXByZWhlbnNpdmUgc29mdHdhcmUgYXJjaGl0ZWN0dXJlIHJldmlldyBmcmFtZXdvcmsgfAoKLS0tCgoqU3VibWl0IHlvdXIgb3duIHByb21wdHMgdmlhIFBSISoK
