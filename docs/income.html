@@ -5,499 +5,553 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>灵犀 · 收入面板</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
 
   :root {
-    --bg: #09090e;
-    --surface: #111118;
-    --card: #18181f;
-    --card-hover: #1e1e28;
-    --border: #2a2a3a;
-    --accent: #8b5cf6;
-    --accent-glow: rgba(139,92,246,0.25);
-    --cyan: #06b6d4;
-    --cyan-glow: rgba(6,182,212,0.2);
-    --green: #10b981;
-    --green-glow: rgba(16,185,129,0.2);
-    --amber: #f59e0b;
-    --red: #ef4444;
-    --text: #f1f0f5;
-    --text-dim: #6b7280;
-    --text-muted: #3d3d52;
+    --bg: #f8f8f8;
+    --surface: #ffffff;
+    --border: #e5e7eb;
+    --text: #111827;
+    --text-2: #6b7280;
+    --text-3: #9ca3af;
+    --accent: #4f46e5;
+    --accent-light: #eef2ff;
+    --accent-hover: #4338ca;
+    --green: #16a34a;
+    --green-light: #f0fdf4;
+    --amber: #d97706;
+    --amber-light: #fffbeb;
+    --red: #dc2626;
+    --red-light: #fef2f2;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Space Grotesk', -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Background grid */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(139,92,246,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139,92,246,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
   }
 
-  /* Glow orbs */
-  .orb {
-    position: fixed; border-radius: 50%;
-    filter: blur(80px); pointer-events: none; z-index: 0;
-  }
-  .orb-1 { width: 400px; height: 400px; top: -100px; left: -100px;
-    background: radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%); }
-  .orb-2 { width: 300px; height: 300px; bottom: -50px; right: -50px;
-    background: radial-gradient(circle, rgba(6,182,212,0.1), transparent 70%); }
-
-  .container {
-    position: relative; z-index: 1;
-    max-width: 1100px; margin: 0 auto;
-    padding: 40px 24px;
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
   }
 
-  /* ── Header ── */
-  .header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 48px;
+  .nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
   }
 
-  .brand {
-    display: flex; align-items: center; gap: 14px;
+  .nav-left .emoji { font-size: 22px; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-2);
   }
 
-  .brand-icon {
-    width: 48px; height: 48px;
-    background: linear-gradient(135deg, var(--accent), var(--cyan));
-    border-radius: 14px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    box-shadow: 0 0 24px var(--accent-glow);
-  }
-
-  .brand-name {
-    font-size: 22px; font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-
-  .brand-name span { color: var(--accent); }
-
-  .brand-sub {
-    font-size: 12px; color: var(--text-dim); margin-top: 2px;
-    font-family: 'DM Mono', monospace;
-  }
-
-  .live-pill {
-    display: flex; align-items: center; gap: 7px;
-    background: rgba(16,185,129,0.1);
-    border: 1px solid rgba(16,185,129,0.25);
-    padding: 6px 16px; border-radius: 50px;
-    font-size: 12px; color: var(--green); font-weight: 500;
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--green-light);
+    color: var(--green);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
   }
 
   .live-dot {
-    width: 7px; height: 7px; background: var(--green);
-    border-radius: 50%; animation: blink 2s infinite;
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
   }
 
-  @keyframes blink {
-    0%,100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
+  @keyframes pulse {
+    0%,100% { opacity:1; }
+    50% { opacity: 0.4; }
   }
 
-  .header-right { text-align: right; }
   .clock {
-    font-family: 'DM Mono', monospace; font-size: 14px;
-    color: var(--text-dim); margin-bottom: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--text-3);
   }
-  .date-str { font-size: 11px; color: var(--text-muted); font-family: 'DM Mono', monospace; }
 
-  /* ── Stats Row ── */
-  .stats-row {
+  /* ── Grid ── */
+  .top-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 14px;
+    margin-bottom: 14px;
   }
 
-  .stat-card {
-    background: var(--card);
+  .card {
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 24px 20px 20px;
-    position: relative; overflow: hidden;
-    transition: transform 0.2s, border-color 0.3s;
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
   }
-  .stat-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
 
-  .stat-card::after {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    opacity: 0.5;
+  .card-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-2);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
+  .card-label .icon { font-size: 14px; }
 
-  .stat-card.green::after { background: linear-gradient(90deg, transparent, var(--green), transparent); }
-  .stat-card.green:hover { border-color: var(--green); }
-  .stat-card.cyan::after { background: linear-gradient(90deg, transparent, var(--cyan), transparent); }
-  .stat-card.cyan:hover { border-color: var(--cyan); }
-  .stat-card.amber::after { background: linear-gradient(90deg, transparent, var(--amber), transparent); }
-  .stat-card.amber:hover { border-color: var(--amber); }
-
-  .stat-icon {
-    font-size: 28px; margin-bottom: 12px;
-  }
-
-  .stat-label {
-    font-size: 11px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 1px;
+  .card-value {
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: -1px;
+    color: var(--text);
+    line-height: 1;
     margin-bottom: 8px;
   }
 
-  .stat-value {
-    font-size: 30px; font-weight: 700;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: -1px;
+  .card-sub {
+    font-size: 12px;
+    color: var(--text-3);
   }
 
-  .stat-change {
-    font-size: 11px; margin-top: 6px;
-    font-family: 'DM Mono', monospace;
-  }
-  .stat-change.up { color: var(--green); }
-  .stat-change.neutral { color: var(--text-dim); }
+  .card.green .card-value { color: var(--green); }
+  .card.green .card-sub { color: var(--green); }
 
-  /* ── Charts Row ── */
-  .charts-row {
+  /* ── Main grid ── */
+  .main-grid {
     display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 16px;
+    grid-template-columns: 1fr 340px;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  /* ── Chart panel ── */
+  .chart-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 24px;
   }
 
-  .panel {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 28px;
-  }
-
   .panel-title {
-    font-size: 14px; font-weight: 600; margin-bottom: 24px;
-    display: flex; align-items: center; gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
   }
 
-  .panel-title .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 8px var(--accent);
+  .panel-tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 3px;
   }
 
+  .tab {
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    color: var(--text-2);
+    transition: all 0.15s;
+  }
+  .tab.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+
+  .chart-area { position: relative; height: 180px; }
   canvas { display: block; }
 
-  /* ── Income Breakdown ── */
-  .income-list { display: flex; flex-direction: column; gap: 20px; }
-
-  .income-item {
-    display: flex; align-items: center; gap: 14px;
+  .chart-legend {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-2);
   }
 
-  .income-icon {
-    width: 42px; height: 42px; border-radius: 12px;
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .legend-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ── Side panel ── */
+  .side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  /* ── Revenue ── */
+  .revenue-list { display: flex; flex-direction: column; gap: 16px; }
+
+  .rev-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rev-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px; flex-shrink: 0;
+    font-size: 17px;
+    flex-shrink: 0;
   }
 
-  .income-body { flex: 1; }
-  .income-name { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .rev-body { flex: 1; }
+  .rev-name { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
 
-  .income-bar-bg {
-    height: 5px; background: var(--border); border-radius: 3px; overflow: hidden;
+  .rev-bar-bg {
+    height: 4px;
+    background: var(--bg);
+    border-radius: 2px;
+    overflow: hidden;
   }
-  .income-bar-fill {
-    height: 100%; border-radius: 3px;
+  .rev-bar-fill {
+    height: 100%;
+    border-radius: 2px;
     transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
   }
 
-  .income-amount {
-    font-size: 15px; font-weight: 700;
+  .rev-val {
+    font-size: 13px;
+    font-weight: 600;
     font-family: 'DM Mono', monospace;
-    min-width: 60px; text-align: right;
-    color: var(--green);
+    color: var(--text-2);
+    min-width: 50px;
+    text-align: right;
   }
 
-  /* ── Skills Pricing ── */
-  .skills-table { width: 100%; border-collapse: collapse; }
+  /* ── Goal ── */
+  .goal-section { margin-top: 20px; }
 
-  .skills-table th {
-    text-align: left; font-size: 10px; color: var(--text-dim);
-    text-transform: uppercase; letter-spacing: 0.8px;
-    padding: 0 0 12px; border-bottom: 1px solid var(--border);
-    font-weight: 500;
+  .goal-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: var(--text-2);
   }
-  .skills-table td {
-    padding: 12px 0; font-size: 12px;
-    border-bottom: 1px solid rgba(42,42,58,0.4);
-    vertical-align: middle;
+  .goal-num {
+    font-family: 'DM Mono', monospace;
+    color: var(--accent);
+    font-weight: 600;
   }
-  .skills-table tr:last-child td { border: none; }
-
-  .badge {
-    display: inline-block; padding: 2px 8px; border-radius: 6px;
-    font-size: 10px; font-weight: 600;
-  }
-  .badge-free { background: rgba(16,185,129,0.12); color: var(--green); }
-  .badge-pro { background: rgba(139,92,246,0.15); color: var(--accent); }
-  .badge-soon { background: rgba(245,158,11,0.12); color: var(--amber); }
-
-  .status-ok { color: var(--green); }
-  .status-pending { color: var(--amber); }
-
-  /* ── Bottom Row ── */
-  .bottom-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-
-  .goal-wrap { margin-top: 24px; }
-
-  .goal-header {
-    display: flex; justify-content: space-between;
-    margin-bottom: 10px; font-size: 13px;
-  }
-  .goal-num { font-family: 'DM Mono', monospace; color: var(--accent); }
 
   .goal-track {
-    height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;
+    height: 6px;
+    background: var(--bg);
+    border-radius: 3px;
+    overflow: hidden;
   }
   .goal-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--cyan));
-    border-radius: 4px;
+    background: var(--accent);
+    border-radius: 3px;
     transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
   }
 
-  .mini-stats {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 12px; margin-top: 24px;
+  /* ── Skills table ── */
+  .skills-tbl { width: 100%; border-collapse: collapse; }
+  .skills-tbl th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid var(--border);
   }
-  .mini-stat {
-    background: rgba(255,255,255,0.03);
+  .skills-tbl td {
+    padding: 9px 0;
+    font-size: 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .skills-tbl tr:last-child td { border: none; }
+  .skills-tbl .name { font-weight: 500; }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .badge-free { background: var(--green-light); color: var(--green); }
+  .badge-pro { background: var(--accent-light); color: var(--accent); }
+  .badge-soon { background: var(--amber-light); color: var(--amber); }
+
+  .status-ok { color: var(--green); font-size: 11px; }
+  .status-wait { color: var(--amber); font-size: 11px; }
+
+  /* ── Quick links ── */
+  .quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .quick-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.15s;
   }
-  .mini-stat-val {
-    font-size: 20px; font-weight: 700;
-    font-family: 'DM Mono', monospace;
+  .quick-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
   }
-  .mini-stat-label {
-    font-size: 11px; color: var(--text-dim); margin-top: 4px;
+  .quick-link .link-icon { font-size: 16px; }
+  .quick-link .link-body { flex: 1; }
+  .quick-link .link-sub { font-size: 11px; color: var(--text-3); font-weight: 400; }
+  .quick-link .link-arrow { color: var(--text-3); font-size: 14px; }
+
+  /* ── Bottom row ── */
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
   }
 
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .mini-stat {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .mini-val {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .mini-label { font-size: 11px; color: var(--text-2); }
+
+  /* ── Footer ── */
   .footer {
-    text-align: center; margin-top: 32px;
-    padding-top: 20px; border-top: 1px solid var(--border);
-    font-size: 11px; color: var(--text-muted);
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-3);
   }
-  .footer span { color: var(--accent); }
 
-  /* ── Bar chart ── */
-  .bar-rows { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-  .bar-row { display: flex; align-items: center; gap: 10px; }
-  .bar-date { width: 44px; font-size: 11px; color: var(--text-dim); font-family: 'DM Mono', monospace; flex-shrink: 0; }
-  .bar-track { flex: 1; height: 20px; background: var(--border); border-radius: 5px; overflow: hidden; }
-  .bar-fill {
-    height: 100%; border-radius: 5px;
-    display: flex; align-items: center; padding-left: 8px;
-    font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.85);
-    font-family: 'DM Mono', monospace;
-    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
-    white-space: nowrap; overflow: hidden;
-  }
-  .bar-fill.in { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
-  .bar-fill.out { background: linear-gradient(90deg, #0891b2, #22d3ee); }
-  .bar-w { width: 40px; font-size: 11px; color: var(--text-dim); text-align: right; flex-shrink: 0; }
-
-  /* Animation on load */
-  .fade-in { animation: fadeIn 0.6s ease forwards; opacity: 0; transform: translateY(12px); }
-  .fade-in:nth-child(1) { animation-delay: 0.1s; }
-  .fade-in:nth-child(2) { animation-delay: 0.2s; }
-  .fade-in:nth-child(3) { animation-delay: 0.3s; }
-  .fade-in:nth-child(4) { animation-delay: 0.4s; }
-
-  @keyframes fadeIn {
+  /* Animations */
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
+  .card { animation: slideUp 0.4s ease both; }
+  .top-grid .card:nth-child(1) { animation-delay: 0.05s; }
+  .top-grid .card:nth-child(2) { animation-delay: 0.1s; }
+  .top-grid .card:nth-child(3) { animation-delay: 0.15s; }
+  .top-grid .card:nth-child(4) { animation-delay: 0.2s; }
+  .main-grid { animation: slideUp 0.4s ease 0.25s both; }
+  .bottom-row { animation: slideUp 0.4s ease 0.35s both; }
 
   @media (max-width: 900px) {
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
-    .charts-row { grid-template-columns: 1fr; }
+    .top-grid { grid-template-columns: repeat(2, 1fr); }
+    .main-grid { grid-template-columns: 1fr; }
     .bottom-row { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
 
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
+<div class="wrap">
 
-<div class="container">
-
-  <!-- Header -->
-  <div class="header">
-    <div class="brand">
-      <div class="brand-icon">🧭</div>
-      <div>
-        <div class="brand-name">Lingxi <span>Income</span></div>
-        <div class="brand-sub">TOKEN REVENUE PANEL · v1.0</div>
-      </div>
+  <!-- Nav -->
+  <div class="nav">
+    <div class="nav-left">
+      <span class="emoji">🧭</span>
+      <span>灵犀 · 收入面板</span>
     </div>
-    <div class="header-right">
-      <div class="live-pill"><div class="live-dot"></div> LIVE</div>
+    <div class="nav-right">
+      <div class="live-badge"><div class="live-dot"></div>运行中</div>
       <div class="clock" id="clock">--:--:--</div>
-      <div class="date-str" id="date-str"></div>
     </div>
   </div>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card fade-in">
-      <div class="stat-icon">⚡</div>
-      <div class="stat-label">Token 总消耗</div>
-      <div class="stat-value" id="total-tokens">127.8k</div>
-      <div class="stat-change up" id="token-change">↑ 18.3% 本周</div>
+  <!-- Top stats -->
+  <div class="top-grid">
+    <div class="card" style="animation-delay:0.05s">
+      <div class="card-label"><span class="icon">⚡</span> Token 总消耗</div>
+      <div class="card-value">127.8k</div>
+      <div class="card-sub">本周 ↑18.3%</div>
     </div>
-    <div class="stat-card green fade-in">
-      <div class="stat-icon">💰</div>
-      <div class="stat-label" style="color:var(--green)">预估 Token 费用</div>
-      <div class="stat-value" style="color:var(--green)">¥<span id="total-cost">0.015</span></div>
-      <div class="stat-change neutral">≈ $0.002 USD</div>
+    <div class="card green" style="animation-delay:0.1s">
+      <div class="card-label"><span class="icon">💰</span> Token 费用</div>
+      <div class="card-value">¥0.015</div>
+      <div class="card-sub">≈ $0.002 USD</div>
     </div>
-    <div class="stat-card cyan fade-in">
-      <div class="stat-icon">⚡</div>
-      <div class="stat-label" style="color:var(--cyan)">ZeroGPU 节省</div>
-      <div class="stat-value" style="color:var(--cyan)">$0.0067</div>
-      <div class="stat-change up">↑ 372 tokens offloaded</div>
+    <div class="card" style="animation-delay:0.15s">
+      <div class="card-label"><span class="icon">⚡</span> ZeroGPU 节省</div>
+      <div class="card-value">$0.0067</div>
+      <div class="card-sub">372 tokens offloaded</div>
     </div>
-    <div class="stat-card amber fade-in">
-      <div class="stat-icon">📦</div>
-      <div class="stat-label" style="color:var(--amber)">ClawHub 下载</div>
-      <div class="stat-value" style="color:var(--amber)">0</div>
-      <div class="stat-change neutral">4 skills published</div>
+    <div class="card" style="animation-delay:0.2s">
+      <div class="card-label"><span class="icon">📦</span> ClawHub 下载</div>
+      <div class="card-value">0</div>
+      <div class="card-sub">4 个技能 · v1.0.0</div>
     </div>
   </div>
 
-  <!-- Charts -->
-  <div class="charts-row">
-    <div class="panel fade-in" style="animation-delay:0.3s">
-      <div class="panel-title"><div class="dot"></div> Token 消耗趋势（本周）</div>
-      <canvas id="lineChart" height="180"></canvas>
+  <!-- Main grid -->
+  <div class="main-grid">
 
-      <div class="bar-rows">
-        <div class="bar-row">
-          <div class="bar-date">06-26</div>
-          <div class="bar-track"><div class="bar-fill in" style="width:0%" data-w="18.7k">18.7k</div></div>
-          <div class="bar-w">输入</div>
+    <!-- Chart -->
+    <div class="chart-panel">
+      <div class="panel-head">
+        <div class="panel-title">Token 消耗趋势</div>
+        <div class="panel-tabs">
+          <div class="tab active" id="tab-week">本周</div>
+          <div class="tab" id="tab-month">本月</div>
         </div>
-        <div class="bar-row">
-          <div class="bar-date">06-27</div>
-          <div class="bar-track"><div class="bar-fill in" style="width:0%" data-w="22.3k">22.3k</div></div>
-          <div class="bar-w">输入</div>
+      </div>
+      <div class="chart-area">
+        <canvas id="lineChart"></canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#4f46e5"></div>
+          <span>输入 Token</span>
         </div>
-        <div class="bar-row">
-          <div class="bar-date">06-28</div>
-          <div class="bar-track"><div class="bar-fill out" style="width:0%" data-w="11.2k">11.2k</div></div>
-          <div class="bar-w">输出</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-date">06-29</div>
-          <div class="bar-track"><div class="bar-fill out" style="width:0%" data-w="8.9k">8.9k</div></div>
-          <div class="bar-w">输出</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-date">07-01</div>
-          <div class="bar-track"><div class="bar-fill in" style="width:0%" data-w="31.5k">31.5k</div></div>
-          <div class="bar-w">输入</div>
-        </div>
-        <div class="bar-row">
-          <div class="bar-date">07-02</div>
-          <div class="bar-track"><div class="bar-fill in" style="width:0%" data-w="25.2k">25.2k</div></div>
-          <div class="bar-w">输入</div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#16a34a"></div>
+          <span>输出 Token</span>
         </div>
       </div>
     </div>
 
-    <div>
-      <div class="panel fade-in" style="animation-delay:0.4s; margin-bottom:16px">
-        <div class="panel-title"><div class="dot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></div> 收入来源</div>
+    <!-- Side -->
+    <div class="side-panel">
 
-        <div class="income-list">
-          <div class="income-item">
-            <div class="income-icon" style="background:rgba(139,92,246,0.15)">📦</div>
-            <div class="income-body">
-              <div class="income-name">ClawHub 技能销售</div>
-              <div class="income-bar-bg">
-                <div class="income-bar-fill" style="width:0%;background:var(--accent)"></div>
+      <!-- Revenue -->
+      <div class="chart-panel">
+        <div class="panel-head" style="margin-bottom:20px">
+          <div class="panel-title">收入来源</div>
+        </div>
+        <div class="revenue-list">
+          <div class="rev-row">
+            <div class="rev-icon" style="background:#eef2ff">📦</div>
+            <div class="rev-body">
+              <div class="rev-name">ClawHub 技能销售</div>
+              <div class="rev-bar-bg">
+                <div class="rev-bar-fill" id="bar1" style="width:0%;background:#4f46e5"></div>
               </div>
             </div>
-            <div class="income-amount">¥0</div>
+            <div class="rev-val">¥0</div>
           </div>
-          <div class="income-item">
-            <div class="income-icon" style="background:rgba(6,182,212,0.12)">🤖</div>
-            <div class="income-body">
-              <div class="income-name">UUMit Agent 接单</div>
-              <div class="income-bar-bg">
-                <div class="income-bar-fill" style="width:0%;background:var(--cyan)"></div>
+          <div class="rev-row">
+            <div class="rev-icon" style="background:#f0fdf4">🤖</div>
+            <div class="rev-body">
+              <div class="rev-name">UUMit Agent 接单</div>
+              <div class="rev-bar-bg">
+                <div class="rev-bar-fill" id="bar2" style="width:0%;background:#16a34a"></div>
               </div>
             </div>
-            <div class="income-amount">¥0</div>
+            <div class="rev-val">¥0</div>
           </div>
-          <div class="income-item">
-            <div class="income-icon" style="background:rgba(239,68,68,0.1)">🌐</div>
-            <div class="income-body">
-              <div class="income-name">GitHub Agent 套装</div>
-              <div class="income-bar-bg">
-                <div class="income-bar-fill" style="width:0%;background:var(--red)"></div>
+          <div class="rev-row">
+            <div class="rev-icon" style="background:#fef2f2">🌐</div>
+            <div class="rev-body">
+              <div class="rev-name">GitHub Agent 套装</div>
+              <div class="rev-bar-bg">
+                <div class="rev-bar-fill" id="bar3" style="width:0%;background:#dc2626"></div>
               </div>
             </div>
-            <div class="income-amount">¥0</div>
+            <div class="rev-val">¥0</div>
           </div>
-          <div class="income-item">
-            <div class="income-icon" style="background:rgba(245,158,11,0.1)">💬</div>
-            <div class="income-body">
-              <div class="income-name">爱发电 / 打赏</div>
-              <div class="income-bar-bg">
-                <div class="income-bar-fill" style="width:0%;background:var(--amber)"></div>
+          <div class="rev-row">
+            <div class="rev-icon" style="background:#fffbeb">💬</div>
+            <div class="rev-body">
+              <div class="rev-name">爱发电 / 打赏</div>
+              <div class="rev-bar-bg">
+                <div class="rev-bar-fill" id="bar4" style="width:0%;background:#d97706"></div>
               </div>
             </div>
-            <div class="income-amount">¥0</div>
+            <div class="rev-val">¥0</div>
           </div>
         </div>
-
-        <div class="goal-wrap">
-          <div class="goal-header">
-            <span>🎯 本月收入目标</span>
-            <span class="goal-num" id="goal-num">¥0 / ¥1,000</span>
+        <div class="goal-section">
+          <div class="goal-head">
+            <span>本月目标</span>
+            <span class="goal-num">¥0 / ¥1,000</span>
           </div>
           <div class="goal-track">
-            <div class="goal-fill" id="goal-fill" style="width:0%"></div>
+            <div class="goal-fill" id="goal-bar" style="width:0%"></div>
           </div>
         </div>
       </div>
 
-      <div class="panel fade-in" style="animation-delay:0.5s">
-        <div class="panel-title"><div class="dot" style="background:var(--amber);box-shadow:0 0 8px var(--amber)"></div> 技能定价表</div>
-        <table class="skills-table">
+      <!-- Skills -->
+      <div class="chart-panel">
+        <div class="panel-head" style="margin-bottom:16px">
+          <div class="panel-title">技能定价</div>
+        </div>
+        <table class="skills-tbl">
           <thead>
             <tr>
               <th>技能</th><th>版本</th><th>价格</th><th>状态</th>
@@ -505,101 +559,119 @@
           </thead>
           <tbody>
             <tr>
-              <td>GitHub Daily Digest</td>
+              <td class="name">GitHub Digest</td>
               <td><span class="badge badge-free">Lite</span></td>
               <td>免费</td>
-              <td class="status-ok">✅ 已上线</td>
+              <td><span class="status-ok">✅ 已上线</span></td>
             </tr>
             <tr>
-              <td>GitHub Daily Digest</td>
+              <td class="name">GitHub Digest</td>
               <td><span class="badge badge-pro">Pro</span></td>
               <td>¥199/年</td>
-              <td class="status-pending">⏳ 待设置</td>
+              <td><span class="status-wait">⏳ 待设置</span></td>
             </tr>
             <tr>
-              <td>Webhook Dispatcher</td>
+              <td class="name">Webhook Dispatcher</td>
               <td><span class="badge badge-free">Lite</span></td>
               <td>免费</td>
-              <td class="status-ok">✅ 已上线</td>
+              <td><span class="status-ok">✅ 已上线</span></td>
             </tr>
             <tr>
-              <td>Webhook Dispatcher</td>
+              <td class="name">Webhook Dispatcher</td>
               <td><span class="badge badge-pro">Pro</span></td>
               <td>¥299/年</td>
-              <td class="status-pending">⏳ 待设置</td>
+              <td><span class="status-wait">⏳ 待设置</span></td>
             </tr>
             <tr>
-              <td>Daily Ops Automation</td>
+              <td class="name">Daily Ops</td>
               <td><span class="badge badge-free">Lite</span></td>
               <td>免费</td>
-              <td class="status-ok">✅ 已上线</td>
+              <td><span class="status-ok">✅ 已上线</span></td>
             </tr>
             <tr>
-              <td>Agent Health Monitor</td>
+              <td class="name">Agent Monitor</td>
               <td><span class="badge badge-free">Lite</span></td>
               <td>免费</td>
-              <td class="status-ok">✅ 已上线</td>
+              <td><span class="status-ok">✅ 已上线</span></td>
             </tr>
           </tbody>
         </table>
       </div>
+
     </div>
   </div>
 
   <!-- Bottom -->
   <div class="bottom-row">
-    <div class="panel fade-in" style="animation-delay:0.6s">
-      <div class="panel-title"><div class="dot" style="background:var(--cyan);box-shadow:0 0 8px var(--cyan)"></div> 本周数据速览</div>
-      <div class="mini-stats">
+
+    <div class="chart-panel">
+      <div class="panel-head" style="margin-bottom:16px">
+        <div class="panel-title">本周数据</div>
+      </div>
+      <div class="stat-row">
         <div class="mini-stat">
-          <div class="mini-stat-val" style="color:var(--accent)" id="sessions-w">3</div>
-          <div class="mini-stat-label">活跃会话</div>
+          <div class="mini-val" style="color:#4f46e5">3</div>
+          <div class="mini-label">活跃会话</div>
         </div>
         <div class="mini-stat">
-          <div class="mini-stat-val" style="color:var(--green)" id="tools-w">47</div>
-          <div class="mini-stat-label">工具调用</div>
+          <div class="mini-val" style="color:#16a34a">47</div>
+          <div class="mini-label">工具调用</div>
         </div>
         <div class="mini-stat">
-          <div class="mini-stat-val" style="color:var(--cyan)" id="errors-w">2</div>
-          <div class="mini-stat-label">错误数</div>
+          <div class="mini-val" style="color:#dc2626">2</div>
+          <div class="mini-label">错误数</div>
         </div>
         <div class="mini-stat">
-          <div class="mini-stat-val" style="color:var(--amber)" id="uptime-w">99.7%</div>
-          <div class="mini-stat-label">可用率</div>
+          <div class="mini-val" style="color:#6b7280">99.7%</div>
+          <div class="mini-label">可用率</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-val" style="color:#d97706">4</div>
+          <div class="mini-label">发布技能</div>
+        </div>
+        <div class="mini-stat">
+          <div class="mini-val" style="color:#4f46e5">$0.007</div>
+          <div class="mini-label">ZeroGPU 节省</div>
         </div>
       </div>
     </div>
 
-    <div class="panel fade-in" style="animation-delay:0.7s">
-      <div class="panel-title"><div class="dot" style="background:var(--green);box-shadow:0 0 8px var(--green)"></div> 快速行动</div>
-      <div style="display:flex;flex-direction:column;gap:10px">
-        <a href="https://clawhub.ai/nima54851" target="_blank" style="text-decoration:none">
-          <div style="background:rgba(139,92,246,0.08);border:1px solid rgba(139,92,246,0.2);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;transition:all 0.2s">
-            <span style="font-size:18px">📦</span>
-            <div><div style="font-weight:600">ClawHub 技能市场</div><div style="font-size:11px;color:var(--text-dim)">查看已发布技能 · 4个技能</div></div>
-            <span style="margin-left:auto;color:var(--text-dim)">→</span>
+    <div class="chart-panel">
+      <div class="panel-head" style="margin-bottom:12px">
+        <div class="panel-title">快速访问</div>
+      </div>
+      <div class="quick-links">
+        <a href="https://clawhub.ai/nima54851" target="_blank" class="quick-link">
+          <span class="link-icon">📦</span>
+          <div class="link-body">
+            <div>ClawHub 技能市场</div>
+            <div class="link-sub">4 个已发布技能</div>
           </div>
+          <span class="link-arrow">↗</span>
         </a>
-        <a href="https://github.com/nima54851/agent-studio/releases/tag/v1.0.0" target="_blank" style="text-decoration:none">
-          <div style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.2);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;transition:all 0.2s">
-            <span style="font-size:18px">🌐</span>
-            <div><div style="font-weight:600">GitHub Agent 套装</div><div style="font-size:11px;color:var(--text-dim)">专业版 · ¥299 · 下载</div></div>
-            <span style="margin-left:auto;color:var(--text-dim)">→</span>
+        <a href="https://nima54851.github.io/agent-studio/product.html" target="_blank" class="quick-link">
+          <span class="link-icon">🌐</span>
+          <div class="link-body">
+            <div>GitHub Agent 套装</div>
+            <div class="link-sub">专业版 ¥299 · 免费版</div>
           </div>
+          <span class="link-arrow">↗</span>
         </a>
-        <a href="https://github.com/nima54851/lingxi-a2a-registry" target="_blank" style="text-decoration:none">
-          <div style="background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.2);border-radius:12px;padding:14px 16px;font-size:13px;color:var(--text);display:flex;align-items:center;gap:10px;transition:all 0.2s">
-            <span style="font-size:18px">🤖</span>
-            <div><div style="font-weight:600">灵犀 A2A 注册表</div><div style="font-size:11px;color:var(--text-dim)">Agent 发现平台 · API 在线</div></div>
-            <span style="margin-left:auto;color:var(--text-dim)">→</span>
+        <a href="https://github.com/nima54851/lingxi-a2a-registry" target="_blank" class="quick-link">
+          <span class="link-icon">🤖</span>
+          <div class="link-body">
+            <div>灵犀 A2A 注册表</div>
+            <div class="link-sub">Agent 发现平台</div>
           </div>
+          <span class="link-arrow">↗</span>
         </a>
       </div>
     </div>
+
   </div>
 
   <div class="footer">
-    灵犀 · 收入面板 v1.0 · 由 <span>OpenClaw</span> 驱动 · 数据实时更新
+    灵犀 · 收入面板 v2.0 · OpenClaw 驱动 · 数据实时
   </div>
 
 </div>
@@ -609,110 +681,126 @@
 function updateClock() {
   const now = new Date();
   document.getElementById('clock').textContent = now.toLocaleTimeString('zh-CN', {hour12: false});
-  document.getElementById('date-str').textContent = now.toLocaleDateString('zh-CN', {month:'short',day:'numeric',weekday:'short'});
 }
 updateClock();
 setInterval(updateClock, 1000);
 
-// Animate bars on load
+// Animate revenue bars
 window.addEventListener('load', () => {
   setTimeout(() => {
-    document.querySelectorAll('.bar-fill').forEach(bar => {
-      const target = bar.getAttribute('data-w');
-      const pct = parseFloat(target) / 31.5 * 100;
-      bar.style.width = pct + '%';
+    ['bar1','bar2','bar3','bar4'].forEach(id => {
+      document.getElementById(id).style.width = '5%';
     });
-    document.querySelectorAll('.income-bar-fill').forEach(bar => {
-      bar.style.width = '0%';
-    });
-  }, 400);
+  }, 500);
 });
 
 // Line chart
 const canvas = document.getElementById('lineChart');
 const ctx = canvas.getContext('2d');
 
-const labels = ['06-26','06-27','06-28','06-29','07-01','07-02'];
-const inData = [18.7, 22.3, 14.8, 11.2, 31.5, 25.2];
-const outData = [7.1, 9.2, 11.2, 8.9, 13.8, 9.4];
-const maxVal = 35;
+const weekLabels = ['06-26','06-27','06-28','06-29','07-01','07-02'];
+const inData  = [18.7, 22.3, 14.8, 11.2, 31.5, 25.2];
+const outData = [7.1,  9.2,  11.2,  8.9, 13.8,  9.4];
+const monthLabels = ['06-01','06-05','06-10','06-15','06-20','06-25','07-01'];
+const monthIn  = [42, 38, 55, 61, 48, 73, 89];
+const monthOut = [18, 15, 24, 28, 21, 32, 36];
+const MAX = 35;
 
-function drawLineChart() {
+function drawChart(labels, indata, outdata) {
   const dpr = window.devicePixelRatio || 1;
   const rect = canvas.getBoundingClientRect();
   canvas.width = rect.width * dpr;
   canvas.height = 180 * dpr;
   ctx.scale(dpr, dpr);
   const W = rect.width, H = 180;
+  const pad = { l: 0, r: 10, t: 10, b: 28 };
+  const max = Math.max(...indata, ...outdata) * 1.1;
 
   ctx.clearRect(0, 0, W, H);
 
   // Grid
-  ctx.strokeStyle = 'rgba(42,42,58,0.8)';
+  ctx.strokeStyle = '#f0f0f0';
   ctx.lineWidth = 1;
-  for (let i = 0; i <= 4; i++) {
-    const y = (i / 4) * (H - 20) + 10;
-    ctx.beginPath(); ctx.moveTo(40, y); ctx.lineTo(W - 10, y); ctx.stroke();
+  for (let i = 0; i <= 3; i++) {
+    const y = pad.t + (i / 3) * (H - pad.t - pad.b);
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y); ctx.stroke();
   }
 
   // X labels
-  ctx.fillStyle = '#6b7280'; ctx.font = '11px DM Mono'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#9ca3af'; ctx.font = '11px DM Mono'; ctx.textAlign = 'center';
   labels.forEach((l, i) => {
-    const x = 40 + (i + 0.5) / labels.length * (W - 50);
-    ctx.fillText(l, x, H - 2);
+    const x = pad.l + (i + 0.5) / labels.length * (W - pad.l - pad.r);
+    ctx.fillText(l, x, H - 6);
   });
 
-  // Y labels
-  ctx.textAlign = 'right';
-  [0, Math.round(maxVal/4), Math.round(maxVal/2), Math.round(maxVal*3/4), maxVal].forEach((v, i) => {
-    const y = (1 - v/maxVal) * (H - 20) + 10;
-    ctx.fillText(v+'k', 36, y + 4);
-  });
-
-  function fillLine(data, color, fillColor) {
+  function areaAndLine(data, color) {
     const pts = data.map((v, i) => ({
-      x: 40 + (i + 0.5) / data.length * (W - 50),
-      y: (1 - v/maxVal) * (H - 20) + 10
+      x: pad.l + (i + 0.5) / data.length * (W - pad.l - pad.r),
+      y: pad.t + (1 - v / max) * (H - pad.t - pad.b)
     }));
 
+    // Fill
     ctx.beginPath();
     pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-    ctx.lineTo(pts[pts.length-1].x, H - 10);
-    ctx.lineTo(pts[0].x, H - 10);
+    ctx.lineTo(pts[pts.length-1].x, H - pad.b);
+    ctx.lineTo(pts[0].x, H - pad.b);
     ctx.closePath();
-    const grd = ctx.createLinearGradient(0, 0, 0, H);
-    grd.addColorStop(0, fillColor);
-    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    const grd = ctx.createLinearGradient(0, pad.t, 0, H - pad.b);
+    grd.addColorStop(0, color + '22');
+    grd.addColorStop(1, color + '00');
     ctx.fillStyle = grd;
     ctx.fill();
 
+    // Line
     ctx.beginPath();
     pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-    ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
     ctx.stroke();
 
+    // Dots
     pts.forEach(p => {
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 4, 0, Math.PI*2);
-      ctx.fillStyle = color; ctx.fill();
+      ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
+      ctx.fillStyle = color;
+      ctx.fill();
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 2, 0, Math.PI*2);
-      ctx.fillStyle = '#09090e'; ctx.fill();
+      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+      ctx.fillStyle = '#ffffff';
+      ctx.fill();
     });
   }
 
-  fillLine(inData, '#8b5cf6', 'rgba(139,92,246,0.15)');
-  fillLine(outData, '#06b6d4', 'rgba(6,182,212,0.1)');
-
-  // Legend
-  ctx.font = '11px Space Grotesk';
-  ctx.textAlign = 'right';
-  ctx.fillStyle = '#8b5cf6'; ctx.fillText('● 输入', W - 8, 16);
-  ctx.fillStyle = '#06b6d4'; ctx.fillText('● 输出', W - 8, 32);
+  areaAndLine(indata, '#4f46e5');
+  areaAndLine(outdata, '#16a34a');
 }
 
-drawLineChart();
-window.addEventListener('resize', drawLineChart);
+function setActive(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+let usingMonth = false;
+document.getElementById('tab-week').addEventListener('click', () => {
+  usingMonth = false;
+  setActive('tab-week');
+  drawChart(weekLabels, inData, outData);
+});
+document.getElementById('tab-month').addEventListener('click', () => {
+  usingMonth = true;
+  setActive('tab-month');
+  drawChart(monthLabels, monthIn, monthOut);
+});
+
+drawChart(weekLabels, inData, outData);
+window.addEventListener('resize', () => {
+  if (usingMonth) {
+    drawChart(monthLabels, monthIn, monthOut);
+  } else {
+    drawChart(weekLabels, inData, outData);
+  }
+});
 </script>
 </body>
 </html>
