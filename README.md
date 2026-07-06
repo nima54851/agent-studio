@@ -45,6 +45,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Email Automation** | Gmail SMTP, drip campaigns, AI auto-reply | `skills/email-automation/` |
 | **Social Media** | Twitter/LinkedIn auto-post, content rewriting | `skills/social-media-automation/` |
 | **Product Launch** | AI-powered launch automation and checklist | `skills/product-launch-assistant/` |
+| **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
+| **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
 | **Customer Support** | Ticket triage, auto-reply, escalation, FAQ resolver | `skills/customer-support-automation/` |
 | **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
 | **GitHub Actions** | AI-augmented PR review, auto-deploy, scheduled CI/CD | `skills/github-actions-automation/` |
