@@ -53,7 +53,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Monitoring & Alerting** | Prometheus + Grafana + AI anomaly detection + n8n alerts | `skills/monitoring-alerting-automation/` |
 | **Notion Sync** | Notion ↔ OpenClaw AI sync via n8n | `integrations/notion-sync/` |
 | **Linear Automation** | Linear project management + AI triage + Sprint planning | `integrations/linear-automation/` |
-| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks | `integrations/` |
+| **Data Visualization** | Plotly/D3.js — CSV/JSON → interactive charts & dashboards | `skills/data-visualization-automation/` |
+| **AI Code Refactoring** | AI refactor Python/JS/TS — type hints, async/await, DRY | `skills/ai-code-refactoring/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
 | **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
@@ -85,6 +87,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[analytics-dashboard](skills/analytics-dashboard)** | HTML analytics dashboard — GitHub stats, OpenClaw usage, ZeroGPU savings |
 | **[ab-testing-workflow](skills/ab-testing-workflow)** | A/B test framework for n8n workflows and OpenClaw prompts |
 | **[seo-automation](skills/seo-automation)** | GitHub Pages SEO — sitemap, robots.txt, OG tags, JSON-LD |
+| **[data-visualization-automation](skills/data-visualization-automation)** | Auto-generate charts & dashboards — Plotly, D3.js, CSV/JSON → HTML |
+| **[ai-code-refactoring](skills/ai-code-refactoring)** | AI-powered code refactoring — Python/JS/TS, before/after diffs, quality checks |
 
 ---
 
