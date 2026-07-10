@@ -53,9 +53,12 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Monitoring & Alerting** | Prometheus + Grafana + AI anomaly detection + n8n alerts | `skills/monitoring-alerting-automation/` |
 | **Notion Sync** | Notion ↔ OpenClaw AI sync via n8n | `integrations/notion-sync/` |
 | **Linear Automation** | Linear project management + AI triage + Sprint planning | `integrations/linear-automation/` |
+| **Fine-Tuning Automation** | OpenAI/Axolotl/LLaMA-Factory 微调全流程 — 数据准备 → 训练 → 评估 → 部署 | `skills/fine-tuning-automation/` |
+| **Event-Driven Architecture** | Kafka / RabbitMQ / Redis Streams 事件驱动架构 + AI 事件流 | `skills/event-driven-architecture/` |
+| **AI Model Router** | 多模型智能路由 — OpenAI/Anthropic/Ollama 按成本/延迟自动选择最优模型 | `skills/ai-model-router/` |
 | **Data Visualization** | Plotly/D3.js — CSV/JSON → interactive charts & dashboards | `skills/data-visualization-automation/` |
 | **AI Code Refactoring** | AI refactor Python/JS/TS — type hints, async/await, DRY | `skills/ai-code-refactoring/` |
-| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor | `integrations/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
 | **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
