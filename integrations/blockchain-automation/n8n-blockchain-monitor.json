@@ -1,0 +1,137 @@
+{
+  "name": "Blockchain Automation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cron",
+              "minutes": "5"
+            }
+          ]
+        }
+      },
+      "id": "schedule-node",
+      "name": "Schedule (every 5 min)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{$env.ETH_RPC_URL}}",
+        "method": "POST",
+        "body": {
+          "json": {
+            "jsonrpc": "2.0",
+            "method": "eth_getBalance",
+            "params": ["={{$vars.WATCH_ADDRESS}}", "latest"],
+            "id": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "eth-balance-node",
+      "name": "Check ETH Balance",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse balance from hex to ETH\nconst hexBalance = $input.first().json.result;\nconst wei = parseInt(hexBalance, 16);\nconst eth = wei / 1e18;\n\nconst threshold = parseFloat($vars.ALERT_THRESHOLD || '0');\nconst shouldAlert = eth >= threshold;\n\nreturn [{ json: { address: $vars.WATCH_ADDRESS, balance_eth: eth, should_alert: shouldAlert } }];"
+      },
+      "id": "parse-balance",
+      "name": "Parse Balance",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "alert-condition",
+              "leftValue": "={{ $json.should_alert }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "alert-condition",
+      "name": "Alert Condition",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "to": "={{ $vars.ALERT_EMAIL }}",
+        "subject": "🔔 ETH Wallet Alert: Balance Updated",
+        "body": "Address: {{ $json.address }}\nBalance: {{ $json.balance_eth }} ETH\nThreshold: {{ $vars.ALERT_THRESHOLD }} ETH\n\nPowered by agent-studio + n8n",
+        "options": {}
+      },
+      "id": "email-alert",
+      "name": "Email Alert",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1050, 250],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "webhookUrl": "={{ $env.WEBHOOK_URL }}",
+        "method": "POST",
+        "body": {
+          "json": {
+            "event": "wallet_alert",
+            "address": "={{ $json.address }}",
+            "balance_eth": "={{ $json.balance_eth }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "openclaw-webhook",
+      "name": "Notify OpenClaw Agent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [1050, 350],
+      "continueOnFail": true
+    }
+  ],
+  "connections": {
+    "Schedule (every 5 min)": {
+      "main": [[{ "node": "Check ETH Balance", "type": "main", "index": 0 }]]
+    },
+    "Check ETH Balance": {
+      "main": [[{ "node": "Parse Balance", "type": "main", "index": 0 }]]
+    },
+    "Parse Balance": {
+      "main": [[{ "node": "Alert Condition", "type": "main", "index": 0 }]]
+    },
+    "Alert Condition": {
+      "main": [
+        [{ "node": "Email Alert", "type": "main", "index": 0 }],
+        [{ "node": "Notify OpenClaw Agent", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": ["blockchain", "automation", "wallet-monitor"]
+}
