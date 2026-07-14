@@ -47,6 +47,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Product Launch** | AI-powered launch automation and checklist | `skills/product-launch-assistant/` |
 | **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
 | **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
+| **Error Tracking** | Sentry → AI 自动分类 → Slack/Discord/GitHub 告警管道 | `skills/error-tracking-automation/` |
+| **Testing Automation** | AI 生成 pytest/jest 测试用例 + coverage 跟踪 + CI 集成 | `skills/testing-automation/` |
+| **Infrastructure as Code** | AI 生成 Terraform / Pulumi / Ansible 配置文件 | `skills/infrastructure-as-code/` |
 | **Customer Support** | Ticket triage, auto-reply, escalation, FAQ resolver | `skills/customer-support-automation/` |
 | **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
 | **GitHub Actions** | AI-augmented PR review, auto-deploy, scheduled CI/CD | `skills/github-actions-automation/` |
@@ -58,7 +61,10 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **AI Model Router** | 多模型智能路由 — OpenAI/Anthropic/Ollama 按成本/延迟自动选择最优模型 | `skills/ai-model-router/` |
 | **Data Visualization** | Plotly/D3.js — CSV/JSON → interactive charts & dashboards | `skills/data-visualization-automation/` |
 | **AI Code Refactoring** | AI refactor Python/JS/TS — type hints, async/await, DRY | `skills/ai-code-refactoring/` |
-| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven | `integrations/` |
+| **Logging Automation** | 日志采集 + AI 异常检测 + 告警路由（Filebeat/Loki/Grafana/n8n） | `skills/logging-automation/` |
+| **LLM Ops Automation** | 统一 LLM 网关 + Token 成本追踪 + Prompt A/B 测试 + 预算告警 | `skills/llm-ops-automation/` |
+| **Resilience Patterns** | 熔断器 / 重试策略 / 滑动窗口限流 / 优雅降级 | `skills/resilience-patterns/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
 | **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
@@ -92,6 +98,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[seo-automation](skills/seo-automation)** | GitHub Pages SEO — sitemap, robots.txt, OG tags, JSON-LD |
 | **[data-visualization-automation](skills/data-visualization-automation)** | Auto-generate charts & dashboards — Plotly, D3.js, CSV/JSON → HTML |
 | **[ai-code-refactoring](skills/ai-code-refactoring)** | AI-powered code refactoring — Python/JS/TS, before/after diffs, quality checks |
+| **[graphql-api-automation](skills/graphql-api-automation)** | AI GraphQL API design — schema generation, Apollo Server, Federation, n8n pipeline |
+| **[ai-document-intelligence](skills/ai-document-intelligence)** | LLM-powered document extraction — PDFs, contracts, invoices, OCR pipeline |
+| **[code-review-automation](skills/code-review-automation)** | AI PR code review — security, bugs, performance, automated GitHub comments |
 
 ---
 
