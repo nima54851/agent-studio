@@ -64,6 +64,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Logging Automation** | 日志采集 + AI 异常检测 + 告警路由（Filebeat/Loki/Grafana/n8n） | `skills/logging-automation/` |
 | **LLM Ops Automation** | 统一 LLM 网关 + Token 成本追踪 + Prompt A/B 测试 + 预算告警 | `skills/llm-ops-automation/` |
 | **Resilience Patterns** | 熔断器 / 重试策略 / 滑动窗口限流 / 优雅降级 | `skills/resilience-patterns/` |
+| **Video Processing** | FFmpeg AI processing — auto-captions, vertical crop, multi-platform output | `skills/video-processing-automation/` |
+| **Database Migration** | AI SQL migration — schema diff, zero-downtime, rollback, data校验 | `skills/database-migration-automation/` |
+| **Sentiment Analysis** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerts | `skills/sentiment-analysis-automation/` |
 | **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
@@ -101,6 +104,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[graphql-api-automation](skills/graphql-api-automation)** | AI GraphQL API design — schema generation, Apollo Server, Federation, n8n pipeline |
 | **[ai-document-intelligence](skills/ai-document-intelligence)** | LLM-powered document extraction — PDFs, contracts, invoices, OCR pipeline |
 | **[code-review-automation](skills/code-review-automation)** | AI PR code review — security, bugs, performance, automated GitHub comments |
+| **[video-processing-automation](skills/video-processing-automation)** | FFmpeg + Whisper AI video processing — auto-captions, vertical crop, compression |
+| **[database-migration-automation](skills/database-migration-automation)** | AI SQL migration generator — schema diff, zero-downtime, rollback, data integrity |
+| **[sentiment-analysis-automation](skills/sentiment-analysis-automation)** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerting |
 
 ---
 
