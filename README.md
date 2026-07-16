@@ -67,7 +67,10 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Video Processing** | FFmpeg AI processing — auto-captions, vertical crop, multi-platform output | `skills/video-processing-automation/` |
 | **Database Migration** | AI SQL migration — schema diff, zero-downtime, rollback, data校验 | `skills/database-migration-automation/` |
 | **Sentiment Analysis** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerts | `skills/sentiment-analysis-automation/` |
-| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review | `integrations/` |
+| **Blockchain Automation** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts | `skills/blockchain-automation/` |
+| **Workflow Orchestration** | Multi-step AI pipelines, retry logic, dead-letter queues, fan-out/fan-in patterns | `skills/workflow-orchestration/` |
+| **Browser Automation** | Playwright + AI — scrape, screenshot, form fill, multi-step web workflows | `skills/browser-automation/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review, Blockchain, Workflow Orchestration, Browser Automation | `integrations/` |
 | **Docker** | Docker Compose for instant deployment | `docker/` |
 | **Prompts** | Battle-tested prompt patterns | `prompts/` |
 | **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
@@ -107,6 +110,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[video-processing-automation](skills/video-processing-automation)** | FFmpeg + Whisper AI video processing — auto-captions, vertical crop, compression |
 | **[database-migration-automation](skills/database-migration-automation)** | AI SQL migration generator — schema diff, zero-downtime, rollback, data integrity |
 | **[sentiment-analysis-automation](skills/sentiment-analysis-automation)** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerting |
+| **[blockchain-automation](skills/blockchain-automation)** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts |
+| **[workflow-orchestration](skills/workflow-orchestration)** | Multi-step AI pipelines, retry logic, dead-letter queues, AI routing decisions |
+| **[browser-automation](skills/browser-automation)** | Playwright + AI browser automation — scrape, screenshot, form fill, web workflows |
 
 ---
 
