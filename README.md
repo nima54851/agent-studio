@@ -113,6 +113,11 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[blockchain-automation](skills/blockchain-automation)** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts |
 | **[workflow-orchestration](skills/workflow-orchestration)** | Multi-step AI pipelines, retry logic, dead-letter queues, AI routing decisions |
 | **[browser-automation](skills/browser-automation)** | Playwright + AI browser automation — scrape, screenshot, form fill, web workflows |
+| **[incident-response-automation](skills/incident-response-automation)** | AI incident triage, PagerDuty integration, war-room summarizer, auto post-mortem |
+| **[compliance-automation](skills/compliance-automation)** | GDPR, SOC 2, HIPAA, PCI-DSS compliance — evidence collection, gap analysis, audit reports |
+| **[translation-automation](skills/translation-automation)** | AI multilingual translation — DeepL, quality scoring, terminology lock, batch processing |
+| **[a11y-automation](skills/a11y-automation)** | WCAG accessibility testing — axe-core, Lighthouse, AI fix suggestions, CI enforcement |
+| **[feature-flag-automation](skills/feature-flag-automation)** | LaunchDarkly/Unleash flag management — gradual rollouts, A/B targeting, AI recommendations |
 
 ---
 
