@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>靈犀動漫 — 咒術廻戦</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#030308;color:#fff;font-family:'Segoe UI',sans-serif;min-height:100vh;padding:40px 20px}
+h1{text-align:center;font-size:clamp(28px,6vw,56px);font-weight:900;letter-spacing:8px;color:transparent;-webkit-text-stroke:1.5px #ff4020;margin-bottom:8px}
+.sub{text-align:center;letter-spacing:6px;color:#888;font-size:14px;margin-bottom:50px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+.card{background:linear-gradient(135deg,#0d0d1a,#1a0a15);border:1px solid #ff402020;border-radius:16px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-6px);box-shadow:0 20px 60px #ff402030}
+.card video,.card img{width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
+.info{padding:16px 20px}
+.ep{font-size:12px;letter-spacing:4px;color:#ff4020;font-weight:bold;margin-bottom:6px}
+.title{font-size:18px;font-weight:bold;margin-bottom:6px}
+.desc{font-size:13px;color:#888;line-height:1.6}
+.footer{text-align:center;margin-top:60px;padding-top:30px;border-top:1px solid #222;color:#555;font-size:12px;letter-spacing:2px}
+.schedule{display:flex;justify-content:center;gap:30px;margin-bottom:40px;flex-wrap:wrap}
+.schedule-item{background:#0d0d1a;border:1px solid #ff402030;border-radius:12px;padding:16px 28px;text-align:center}
+.schedule-item .time{font-size:22px;font-weight:bold;color:#ff4020}
+.schedule-item .label{font-size:12px;color:#888;margin-top:4px}
+</style>
+</head>
+<body>
+<h1>靈犀動漫</h1>
+<div class="sub">JUJUTSU KAISEN · 咒術廻戦 · AI 自動生成</div>
+
+<div class="schedule">
+  <div class="schedule-item"><div class="time">08:00</div><div class="label">北京 16:00 · 傍晚</div></div>
+  <div class="schedule-item"><div class="time">12:00</div><div class="label">北京 20:00 · 深夜</div></div>
+  <div class="schedule-item"><div class="time">04:00</div><div class="label">北京 12:00 · 中午</div></div>
+</div>
+
+<div class="grid">
+  <div class="card">
+    <video controls poster="anime_ep01.png">
+      <source src="anime_ep01.mp4" type="video/mp4">
+    </video>
+    <div class="info">
+      <div class="ep">EPISODE 01</div>
+      <div class="title">第壱話「头来」</div>
+      <div class="desc">虎杖悠仁發現東京城市理工高中埋入的呪物，誤食宿儺手指，覺醒呪術之力。MAPPA 超高還原制作。咒力領域全開。</div>
+    </div>
+  </div>
+  <div class="card">
+    <video controls poster="anime_ep02.png">
+      <source src="anime_ep02.mp4" type="video/mp4">
+    </video>
+    <div class="info">
+      <div class="ep">EPISODE 02</div>
+      <div class="title">第弐話「宿儺の指」</div>
+      <div class="desc">虎杖吞下宿儺手指，伏黒恵展開十種影術與之對決。野薔薇登場，三人大鬧咒術高專。黑暗裂隙降臨。</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">靈犀 × GitHub Actions · 每日自動更新 · © 芥見下々/集英社</div>
+</body>
+</html>
