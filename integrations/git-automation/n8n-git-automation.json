@@ -45,7 +45,7 @@
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {"name": "Authorization", "value": "token ${{ secrets.GITHUB_TOKEN }}"},
+            {"name": "Authorization", "value": "token {{GITHUB_TOKEN}}"},
             {"name": "Accept", "value": "application/vnd.github+json"}
           ]
         },
