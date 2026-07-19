@@ -48,7 +48,7 @@
       "type": "n8n-nodes-base.function",
       "position": [1500, 300],
       "parameters": {
-        "functionCode": "const { execSync } = require('child_process');\nconst path = items[0].json.repoPath;\nconst { GITHUB_TOKEN } = process.env;\ntry {\n  const token = '${{ secrets.GITHUB_TOKEN }}';\n  execSync(`cd ${path} && git config user.email 'agent-studio@bot' && git config user.name 'agent-studio bot' && git add openapi.yaml docs/ && git commit -m 'chore: auto-generated OpenAPI spec' && git push https://${token}@github.com/nima54851/agent-studio.git main`, {stdio:'pipe', timeout: 30000});\n  return [{json: {pushed: true}}];\n} catch(e) {\n  return [{json: {pushed: false, error: e.message}}];\n}"
+        "functionCode": "const { execSync } = require('child_process');\nconst path = items[0].json.repoPath;\nconst { YOUR_GITHUB_TOKEN } = process.env;\ntry {\n  const token = '{{GITHUB_TOKEN}}';\n  execSync(`cd ${path} && git config user.email 'agent-studio@bot' && git config user.name 'agent-studio bot' && git add openapi.yaml docs/ && git commit -m 'chore: auto-generated OpenAPI spec' && git push https://${token}@github.com/nima54851/agent-studio.git main`, {stdio:'pipe', timeout: 30000});\n  return [{json: {pushed: true}}];\n} catch(e) {\n  return [{json: {pushed: false, error: e.message}}];\n}"
       }
     }
   ],
