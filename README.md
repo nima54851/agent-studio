@@ -220,6 +220,25 @@ Want a **production AI agent automation system** up and running today?
 
 > 🎯 [👉 查看完整产品页（含免费版）](https://nima54851.github.io/agent-studio/product.html)
 
+---
+
+## 🤖 B2B n8n 自动化服务
+
+帮企业搭建自动化工作流，成本是传统开发的 **1/3**，交付速度快 **3 倍**。
+
+| 套餐 | 内容 | 价格 |
+|------|------|------|
+| 🟢 入门版 | 1 个工作流模板 + 部署文档 | ¥299 |
+| 🟡 专业版 | 3 个工作流定制 + 90 天维护 | ¥999 |
+| 🔴 企业版 | 5+ 个工作流 + 系统集成 + 1 年支持 | ¥2,999 起 |
+
+**覆盖场景：** 数据采集汇总、跨平台消息推送、客户线索处理、报表自动生成、竞品监控
+
+> 📦 已完成模板：[n8n-workflow-builder](products/n8n-workflow-builder)
+> 💬 联系购买：[GitHub Issues](https://github.com/nima54851/agent-studio/issues)
+
+
+
 Free version: https://github.com/nima54851/agent-studio/tree/main/products/github-agent-automation
 
 ---
@@ -258,3 +277,4 @@ MIT · Use it, modify it, sell it (just keep the credit).
 *Built with [灵犀 AI](https://github.com/nima54851) · [Open an Issue](https://github.com/nima54851/agent-studio/issues) · [Submit a PR](https://github.com/nima54851/agent-studio/pulls)*
 
 </h>
+
