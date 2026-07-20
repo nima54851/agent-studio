@@ -1,1 +1,80 @@
-IyDimpnvuI8gbjhuIOW3peS9nOa1geaehOW7uiBBZ2VudCDigJQg5Lqn5ZOB6K+05piOCgo+IOivtOWHuuS9oOaDs+imgeeahOW3peS9nOa1ge+8jEFJIOiHquWKqOeUn+aIkCBuOG4gSlNPTiDphY3nva4KPiDml6DpnIDorrDlv4boioLngrnvvIzmj4/ov7DpnIDmsYIg4oaSIOeUn+aIkOW3peS9nOa1gSDihpIg5LiA6ZSu5a+85YWlCgotLS0KCiMjIOS6p+WTgeamgui/sAoK6L+Z5piv5LiA5LiqKiroh6rnhLbor63oqIDpqbHliqjnmoQgbjhuIOW3peS9nOa1geeUn+aIkCBBZ2VudCoq77yM5Z+65LqOIE9wZW5DbGF3IOaehOW7uuOAggoKfCDlip/og70gfCDor6bmg4UgfAp8LS0tfC0tLXwKfCDwn5ej77iPIOiHqueEtuivreiogOeUn+aIkCB8IOeUqOS4reaWh+aPj+i/sOmcgOaxgu+8jOiHquWKqOeUn+aIkCBuOG4gd29ya2Zsb3cuanNvbiB8Cnwg8J+UhCDmqKHmnb/luILlnLogfCA1MCsg6aKE6K6+5qih5p2/77yI56S+5Lqk5aqS5L2TL0NSTS/oh6rliqjljJblip7lhawv5pWw5o2u5aSE55CG77yJIHwKfCDwn5SnIOS4gOmUruWvvOWFpSB8IOeUn+aIkOeahCBKU09OIOebtOaOpeWvvOWFpSBuOG4gfAp8IPCflI0g6ZSZ6K+v5L+u5aSNIHwg5bel5L2c5rWB6L+Q6KGM5oql6ZSZ77yf5Y+R57uZIEFnZW50IOiHquWKqOiviuaWreS/ruWkjSB8Cnwg8J+TpCDlr7zlh7rliIbkuqsgfCDnlJ/miJDlj6/liIbkuqvnmoTlt6XkvZzmtYHpk77mjqUgfAoKLS0tCgojIyDkuqflk4HljIXlkKsKCi0g4pyFIGBhZ2VudC1za2lsbC9gIOKAlCBPcGVuQ2xhdyBuOG4gQnVpbGRlciBTa2lsbAotIOKchSBgd29ya2Zsb3dzL2Ag4oCUIDUwKyDpooTorr7mqKHmnb/vvIjlj6/nm7TmjqXlr7zlhaUgbjhu77yJCi0g4pyFIGBTRVRVUC5tZGAg4oCUIDXliIbpkp/phY3nva7mjIfljZcKLSDinIUg5oqA5pyv5pSv5oyB77yI6LSt5Lmw5ZCO5o+Q5L6b77yJCgotLS0KCiMjIOWumuS7twoKfCDniYjmnKwgfCDku7fmoLwgfCDljIXlkKvlhoXlrrkgfAp8LS0tfC0tLXwtLS18Cnwg5YWl6Zeo54mIIHwgwqU0OSB8IOWfuuehgOeUn+aIkCArIDIw5Liq5qih5p2/IHwKfCDkuJPkuJrniYggfCDCpTE5OSB8IOWujOaVtOeUn+aIkCArIDUw5qih5p2/ICsg6ZSZ6K+v5L+u5aSNICsg5pyI5bqm5pu05pawIHwKfCDkvIHkuJrniYggfCDCpTY5OSB8IOengeacieaooeadv+W6kyArIEFQSeaOpeWFpSArIOWumuWItuW8gOWPkSB8CgotLS0KCiMjIOi0reS5sOaWueW8jwoKLSAqKuW+ruS/oS/mlK/ku5jlrp3vvJoqKiDogZTns7votK3kubAKLSAqKkd1bXJvYWTvvJoqKiBjb21pbmcgc29vbgoKLS0tCgojIyDkvZzogIUKCkJ1aWx0IHdpdGgg4p2k77iPIGJ5IFtuaW1hNTQ4NTFdKGh0dHBzOi8vZ2l0aHViLmNvbS9uaW1hNTQ4NTEpICAKUG93ZXJlZCBieSBbYWdlbnQtc3R1ZGlvXShodHRwczovL2dpdGh1Yi5jb20vbmltYTU0ODUxL2FnZW50LXN0dWRpbykgKyBPcGVuQ2xhdwo=
+# n8n Workflow Builder - B2B 自动化工作流产品
+
+> 企业级 n8n 自动化工作流定制开发服务
+> 用 AI Agent 替代传统开发，成本降低 80%，交付速度提升 3 倍
+
+---
+
+## 🎯 我们做什么
+
+帮企业搭建 **n8n 自动化工作流**，把重复性工作交给 AI：
+
+| 场景 | 原来需要 | 用 n8n 自动化后 |
+|------|--------|--------------|
+| 数据采集汇总 | 每天 2 小时手动整理 | 5 分钟自动完成 |
+| 跨平台消息推送 | 一个个平台手动发 | 一键触发，多平台同步 |
+| 客户线索处理 | 人工筛选用Excel | AI 自动分类、自动跟进 |
+| 报表生成 | 手动从多个系统导出 | 定时自动生成，邮件发送 |
+
+---
+
+## 💼 定价方案
+
+### 🟢 入门版 - ¥299
+- 1 个工作流模板（已配置好，直接可用）
+- 含安装配置文档 + 使用说明
+- 交付物：JSON 配置文件 + 部署文档
+- 适用：个人创业者、小团队
+
+### 🟡 专业版 - ¥999
+- 3 个工作流定制开发
+- 包含 API 对接、错误处理、通知机制
+- 90 天免费维护
+- 适用：中小企业、有明确业务流程的团队
+
+### 🔴 企业版 - ¥2,999 起
+- 完整业务流程自动化（5+ 个工作流）
+- 系统集成（CRM、ERP、电商后台等）
+- 专属 AI Agent 开发
+- 1 年技术支持
+- 适用：有规模运营需求的企业
+
+---
+
+## 🔧 技术栈
+
+- **n8n** - 开源工作流自动化引擎
+- **OpenClaw Agent** - AI 驱动的工作流构建
+- **Python/JavaScript** - 自定义节点开发
+- **REST API / Webhook** - 系统对接
+- **Telegram / Email / Slack** - 通知渠道
+
+---
+
+## 📦 已完成的工作流模板
+
+- ✅ GitHub Trending 每日推送（AI + 数据采集）
+- ✅ 社交媒体自动发布（多平台同步）
+- ✅ 客户线索自动分类（AI 智能处理）
+- ✅ 竞品数据监控系统
+- ✅ 电商订单自动处理流程
+
+---
+
+## 🚀 为什么选择我们
+
+1. **交付快** — 入门版 24 小时内交付
+2. **成本低** — 用 AI 辅助开发，价格是传统开发的 1/3
+3. **可扩展** — 所有工作流开源可查，后续可自行维护
+4. **有后续** — 买了模板，还能继续找我做定制
+
+---
+
+## 📞 联系购买
+
+- GitHub Issues: [提需求](https://github.com/nima54851/agent-studio/issues)
+- 产品页面: https://nima54851.github.io/agent-studio
+
+---
+
+*Powered by [nima54851/agent-studio](https://github.com/nima54851/agent-studio) × OpenClaw*
