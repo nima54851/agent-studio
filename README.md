@@ -222,6 +222,40 @@ Want a **production AI agent automation system** up and running today?
 
 ---
 
+
+
+---
+
+## ☁️ SaaS 服务（无需安装，直接使用）
+
+**无需部署，用户零门槛，即开即用。**
+
+👉 **在线访问：** https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com
+
+### GitHub Trending 推送机器人
+
+用户在网页上填入 Telegram Bot Token + Chat ID，立即收到今日 GitHub 热门项目推送。
+
+**功能：**
+- ⏰ 每日早 9 点自动推送
+- 📊 实时抓取 GitHub 高 Star 项目
+- 🔗 支持指定语言筛选（Python/JavaScript/Rust...）
+- 🤖 Telegram Bot 交互（/start /trending /help）
+
+**API 接口：**
+```bash
+# 获取热门
+curl "https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com/api/trending?limit=5"
+
+# 推送 Telegram
+curl -X POST "https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com/api/push" \
+  -H "Content-Type: application/json" \
+  -d '{"chat_id":"你的ID","language":"Python"}'
+```
+
+> 📦 SaaS 源码：[saas/](saas/)（Flask + Gunicorn）
+
+
 ## 🤖 B2B n8n 自动化服务
 
 帮企业搭建自动化工作流，成本是传统开发的 **1/3**，交付速度快 **3 倍**。
