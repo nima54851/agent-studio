@@ -1,0 +1,66 @@
+{
+  "name": "GitHub Trending 每日推送",
+  "nodes": [
+    {
+      "id": "trigger",
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "cronExpression", "expression": "0 9 * * *"}]
+        }
+      },
+      "name": "每日早9点触发",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1,
+      "position": [100, 300]
+    },
+    {
+      "id": "github",
+      "parameters": {
+        "method": "GET",
+        "url": "https://api.github.com/search/repositories?q=stars:>500+created:>2026-06-01&sort=stars&order=desc&per_page=8",
+        "options": {"timeout": 20000}
+      },
+      "name": "获取 GitHub 热门",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [300, 300]
+    },
+    {
+      "id": "parse",
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst repos = (data.items || []).slice(0, 8);\nconst lines = repos.map((repo, i) => {\n  const stars = repo.stargazers_count;\n  const starsStr = stars >= 1000 ? (stars/1000).toFixed(1) + 'k' : stars;\n  return (i+1) + '. [' + repo.full_name + '](https://github.com/' + repo.full_name.replace('/', '') + ')\\n   ⭐ ' + starsStr + ' | 🍴 ' + repo.forks_count + ' | ' + (repo.language || 'Other') + '\\n   ' + (repo.description || '无描述');\n}).join('\\n\\n');\nreturn [{json: {text: lines, total: repos.length, topRepo: repos[0]?.full_name, topStars: repos[0]?.stargazers_count || 0}}];"
+      },
+      "name": "解析项目数据",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [500, 300]
+    },
+    {
+      "id": "format",
+      "parameters": {
+        "jsCode": "const data = $input.first().json;\nconst today = new Date().toLocaleDateString('zh-CN', {year:'numeric', month:'long', day:'numeric'});\nconst message = '🔥 GitHub 热门项目 — ' + today + '\\n\\n' + data.text + '\\n\\n━━━━━━━━━━━━━━━━━\\n📊 共 ' + data.total + ' 个项目 | 🏆 最热: ' + data.topRepo + ' ⭐' + data.topStars + '\\n🤖 by 灵犀 AI';\nreturn [{json: {message: message}}];"
+      },
+      "name": "生成推送内容",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [700, 300]
+    },
+    {
+      "id": "telegram",
+      "parameters": {
+        "chatId": "YOUR_CHAT_ID_HERE",
+        "text": "={{ $json.message }}"
+      },
+      "name": "Telegram 推送",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [900, 300]
+    }
+  ],
+  "connections": {
+    "每日早9点触发": {"main": [[{"node": "获取 GitHub 热门", "type": "main", "index": 0}]]},
+    "获取 GitHub 热门": {"main": [[{"node": "解析项目数据", "type": "main", "index": 0}]]},
+    "解析项目数据": {"main": [[{"node": "生成推送内容", "type": "main", "index": 0}]]},
+    "生成推送内容": {"main": [[{"node": "Telegram 推送", "type": "main", "index": 0}]]}
+  }
+}
