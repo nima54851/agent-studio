@@ -118,6 +118,9 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[translation-automation](skills/translation-automation)** | AI multilingual translation — DeepL, quality scoring, terminology lock, batch processing |
 | **[a11y-automation](skills/a11y-automation)** | WCAG accessibility testing — axe-core, Lighthouse, AI fix suggestions, CI enforcement |
 | **[feature-flag-automation](skills/feature-flag-automation)** | LaunchDarkly/Unleash flag management — gradual rollouts, A/B targeting, AI recommendations |
+| **[agent-memory-automation](skills/agent-memory-automation)** | 长期记忆管理 — ChromaDB/pgvector 向量存储、语义召回、会话摘要、遗忘策略 |
+| **[cross-platform-notification](skills/cross-platform-notification)** | Email/Slack/Discord/Telegram/SMS 统一告警路由 + 升级策略 + 智能聚合 |
+| **[supabase-automation](skills/supabase-automation)** | Supabase 后端 — Auth/Realtime/Storage/Edge Functions + PostgreSQL/pgvector 自动化 |
 
 ---
 
