@@ -1,1 +1,84 @@
-IyDimpnvuI8gbjhuIOW3peS9nOa1geaehOW7uiBBZ2VudCDigJQg6YOo572y5oyH5Y2XCgotLS0KCiMjIOWJjee9ruimgeaxggoKLSBOb2RlLmpzIDE4KwotIG44bu+8iFvlronoo4XmjIfljZddKGh0dHBzOi8vZG9jcy5uOG4uaW8vaG9zdGluZy9pbnN0YWxsYXRpb24vKe+8iQotIE9wZW5DbGF377yIW+WuieijheaMh+WNl10oaHR0cHM6Ly9kb2NzLm9wZW5jbGF3LmFpLynvvIkKCi0tLQoKIyMg5q2l6aqkIDHvvJrlronoo4UgQWdlbnQgU2tpbGwKCuaKiiBgYWdlbnQtc2tpbGwvYCDnm67lvZXmlL7liLAgT3BlbkNsYXcgc2tpbGxzIOebruW9le+8mgoKYGBgYmFzaApjcCAtciBhZ2VudC1za2lsbC8qIH4vLm9wZW5jbGF3L3NraWxscy9uOG4td29ya2Zsb3ctYnVpbGRlci8KYGBgCgotLS0KCiMjIOatpemqpCAy77ya5a+85YWl6aKE6K6+5qih5p2/CgrmiZPlvIAgbjhuIOKGkiBJbXBvcnQgZnJvbSBGaWxlIOKGkiDpgInmi6kgYHdvcmtmbG93cy9gIOS4i+eahOS7u+aEjyBgLmpzb25gIOaWh+S7tgoKLS0tCgojIyDmraXpqqQgM++8mueUn+aIkOaWsOW3peS9nOa1gQoK5ZyoIE9wZW5DbGF3IOWvueivneahhui+k+WFpe+8mgoKYGBgCuW4ruaIkeeUn+aIkOS4gOS4quW3peS9nOa1ge+8mgrlvZMgR2l0SHViIOacieaWsCBQUiDml7bvvIzoh6rliqjnlKggQUkg5a6h5p+l5Luj56CB77yM5bm25oqK57uT5p6c5Y+R5YiwIFNsYWNrIOmikemBkwpgYGAKCkFnZW50IOS8mueUn+aIkOWvueW6lOeahCB3b3JrZmxvdy5qc29u77yM5aSN5Yi257KY6LS05YiwIG44biDlr7zlhaXljbPlj6/jgIIKCi0tLQoKIyMg5qih5p2/5YiX6KGoCgp8IOaooeadv+WQjSB8IOWKn+iDvSB8CnwtLS18LS0tfAp8IGdpdGh1Yi1wci1zbGFjay5qc29uIHwgR2l0SHViIFBSIOKGkiBTbGFjayDpgJrnn6UgfAp8IGdpdGh1Yi1wci1yZXZpZXcuanNvbiB8IEdpdEh1YiBQUiDihpIgQUkg5a6h5p+lIHwKfCB0d2l0dGVyLWF1dG8tcG9zdC5qc29uIHwgUlNTIOKGkiBBSSDmlLnlhpkg4oaSIFR3aXR0ZXIg5Y+R5biDIHwKfCBlbWFpbC1hdXRvLXJlcGx5Lmpzb24gfCDmlrDpgq7ku7Yg4oaSIEFJIOWIhuaekCDihpIg6Ieq5Yqo5Zue5aSN5YiG57G7IHwKfCBjcm9uLXdlYXRoZXItcmVtaW5kZXIuanNvbiB8IOWumuaXtuWkqeawlOaPkOmGkiDihpIg5b6u5L+hL+mCruS7tiB8CgotLS0KCiMjIOiOt+WPluW4ruWKqQoK6LSt5Lmw5ZCO5Y+v6YCa6L+HIEdpdEh1YiBJc3N1ZXMg5oiW6YKu5Lu26IGU57O75oqA5pyv5pSv5oyB44CCCg==
+# n8n 工作流模板 - 快速上手
+
+## 🚀 快速导入
+
+### 方式一：直接从 GitHub 导入
+1. 打开 n8n → 新建工作流
+2. 点右上角 `···` → `Import from JSON`
+3. 复制 `github-trending-workflow.json` 内容粘贴
+
+### 方式二：手动创建
+按 README 中的节点顺序，在 n8n 可视化编辑器中依次添加即可。
+
+---
+
+## 📋 配置步骤
+
+### 1. 获取 Telegram Bot Token
+1. Telegram 找 **@BotFather**，发送 `/newbot`
+2. 按提示设置机器人名称和用户名
+3. 复制获得的 Token（格式：`123456789:ABC-DEF...`）
+
+### 2. 获取 Chat ID
+1. Telegram 找 **@userinfobot**，发送任意消息
+2. 它会回复你的 Chat ID（纯数字）
+
+### 3. 配置工作流
+1. 打开工作流 → 点击 **Telegram 推送** 节点
+2. `Chat ID` 填入你的 Chat ID
+3. 左侧菜单 → **Credentials** → **Telegram Bot** → 填入 Bot Token
+
+### 4. 激活工作流
+- 右上角 **Active** 开关 → 打开
+- 每天早上 9 点自动推送
+
+---
+
+## ⏰ 触发时间修改
+
+在 `每日早9点触发` 节点修改 cron 表达式：
+
+| 时间 | Expression |
+|------|-----------|
+| 每天早上9点 | `0 9 * * *` |
+| 每天早上7点 | `0 7 * * *` |
+| 每3小时一次 | `0 */3 * * *` |
+| 每天晚8点 | `0 20 * * *` |
+
+---
+
+## 🔧 推送渠道替换
+
+如果不用 Telegram，可以换成：
+
+**邮件：** 用 `Email Send` 节点替换 `Telegram 推送`
+- 需要配置邮件 SMTP 凭证
+
+**微信：** 用 `ServerChan` 或 `PushPlus` API
+- 免费，无需额外配置
+
+**Slack：** 用 `Slack` 节点
+- 需要 Incoming Webhook URL
+
+---
+
+## ❓ 常见问题
+
+**Q: 收不到推送？**
+- 检查工作流是否已激活（右上角开关打开）
+- 检查 Chat ID 是否正确（必须是数字格式）
+- 检查 Bot Token 是否有效
+
+**Q: 如何推送给多个群/用户？**
+- 在 Telegram 节点后添加 `Split In Batches` 节点
+- 循环发送多个 Chat ID
+
+**Q: 可以在自己的 n8n 实例运行吗？**
+- 可以，所有节点都是 n8n 内置节点
+- 无需额外安装任何包
+
+---
+
+## 📞 获取帮助
+
+遇到问题 → [GitHub Issues](https://github.com/nima54851/agent-studio/issues)
