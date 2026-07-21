@@ -47,7 +47,8 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Product Launch** | AI-powered launch automation and checklist | `skills/product-launch-assistant/` |
 | **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
 | **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
-| **Error Tracking** | Sentry → AI 自动分类 → Slack/Discord/GitHub 告警管道 | `skills/error-tracking-automation/` |
+| **MCP Server** | Build MCP servers backed by n8n — any MCP-compatible AI can use your workflows as tools | `integrations/mcp-server-automation/` |
+| **Prompt Versioning** | Git-like version control for AI prompts — diff, rollback, A/B test, environment promotion | `integrations/prompt-versioning-automation/` |
 | **Testing Automation** | AI 生成 pytest/jest 测试用例 + coverage 跟踪 + CI 集成 | `skills/testing-automation/` |
 | **Infrastructure as Code** | AI 生成 Terraform / Pulumi / Ansible 配置文件 | `skills/infrastructure-as-code/` |
 | **Customer Support** | Ticket triage, auto-reply, escalation, FAQ resolver | `skills/customer-support-automation/` |
@@ -220,59 +221,6 @@ Want a **production AI agent automation system** up and running today?
 
 > 🎯 [👉 查看完整产品页（含免费版）](https://nima54851.github.io/agent-studio/product.html)
 
----
-
-
-
----
-
-## ☁️ SaaS 服务（无需安装，直接使用）
-
-**无需部署，用户零门槛，即开即用。**
-
-👉 **在线访问：** https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com
-
-### GitHub Trending 推送机器人
-
-用户在网页上填入 Telegram Bot Token + Chat ID，立即收到今日 GitHub 热门项目推送。
-
-**功能：**
-- ⏰ 每日早 9 点自动推送
-- 📊 实时抓取 GitHub 高 Star 项目
-- 🔗 支持指定语言筛选（Python/JavaScript/Rust...）
-- 🤖 Telegram Bot 交互（/start /trending /help）
-
-**API 接口：**
-```bash
-# 获取热门
-curl "https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com/api/trending?limit=5"
-
-# 推送 Telegram
-curl -X POST "https://a1d4a2bb3a60b6f2-1-13-80-87.serveousercontent.com/api/push" \
-  -H "Content-Type: application/json" \
-  -d '{"chat_id":"你的ID","language":"Python"}'
-```
-
-> 📦 SaaS 源码：[saas/](saas/)（Flask + Gunicorn）
-
-
-## 🤖 B2B n8n 自动化服务
-
-帮企业搭建自动化工作流，成本是传统开发的 **1/3**，交付速度快 **3 倍**。
-
-| 套餐 | 内容 | 价格 |
-|------|------|------|
-| 🟢 入门版 | 1 个工作流模板 + 部署文档 | ¥299 |
-| 🟡 专业版 | 3 个工作流定制 + 90 天维护 | ¥999 |
-| 🔴 企业版 | 5+ 个工作流 + 系统集成 + 1 年支持 | ¥2,999 起 |
-
-**覆盖场景：** 数据采集汇总、跨平台消息推送、客户线索处理、报表自动生成、竞品监控
-
-> 📦 已完成模板：[n8n-workflow-builder](products/n8n-workflow-builder)
-> 💬 联系购买：[GitHub Issues](https://github.com/nima54851/agent-studio/issues)
-
-
-
 Free version: https://github.com/nima54851/agent-studio/tree/main/products/github-agent-automation
 
 ---
@@ -311,4 +259,3 @@ MIT · Use it, modify it, sell it (just keep the credit).
 *Built with [灵犀 AI](https://github.com/nima54851) · [Open an Issue](https://github.com/nima54851/agent-studio/issues) · [Submit a PR](https://github.com/nima54851/agent-studio/pulls)*
 
 </h>
-
