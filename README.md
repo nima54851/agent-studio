@@ -259,3 +259,9 @@ MIT · Use it, modify it, sell it (just keep the credit).
 *Built with [灵犀 AI](https://github.com/nima54851) · [Open an Issue](https://github.com/nima54851/agent-studio/issues) · [Submit a PR](https://github.com/nima54851/agent-studio/pulls)*
 
 </h>
+
+
+## New Skills (2026-07-22)
+| [ai-test-generator-automation](skills/ai-test-generator-automation) | Auto-generate unit/integration/E2E tests from code with AI — pytest, Jest, Playwright | ✅ n8n |
+| [code-migration-automation](skills/code-migration-automation) | Framework upgrades, language migrations, library replacements with staged rollout | ✅ n8n |
+| [agent-observability-automation](skills/agent-observability-automation) | Traces, metrics, cost tracking, SLO dashboards for AI agents | ✅ n8n |
