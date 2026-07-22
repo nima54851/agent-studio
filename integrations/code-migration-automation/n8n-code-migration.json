@@ -1,0 +1,18 @@
+{
+  "name": "Automated Code Migration Pipeline",
+  "nodes": [
+    {"name": "GitHub Issue Trigger", "type": "manual"},
+    {"name": "Repo Scanner", "type": "code"},
+    {"name": "AI Migration Planner", "type": "httpRequest"},
+    {"name": "Batch Converter", "type": "code"},
+    {"name": "Test Runner", "type": "executeCommand"},
+    {"name": "Coverage Reporter", "type": "code"},
+    {"name": "GitHub PR Creator", "type": "github"},
+    {"name": "Slack Notifier", "type": "slack"}
+  ],
+  "settings": {
+    "batch_size": 50,
+    "rollback_enabled": true,
+    "coverage_threshold": 70
+  }
+}
