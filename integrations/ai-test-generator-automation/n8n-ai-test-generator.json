@@ -1,0 +1,15 @@
+{
+  "name": "AI Test Generator Pipeline",
+  "nodes": [
+    {"name": "GitHub PR Trigger", "type": "n8n-nodes-base.manualTrigger"},
+    {"name": "Get Changed Files", "type": "n8n-nodes-base.code"},
+    {"name": "Claude AI - Generate Tests", "type": "n8n-nodes-base.httpRequest"},
+    {"name": "Format Test Output", "type": "n8n-nodes-base.code"},
+    {"name": "Run Test Suite", "type": "n8n-nodes-base.code"},
+    {"name": "Post PR Comment", "type": "n8n-nodes-base.github"}
+  ],
+  "settings": {
+    "framework": "pytest",
+    "coverage_threshold": 80
+  }
+}
