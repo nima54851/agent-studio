@@ -1,0 +1,18 @@
+{
+  "name": "Agent Observability Pipeline",
+  "nodes": [
+    {"name": "Agent Webhook Trigger", "type": "webhook"},
+    {"name": "Parse Task Metadata", "type": "code"},
+    {"name": "Calculate Cost & Tokens", "type": "code"},
+    {"name": "Write Prometheus Metrics", "type": "httpRequest"},
+    {"name": "Send to Loki", "type": "httpRequest"},
+    {"name": "SLO Check", "type": "if"},
+    {"name": "Slack Alert (Warning)", "type": "slack"},
+    {"name": "PagerDuty Alert (Critical)", "type": "httpRequest"}
+  ],
+  "settings": {
+    "cost_per_1k_tokens": {"gpt-4": 0.03, "claude-3": 0.015, "gemini": 0.01},
+    "latency_slo_ms": 30000,
+    "error_rate_slo": 0.05
+  }
+}
