@@ -1,15 +1,1 @@
-{
-  "name": "AI Test Generator Pipeline",
-  "nodes": [
-    {"name": "GitHub PR Trigger", "type": "n8n-nodes-base.manualTrigger"},
-    {"name": "Get Changed Files", "type": "n8n-nodes-base.code"},
-    {"name": "Claude AI - Generate Tests", "type": "n8n-nodes-base.httpRequest"},
-    {"name": "Format Test Output", "type": "n8n-nodes-base.code"},
-    {"name": "Run Test Suite", "type": "n8n-nodes-base.code"},
-    {"name": "Post PR Comment", "type": "n8n-nodes-base.github"}
-  ],
-  "settings": {
-    "framework": "pytest",
-    "coverage_threshold": 80
-  }
-}
+ewogICJuYW1lIjogIkFJIFRlc3QgR2VuZXJhdG9yIFBpcGVsaW5lIiwKICAibm9kZXMiOiBbCiAgICB7Im5hbWUiOiAiR2l0SHViIFBSIFRyaWdnZXIiLCAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5tYW51YWxUcmlnZ2VyIn0sCiAgICB7Im5hbWUiOiAiR2V0IENoYW5nZWQgRmlsZXMiLCAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5jb2RlIn0sCiAgICB7Im5hbWUiOiAiQ2xhdWRlIEFJIC0gR2VuZXJhdGUgVGVzdHMiLCAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5odHRwUmVxdWVzdCJ9LAogICAgeyJuYW1lIjogIkZvcm1hdCBUZXN0IE91dHB1dCIsICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmNvZGUifSwKICAgIHsibmFtZSI6ICJSdW4gVGVzdCBTdWl0ZSIsICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmNvZGUifSwKICAgIHsibmFtZSI6ICJQb3N0IFBSIENvbW1lbnQiLCAidHlwZSI6ICJuOG4tbm9kZXMtYmFzZS5naXRodWIifQogIF0sCiAgInNldHRpbmdzIjogewogICAgImZyYW1ld29yayI6ICJweXRlc3QiLAogICAgImNvdmVyYWdlX3RocmVzaG9sZCI6IDgwCiAgfQp9Cg==

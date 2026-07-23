@@ -1,18 +1,1 @@
-{
-  "name": "Automated Code Migration Pipeline",
-  "nodes": [
-    {"name": "GitHub Issue Trigger", "type": "manual"},
-    {"name": "Repo Scanner", "type": "code"},
-    {"name": "AI Migration Planner", "type": "httpRequest"},
-    {"name": "Batch Converter", "type": "code"},
-    {"name": "Test Runner", "type": "executeCommand"},
-    {"name": "Coverage Reporter", "type": "code"},
-    {"name": "GitHub PR Creator", "type": "github"},
-    {"name": "Slack Notifier", "type": "slack"}
-  ],
-  "settings": {
-    "batch_size": 50,
-    "rollback_enabled": true,
-    "coverage_threshold": 70
-  }
-}
+ewogICJuYW1lIjogIkF1dG9tYXRlZCBDb2RlIE1pZ3JhdGlvbiBQaXBlbGluZSIsCiAgIm5vZGVzIjogWwogICAgeyJuYW1lIjogIkdpdEh1YiBJc3N1ZSBUcmlnZ2VyIiwgInR5cGUiOiAibWFudWFsIn0sCiAgICB7Im5hbWUiOiAiUmVwbyBTY2FubmVyIiwgInR5cGUiOiAiY29kZSJ9LAogICAgeyJuYW1lIjogIkFJIE1pZ3JhdGlvbiBQbGFubmVyIiwgInR5cGUiOiAiaHR0cFJlcXVlc3QifSwKICAgIHsibmFtZSI6ICJCYXRjaCBDb252ZXJ0ZXIiLCAidHlwZSI6ICJjb2RlIn0sCiAgICB7Im5hbWUiOiAiVGVzdCBSdW5uZXIiLCAidHlwZSI6ICJleGVjdXRlQ29tbWFuZCJ9LAogICAgeyJuYW1lIjogIkNvdmVyYWdlIFJlcG9ydGVyIiwgInR5cGUiOiAiY29kZSJ9LAogICAgeyJuYW1lIjogIkdpdEh1YiBQUiBDcmVhdG9yIiwgInR5cGUiOiAiZ2l0aHViIn0sCiAgICB7Im5hbWUiOiAiU2xhY2sgTm90aWZpZXIiLCAidHlwZSI6ICJzbGFjayJ9CiAgXSwKICAic2V0dGluZ3MiOiB7CiAgICAiYmF0Y2hfc2l6ZSI6IDUwLAogICAgInJvbGxiYWNrX2VuYWJsZWQiOiB0cnVlLAogICAgImNvdmVyYWdlX3RocmVzaG9sZCI6IDcwCiAgfQp9Cg==

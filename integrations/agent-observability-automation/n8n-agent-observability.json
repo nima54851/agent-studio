@@ -1,18 +1,1 @@
-{
-  "name": "Agent Observability Pipeline",
-  "nodes": [
-    {"name": "Agent Webhook Trigger", "type": "webhook"},
-    {"name": "Parse Task Metadata", "type": "code"},
-    {"name": "Calculate Cost & Tokens", "type": "code"},
-    {"name": "Write Prometheus Metrics", "type": "httpRequest"},
-    {"name": "Send to Loki", "type": "httpRequest"},
-    {"name": "SLO Check", "type": "if"},
-    {"name": "Slack Alert (Warning)", "type": "slack"},
-    {"name": "PagerDuty Alert (Critical)", "type": "httpRequest"}
-  ],
-  "settings": {
-    "cost_per_1k_tokens": {"gpt-4": 0.03, "claude-3": 0.015, "gemini": 0.01},
-    "latency_slo_ms": 30000,
-    "error_rate_slo": 0.05
-  }
-}
+ewogICJuYW1lIjogIkFnZW50IE9ic2VydmFiaWxpdHkgUGlwZWxpbmUiLAogICJub2RlcyI6IFsKICAgIHsibmFtZSI6ICJBZ2VudCBXZWJob29rIFRyaWdnZXIiLCAidHlwZSI6ICJ3ZWJob29rIn0sCiAgICB7Im5hbWUiOiAiUGFyc2UgVGFzayBNZXRhZGF0YSIsICJ0eXBlIjogImNvZGUifSwKICAgIHsibmFtZSI6ICJDYWxjdWxhdGUgQ29zdCAmIFRva2VucyIsICJ0eXBlIjogImNvZGUifSwKICAgIHsibmFtZSI6ICJXcml0ZSBQcm9tZXRoZXVzIE1ldHJpY3MiLCAidHlwZSI6ICJodHRwUmVxdWVzdCJ9LAogICAgeyJuYW1lIjogIlNlbmQgdG8gTG9raSIsICJ0eXBlIjogImh0dHBSZXF1ZXN0In0sCiAgICB7Im5hbWUiOiAiU0xPIENoZWNrIiwgInR5cGUiOiAiaWYifSwKICAgIHsibmFtZSI6ICJTbGFjayBBbGVydCAoV2FybmluZykiLCAidHlwZSI6ICJzbGFjayJ9LAogICAgeyJuYW1lIjogIlBhZ2VyRHV0eSBBbGVydCAoQ3JpdGljYWwpIiwgInR5cGUiOiAiaHR0cFJlcXVlc3QifQogIF0sCiAgInNldHRpbmdzIjogewogICAgImNvc3RfcGVyXzFrX3Rva2VucyI6IHsiZ3B0LTQiOiAwLjAzLCAiY2xhdWRlLTMiOiAwLjAxNSwgImdlbWluaSI6IDAuMDF9LAogICAgImxhdGVuY3lfc2xvX21zIjogMzAwMDAsCiAgICAiZXJyb3JfcmF0ZV9zbG8iOiAwLjA1CiAgfQp9Cg==
