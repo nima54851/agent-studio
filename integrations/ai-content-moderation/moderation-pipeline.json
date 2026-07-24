@@ -1,0 +1,12 @@
+{
+  "name": "Content Moderation Pipeline",
+  "description": "Multi-model toxicity/NSFW classification + AI policy enforcement + audit log",
+  "nodes": [
+    {"type": "Webhook", "parameters": {"httpMethod": "POST", "path": "moderate"}},
+    {"type": "HTTP Request", "parameters": {"url": "https://api.openai.com/v1/moderations", "authentication": "genericCredentialType"}},
+    {"type": "Code", "parameters": {"js": "const r = $json.results[0]; const flags = Object.entries(r.categories).filter(([k,v])=>v).map(([k,v])=>({category:k, score:r.category_scores[k]})); return [{flags, passed: flags.length===0}];", "name": "Parse Moderation"}},
+    {"type": "IF", "parameters": {"conditions": [{"id": "passed", "value": false, "type": "boolean"}], "leftValue": "={{ $json.passed }}"}},
+    {"type": "LLM Chain", "parameters": {"model": "gpt-4o-mini", "prompt": "Categories flagged: {{ $json.flags }}. Decide action: delete | warn | approve. Respond with JSON {action, reason}."}},
+    {"type": "Slack Message", "parameters": {"channel": "#moderation", "text": "⚠️ Content flagged: {{ $json.flags.map(f=>f.category).join(', ') }} — Action: {{ $json.action }}"}}
+  ]
+}

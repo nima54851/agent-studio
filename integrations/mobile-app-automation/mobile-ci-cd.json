@@ -1,0 +1,11 @@
+{
+  "name": "Mobile CI/CD Pipeline",
+  "description": "Fastlane + Expo mobile app build, test, and App Store deployment automation",
+  "nodes": [
+    {"type": "Webhook", "parameters": {"httpMethod": "POST", "path": "mobile-deploy"}},
+    {"type": "Code", "parameters": {"js": "const h = $input.item.json.headers; const event = h['x-github-event']; const branch = $input.item.json.ref; return [{event, branch}];", "name": "Parse GitHub Event"}},
+    {"type": "IF", "parameters": {"conditions": [{"id": "condition", "value": "push", "type": "string"}], "leftValue": "={{ $json.event }}"}},
+    {"type": "LLM Chain", "parameters": {"model": "gpt-4o-mini", "prompt": "Generate Fastlane release notes from these commits: {{ $json.commits }}. Be concise, 2-3 bullet points."}},
+    {"type": "Slack Message", "parameters": {"channel": "#mobile-team", "text": "🚀 Mobile build triggered on {{ $json.branch }} — {{ $json.notes }}"}}
+  ]
+}

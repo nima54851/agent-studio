@@ -1,0 +1,11 @@
+{
+  "name": "Budget Forecast Pipeline",
+  "description": "AI-powered monthly expense forecasting and anomaly alerting",
+  "nodes": [
+    {"type": "Schedule Trigger", "parameters": {"rule": {"interval": [{"field": "day", "hours": 9}]}}},
+    {"type": "Google Sheets", "parameters": {"operation": "readRows", "sheet": "Expenses"}},
+    {"type": "Code", "parameters": {"js": "const rows = $input.all(); const byCategory = {}; rows.forEach(r=>{const c=r.json.category||'other'; byCategory[c]=(byCategory[c]||0)+parseFloat(r.json.amount||0);}); return [{byCategory, total: Object.values(byCategory).reduce((a,b)=>a+b,0)}];", "name": "Aggregate by Category"}},
+    {"type": "LLM Chain", "parameters": {"model": "gpt-4o", "prompt": "Monthly spend by category: {{ $json.byCategory }}. Total: ${{ $json.total }}. Forecast 30/60/90 day spend and give 3 actionable cost-saving recommendations."}},
+    {"type": "Slack Message", "parameters": {"channel": "#finops", "text": "📊 Budget Forecast: {{ $json.forecast }}"}}
+  ]
+}

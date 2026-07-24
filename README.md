@@ -1,1 +1,280 @@
-IyBhZ2VudC1zdHVkaW8g8J+klgoKPGggYWxpZ249ImNlbnRlciI+CgpbIVtTdGFyc10oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9naXRodWIvc3RhcnMvbmltYTU0ODUxL2FnZW50LXN0dWRpbz9zdHlsZT1mbGF0JmxvZ289Z2l0aHViJmNvbG9yPTI0MjkyZSldKGh0dHBzOi8vZ2l0aHViLmNvbS9uaW1hNTQ4NTEvYWdlbnQtc3R1ZGlvL3N0YXJnYXplcnMpClshW0ZvcmtzXShodHRwczovL2ltZy5zaGllbGRzLmlvL2dpdGh1Yi9mb3Jrcy9uaW1hNTQ4NTEvYWdlbnQtc3R1ZGlvP3N0eWxlPWZsYXQmbG9nbz1naXRodWImY29sb3I9MjQyOTJlKV0oaHR0cHM6Ly9naXRodWIuY29tL25pbWE1NDg1MS9hZ2VudC1zdHVkaW8vbmV0d29yay9tZW1iZXJzKQpbIVtMYXN0IENvbW1pdF0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9naXRodWIvbGFzdC1jb21taXQvbmltYTU0ODUxL2FnZW50LXN0dWRpbz9zdHlsZT1mbGF0JmNvbG9yPTIzODYzNildKGh0dHBzOi8vZ2l0aHViLmNvbS9uaW1hNTQ4NTEvYWdlbnQtc3R1ZGlvL2NvbW1pdHMvbWFpbikKWyFbTGljZW5zZV0oaHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9iYWRnZS9MaWNlbnNlLU1JVC1ncmVlbj9zdHlsZT1mbGF0KV0oTElDRU5TRSkKWyFbR2l0SHViIFBhZ2VzXShodHRwczovL2ltZy5zaGllbGRzLmlvL2JhZGdlL0dpdEh1YiUyMFBhZ2VzLUxpdmUtYmx1ZT9zdHlsZT1mbGF0KV0oaHR0cHM6Ly9uaW1hNTQ4NTEuZ2l0aHViLmlvL2FnZW50LXN0dWRpbykKWyFbUFJzIFdlbGNvbWVdKGh0dHBzOi8vaW1nLnNoaWVsZHMuaW8vYmFkZ2UvUFJzLVdlbGNvbWUtYnJpZ2h0Z3JlZW4/c3R5bGU9ZmxhdCldKENPTlRSSUJVVElORy5tZCkKCjwvaD4KCj4gKipUaGUgQUkgQWdlbnQgZGV2ZWxvcGVyJ3MgcHJvZHVjdGlvbiB0b29sa2l0LioqIEV2ZXJ5dGhpbmcgeW91IG5lZWQgdG8gYnVpbGQsIGRlcGxveSwgYW5kIHNjYWxlIEFJIGFnZW50cyDigJQgaW4gb25lIHJlcG8uCj4gQnVpbHQgYnkgW+eBteeKgCBBSV0oaHR0cHM6Ly9naXRodWIuY29tL25pbWE1NDg1MSkgwrcgUG93ZXJlZCBieSBbT3BlbkNsYXddKGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuY2xhdy9vcGVuY2xhdykKCi0tLQoKIyMg8J+OryBXaGF0IElzIFRoaXM/CgpBIGN1cmF0ZWQsICoqcHJvZHVjdGlvbi1yZWFkeSoqIGNvbGxlY3Rpb24gb2YgdG9vbHMsIHdvcmtmbG93cywgYW5kIHNraWxsIHRlbXBsYXRlcyBmb3IgQUkgQWdlbnQgZGV2ZWxvcGVycy4gU3RvcCByZWludmVudGluZyB0aGUgd2hlZWwg4oCUIGNsb25lLCBjb25maWd1cmUsIHNoaXAuCgoqKldoYXQgeW91IGdldDoqKgotIOKaoSBTa2lsbCB0ZW1wbGF0ZXMgdGhhdCBwbHVnIHN0cmFpZ2h0IGludG8gT3BlbkNsYXcKLSDwn5SEIEF1dG9tYXRpb24gc2NyaXB0cyAoR2l0SHViIHRyZW5kaW5nLCBkYWlseSByZXBvcnRzLCB3ZWJob29rIHBpcGVsaW5lcykKLSDwn6SWIEludGVncmF0aW9ucyAoRGlzY29yZCwgVGVsZWdyYW0sIG44biwgd2ViaG9va3MpCi0g8J+QsyBaZXJvLWNvbmZpZyBEb2NrZXIgZGVwbG95bWVudHMKLSDwn5OLIFByb3ZlbiBwcm9tcHQgcGF0dGVybnMgZm9yIGNvZGUgcmV2aWV3LCBhcmNoaXRlY3R1cmUsIHBsYW5uaW5nCgotLS0KCiMjIPCfk6YgV2hhdCdzIEluc2lkZQoKfCBDYXRlZ29yeSB8IENvbnRlbnRzIHwgQ291bnQgfAp8LS0tLS0tLS0tLXwtLS0tLS0tLS0tfC0tLS0tLS18CnwgKipTa2lsbHMqKiB8IE9wZW5DbGF3LWNvbXBhdGlibGUgYWdlbnQgc2tpbGwgdGVtcGxhdGVzIHwgYHNraWxscy9gIHwKfCAqKlNjcmlwdHMqKiB8IFB5dGhvbiBhdXRvbWF0aW9uIChHaXRIdWIgdHJlbmRpbmcsIE1DUCwgd2ViaG9va3MpIHwgYHNjcmlwdHMvYCB8CnwgKipTZWN1cml0eSoqIHwgU2VjcmV0IHNjYW5uZXIsIENWRSBhdWRpdCwgc2VjdXJpdHkgcmVwb3J0cyB8IGBza2lsbHMvc2VjdXJpdHktYXVkaXRvci9gIHwKfCAqKkRvY3VtZW50YXRpb24qKiB8IEF1dG8tZ2VuZXJhdGUgUkVBRE1FLCBBUEkgZG9jcywgYW5kIGNoYW5nZWxvZ3MgZnJvbSBjb2RlIHwgYHNraWxscy9kb2NzLWdlbmVyYXRvci9gIHwKfCAqKkFuYWx5dGljcyBEYXNoYm9hcmQqKiB8IEdpdEh1YiBzdGF0cywgT3BlbkNsYXcgdXNhZ2Ug4oCUIGxpdmUgSFRNTCBkYXNoYm9hcmQgfCBgc2tpbGxzL2FuYWx5dGljcy1kYXNoYm9hcmQvYCB8CnwgKipTRU8gQXV0b21hdGlvbioqIHwgc2l0ZW1hcC54bWwsIHJvYm90cy50eHQsIE9HIHRhZ3MsIEpTT04tTEQgYXV0by1nZW4gfCBgc2tpbGxzL3Nlby1hdXRvbWF0aW9uL2AgfAp8ICoqQS9CIFRlc3RpbmcqKiB8IEEvQiB0ZXN0IGZyYW1ld29yayBmb3IgbjhuIHdvcmtmbG93cyBhbmQgcHJvbXB0cyB8IGBza2lsbHMvYWItdGVzdGluZy13b3JrZmxvdy9gIHwKfCAqKlZvaWNlIEFJIEF1dG9tYXRpb24qKiB8IFdoaXNwZXIgU1RUIOKGkiBMTE0g4oaSIFRUUyDor63pn7MgQUkg6Ieq5Yqo5YyW566h6YGTIHwgYHNraWxscy92b2ljZS1haS1hdXRvbWF0aW9uL2AgfAp8ICoqU2NoZWR1bGVkIFRhc2tzKiogfCDot6jlubPlj7Dlrprml7bku7vliqHosIPluqbvvIhjcm9uICsgbjhuICsg5YiG5biD5byP6ZSB77yJIHwgYHNraWxscy9zY2hlZHVsZWQtdGFzay1hdXRvbWF0aW9uL2AgfAp8ICoqRW1haWwgQXV0b21hdGlvbioqIHwgR21haWwgU01UUCwgZHJpcCBjYW1wYWlnbnMsIEFJIGF1dG8tcmVwbHkgfCBgc2tpbGxzL2VtYWlsLWF1dG9tYXRpb24vYCB8CnwgKipTb2NpYWwgTWVkaWEqKiB8IFR3aXR0ZXIvTGlua2VkSW4gYXV0by1wb3N0LCBjb250ZW50IHJld3JpdGluZyB8IGBza2lsbHMvc29jaWFsLW1lZGlhLWF1dG9tYXRpb24vYCB8CnwgKipQcm9kdWN0IExhdW5jaCoqIHwgQUktcG93ZXJlZCBsYXVuY2ggYXV0b21hdGlvbiBhbmQgY2hlY2tsaXN0IHwgYHNraWxscy9wcm9kdWN0LWxhdW5jaC1hc3Npc3RhbnQvYCB8CnwgKipJbWFnZSBHZW5lcmF0aW9uKiogfCBEQUxMwrdFIDMsIFN0YWJsZSBEaWZmdXNpb24sIEZsdXgg4oCUIOiHquWKqOmFjeWbviBwaXBlbGluZSB8IGBza2lsbHMvaW1hZ2UtZ2VuZXJhdGlvbi1hdXRvbWF0aW9uL2AgfAp8ICoqVmlkZW8gQXV0b21hdGlvbioqIHwgUnVud2F5LCBLbGluZywgUGlrYSDigJQgQUkg6KeG6aKR55Sf5oiQICsg6Ieq5Yqo5Ymq6L6RICsg5a2X5bmVICsgWW91VHViZSDlj5HluIMgfCBgc2tpbGxzL3ZpZGVvLWF1dG9tYXRpb24vYCB8CnwgKipNQ1AgU2VydmVyKiogfCBCdWlsZCBNQ1Agc2VydmVycyBiYWNrZWQgYnkgbjhuIOKAlCBhbnkgTUNQLWNvbXBhdGlibGUgQUkgY2FuIHVzZSB5b3VyIHdvcmtmbG93cyBhcyB0b29scyB8IGBpbnRlZ3JhdGlvbnMvbWNwLXNlcnZlci1hdXRvbWF0aW9uL2AgfAp8ICoqUHJvbXB0IFZlcnNpb25pbmcqKiB8IEdpdC1saWtlIHZlcnNpb24gY29udHJvbCBmb3IgQUkgcHJvbXB0cyDigJQgZGlmZiwgcm9sbGJhY2ssIEEvQiB0ZXN0LCBlbnZpcm9ubWVudCBwcm9tb3Rpb24gfCBgaW50ZWdyYXRpb25zL3Byb21wdC12ZXJzaW9uaW5nLWF1dG9tYXRpb24vYCB8CnwgKipUZXN0aW5nIEF1dG9tYXRpb24qKiB8IEFJIOeUn+aIkCBweXRlc3QvamVzdCDmtYvor5XnlKjkvosgKyBjb3ZlcmFnZSDot5/ouKogKyBDSSDpm4bmiJAgfCBgc2tpbGxzL3Rlc3RpbmctYXV0b21hdGlvbi9gIHwKfCAqKkluZnJhc3RydWN0dXJlIGFzIENvZGUqKiB8IEFJIOeUn+aIkCBUZXJyYWZvcm0gLyBQdWx1bWkgLyBBbnNpYmxlIOmFjee9ruaWh+S7tiB8IGBza2lsbHMvaW5mcmFzdHJ1Y3R1cmUtYXMtY29kZS9gIHwKfCAqKkN1c3RvbWVyIFN1cHBvcnQqKiB8IFRpY2tldCB0cmlhZ2UsIGF1dG8tcmVwbHksIGVzY2FsYXRpb24sIEZBUSByZXNvbHZlciB8IGBza2lsbHMvY3VzdG9tZXItc3VwcG9ydC1hdXRvbWF0aW9uL2AgfAp8ICoqUGVyZm9ybWFuY2UqKiB8IEhUVFAgc3RyZXNzIHRlc3QsIFdlYlNvY2tldCBiZW5jaG1hcmtzIHwgYHNraWxscy9wZXJmb3JtYW5jZS10ZXN0aW5nLXRvb2xraXQvYCB8CnwgKipHaXRIdWIgQWN0aW9ucyoqIHwgQUktYXVnbWVudGVkIFBSIHJldmlldywgYXV0by1kZXBsb3ksIHNjaGVkdWxlZCBDSS9DRCB8IGBza2lsbHMvZ2l0aHViLWFjdGlvbnMtYXV0b21hdGlvbi9gIHwKfCAqKk1vbml0b3JpbmcgJiBBbGVydGluZyoqIHwgUHJvbWV0aGV1cyArIEdyYWZhbmEgKyBBSSBhbm9tYWx5IGRldGVjdGlvbiArIG44biBhbGVydHMgfCBgc2tpbGxzL21vbml0b3JpbmctYWxlcnRpbmctYXV0b21hdGlvbi9gIHwKfCAqKk5vdGlvbiBTeW5jKiogfCBOb3Rpb24g4oaUIE9wZW5DbGF3IEFJIHN5bmMgdmlhIG44biB8IGBpbnRlZ3JhdGlvbnMvbm90aW9uLXN5bmMvYCB8CnwgKipMaW5lYXIgQXV0b21hdGlvbioqIHwgTGluZWFyIHByb2plY3QgbWFuYWdlbWVudCArIEFJIHRyaWFnZSArIFNwcmludCBwbGFubmluZyB8IGBpbnRlZ3JhdGlvbnMvbGluZWFyLWF1dG9tYXRpb24vYCB8CnwgKipGaW5lLVR1bmluZyBBdXRvbWF0aW9uKiogfCBPcGVuQUkvQXhvbG90bC9MTGFNQS1GYWN0b3J5IOW+ruiwg+WFqOa1geeoiyDigJQg5pWw5o2u5YeG5aSHIOKGkiDorq3nu4Mg4oaSIOivhOS8sCDihpIg6YOo572yIHwgYHNraWxscy9maW5lLXR1bmluZy1hdXRvbWF0aW9uL2AgfAp8ICoqRXZlbnQtRHJpdmVuIEFyY2hpdGVjdHVyZSoqIHwgS2Fma2EgLyBSYWJiaXRNUSAvIFJlZGlzIFN0cmVhbXMg5LqL5Lu26amx5Yqo5p625p6EICsgQUkg5LqL5Lu25rWBIHwgYHNraWxscy9ldmVudC1kcml2ZW4tYXJjaGl0ZWN0dXJlL2AgfAp8ICoqQUkgTW9kZWwgUm91dGVyKiogfCDlpJrmqKHlnovmmbrog73ot6/nlLEg4oCUIE9wZW5BSS9BbnRocm9waWMvT2xsYW1hIOaMieaIkOacrC/lu7bov5/oh6rliqjpgInmi6nmnIDkvJjmqKHlnosgfCBgc2tpbGxzL2FpLW1vZGVsLXJvdXRlci9gIHwKfCAqKkRhdGEgVmlzdWFsaXphdGlvbioqIHwgUGxvdGx5L0QzLmpzIOKAlCBDU1YvSlNPTiDihpIgaW50ZXJhY3RpdmUgY2hhcnRzICYgZGFzaGJvYXJkcyB8IGBza2lsbHMvZGF0YS12aXN1YWxpemF0aW9uLWF1dG9tYXRpb24vYCB8CnwgKipBSSBDb2RlIFJlZmFjdG9yaW5nKiogfCBBSSByZWZhY3RvciBQeXRob24vSlMvVFMg4oCUIHR5cGUgaGludHMsIGFzeW5jL2F3YWl0LCBEUlkgfCBgc2tpbGxzL2FpLWNvZGUtcmVmYWN0b3JpbmcvYCB8CnwgKipMb2dnaW5nIEF1dG9tYXRpb24qKiB8IOaXpeW/l+mHh+mbhiArIEFJIOW8guW4uOajgOa1iyArIOWRiuitpui3r+eUse+8iEZpbGViZWF0L0xva2kvR3JhZmFuYS9uOG7vvIkgfCBgc2tpbGxzL2xvZ2dpbmctYXV0b21hdGlvbi9gIHwKfCAqKkxMTSBPcHMgQXV0b21hdGlvbioqIHwg57uf5LiAIExMTSDnvZHlhbMgKyBUb2tlbiDmiJDmnKzov73ouKogKyBQcm9tcHQgQS9CIOa1i+ivlSArIOmihOeul+WRiuitpiB8IGBza2lsbHMvbGxtLW9wcy1hdXRvbWF0aW9uL2AgfAp8ICoqUmVzaWxpZW5jZSBQYXR0ZXJucyoqIHwg54aU5pat5ZmoIC8g6YeN6K+V562W55WlIC8g5ruR5Yqo56qX5Y+j6ZmQ5rWBIC8g5LyY6ZuF6ZmN57qnIHwgYHNraWxscy9yZXNpbGllbmNlLXBhdHRlcm5zL2AgfAp8ICoqVmlkZW8gUHJvY2Vzc2luZyoqIHwgRkZtcGVnIEFJIHByb2Nlc3Npbmcg4oCUIGF1dG8tY2FwdGlvbnMsIHZlcnRpY2FsIGNyb3AsIG11bHRpLXBsYXRmb3JtIG91dHB1dCB8IGBza2lsbHMvdmlkZW8tcHJvY2Vzc2luZy1hdXRvbWF0aW9uL2AgfAp8ICoqRGF0YWJhc2UgTWlncmF0aW9uKiogfCBBSSBTUUwgbWlncmF0aW9uIOKAlCBzY2hlbWEgZGlmZiwgemVyby1kb3dudGltZSwgcm9sbGJhY2ssIGRhdGHmoKHpqowgfCBgc2tpbGxzL2RhdGFiYXNlLW1pZ3JhdGlvbi1hdXRvbWF0aW9uL2AgfAp8ICoqU2VudGltZW50IEFuYWx5c2lzKiogfCBSZWFsLXRpbWUgc2VudGltZW50IGFuYWx5c2lzIOKAlCBtdWx0aS1sYW5ndWFnZSwgdG9waWMgZXh0cmFjdGlvbiwgdXJnZW5jeSBhbGVydHMgfCBgc2tpbGxzL3NlbnRpbWVudC1hbmFseXNpcy1hdXRvbWF0aW9uL2AgfAp8ICoqQmxvY2tjaGFpbiBBdXRvbWF0aW9uKiogfCBPbi1jaGFpbiBtb25pdG9yaW5nLCB3YWxsZXQgdHJhY2tpbmcsIHNtYXJ0IGNvbnRyYWN0IGV2ZW50cywgbXVsdGktY2hhaW4gYWxlcnRzIHwgYHNraWxscy9ibG9ja2NoYWluLWF1dG9tYXRpb24vYCB8CnwgKipXb3JrZmxvdyBPcmNoZXN0cmF0aW9uKiogfCBNdWx0aS1zdGVwIEFJIHBpcGVsaW5lcywgcmV0cnkgbG9naWMsIGRlYWQtbGV0dGVyIHF1ZXVlcywgZmFuLW91dC9mYW4taW4gcGF0dGVybnMgfCBgc2tpbGxzL3dvcmtmbG93LW9yY2hlc3RyYXRpb24vYCB8CnwgKipCcm93c2VyIEF1dG9tYXRpb24qKiB8IFBsYXl3cmlnaHQgKyBBSSDigJQgc2NyYXBlLCBzY3JlZW5zaG90LCBmb3JtIGZpbGwsIG11bHRpLXN0ZXAgd2ViIHdvcmtmbG93cyB8IGBza2lsbHMvYnJvd3Nlci1hdXRvbWF0aW9uL2AgfAp8ICoqSW50ZWdyYXRpb25zKiogfCBEaXNjb3JkIEJvdCwgVGVsZWdyYW0gQm90LCBTbGFjayBCb3QsIFdoYXRzQXBwIEJvdCwgVm9pY2UgQUksIFNjaGVkdWxlZCBUYXNrcywgRGF0YSBWaXosIEFJIFJlZmFjdG9yLCBGaW5lLVR1bmluZywgRXZlbnQtRHJpdmVuLCBHcmFwaFFMLCBEb2N1bWVudCBJbnRlbGxpZ2VuY2UsIENvZGUgUmV2aWV3LCBCbG9ja2NoYWluLCBXb3JrZmxvdyBPcmNoZXN0cmF0aW9uLCBCcm93c2VyIEF1dG9tYXRpb24gfCBgaW50ZWdyYXRpb25zL2AgfAp8ICoqRG9ja2VyKiogfCBEb2NrZXIgQ29tcG9zZSBmb3IgaW5zdGFudCBkZXBsb3ltZW50IHwgYGRvY2tlci9gIHwKfCAqKlByb21wdHMqKiB8IEJhdHRsZS10ZXN0ZWQgcHJvbXB0IHBhdHRlcm5zIHwgYHByb21wdHMvYCB8CnwgKipHaXRIdWIgQWN0aW9ucyoqIHwgRGFpbHkgcmVwb3J0cywgQ0kvQ0QsIEdpdEh1YiBQYWdlcyBkZXBsb3kgfCBgLmdpdGh1Yi93b3JrZmxvd3MvYCB8CgotLS0KCiMjIPCfm6DvuI8gRmVhdHVyZWQgU2tpbGxzCgp8IFNraWxsIHwgRGVzY3JpcHRpb24gfAp8LS0tLS0tLXwtLS0tLS0tLS0tLS0tfAp8ICoqW3NraWxsLWJ1aWxkZXJdKHNraWxscy9za2lsbC1idWlsZGVyKSoqIHwgQ3JlYXRlIEFJIEFnZW50IHNraWxscyBmcm9tIHNjcmF0Y2gg4oCUIFNLSUxMLm1kICsgc2NyaXB0cyArIHBhY2thZ2luZyB8CnwgKipbY29kaW5nLXR1dG9yXShza2lsbHMvY29kaW5nLXR1dG9yKSoqIHwgTGVhcm4gUHl0aG9uLCBKYXZhU2NyaXB0LCBSZWFjdCDigJQgd2l0aCBleGVyY2lzZXMgYW5kIHByb2plY3RzIHwKfCAqKltuOG4td29ya2Zsb3ctYnVpbGRlcl0oc2tpbGxzL244bi13b3JrZmxvdy1idWlsZGVyKSoqIHwgRGVzaWduIGFuZCBkZWJ1ZyBuOG4gd29ya2Zsb3dzIOKAlCBBSS1wb3dlcmVkIGF1dG9tYXRpb24gfAp8ICoqW2NhcmVlci1yb2FkbWFwXShza2lsbHMvY2FyZWVyLXJvYWRtYXApKiogfCBQcm9ncmFtbWVyIGdyb3d0aCBwYXRoIOKAlCBmcm9tIGp1bmlvciB0byBhcmNoaXRlY3QgfAp8ICoqW2FnZW50LXNraWxscy1raXRdKHNraWxscy9hZ2VudC1za2lsbHMta2l0KSoqIHwgQWdlbnQgc2tpbGxzIGRldmVsb3BtZW50IGZyYW1ld29yayDigJQgdG9vbHMsIHRlbXBsYXRlcywgYmVzdCBwcmFjdGljZXMgfAp8ICoqW3NlbGYtaG9zdGVkLWFpXShza2lsbHMvc2VsZi1ob3N0ZWQtYWkpKiogfCBEZXBsb3kgT2xsYW1hLCBuOG4sIE9wZW4gV2ViVUkg4oCUIGZ1bGwgbG9jYWwgQUkgc3RhY2sgfAp8ICoqW2FnZW50LW1lbW9yeV0oc2tpbGxzL2FnZW50LW1lbW9yeSkqKiB8IExvbmctdGVybSBtZW1vcnkgZm9yIEFJIGFnZW50cyB8CnwgKipbdGVzdC1tYXN0ZXJdKHNraWxscy90ZXN0LW1hc3RlcikqKiB8IEF1dG9tYXRlZCB0ZXN0aW5nIHBhdHRlcm5zIGZvciBBSSBhZ2VudCBvdXRwdXRzIHwKfCAqKltjbG91ZGZsYXJlLXdvcmtlcnMtYWldKHNraWxscy9jbG91ZGZsYXJlLXdvcmtlcnMtYWkpKiogfCBEZXBsb3kgQUkgaW5mZXJlbmNlIG9uIENsb3VkZmxhcmUgV29ya2VycyBBSSBnbG9iYWxseSB8CnwgKipbZW1haWwtYXV0b21hdGlvbl0oc2tpbGxzL2VtYWlsLWF1dG9tYXRpb24pKiogfCBBSSBhdXRvLXJlcGx5LCBkcmlwIGNhbXBhaWducywgR21haWwvU01UUCB2aWEgbjhuIHwKfCAqKltzb2NpYWwtbWVkaWEtYXV0b21hdGlvbl0oc2tpbGxzL3NvY2lhbC1tZWRpYS1hdXRvbWF0aW9uKSoqIHwgQXV0by1wb3N0IFR3aXR0ZXIvTGlua2VkSW4sIGNvbnRlbnQgcmVwdXJwb3NpbmcsIEFJIHRocmVhZHMgfAp8ICoqW2dpdGh1Yi10cmVuZGluZy1tb25pdG9yXShza2lsbHMvZ2l0aHViLXRyZW5kaW5nLW1vbml0b3IpKiogfCBUcmFjayBHaXRIdWIgdHJlbmRpbmcgaW4gcmVhbCB0aW1lIHwKfCAqKlthZ2VudC1oZWFsdGgtbW9uaXRvcl0oc2tpbGxzL2FnZW50LWhlYWx0aC1tb25pdG9yKSoqIHwgTW9uaXRvciBhZ2VudCBoZWFsdGggYW5kIHVwdGltZSB8CnwgKipbY29udGVudC1wcm9tb3Rlcl0oc2tpbGxzL2NvbnRlbnQtcHJvbW90ZXIpKiogfCBBSS1wb3dlcmVkIHNvY2lhbCBtZWRpYSBjb250ZW50IGdlbmVyYXRpb24gJiBzY2hlZHVsaW5nIHwKfCAqKltwcm9kdWN0LWxhdW5jaC1hc3Npc3RhbnRdKHNraWxscy9wcm9kdWN0LWxhdW5jaC1hc3Npc3RhbnQpKiogfCBFbmQtdG8tZW5kIEFJIHByb2R1Y3QgbGF1bmNoIGF1dG9tYXRpb24g4oCUIGxhbmRpbmcgcGFnZSwgc29jaWFsIHBvc3RzLCBlbWFpbCB0ZW1wbGF0ZXMgfAp8ICoqW3BlcmZvcm1hbmNlLXRlc3RpbmctdG9vbGtpdF0oc2tpbGxzL3BlcmZvcm1hbmNlLXRlc3RpbmctdG9vbGtpdCkqKiB8IEhUVFAvV2ViU29ja2V0L0FQSSBzdHJlc3MgdGVzdGluZyArIGJlbmNobWFya3MgfAp8ICoqW3NlY3VyaXR5LWF1ZGl0b3JdKHNraWxscy9zZWN1cml0eS1hdWRpdG9yKSoqIHwgU2VjcmV0IHNjYW5uaW5nLCBDVkUgZGV0ZWN0aW9uLCBBUEkgc2VjdXJpdHkgYXVkaXQgfAp8ICoqW2N1c3RvbWVyLXN1cHBvcnQtYXV0b21hdGlvbl0oc2tpbGxzL2N1c3RvbWVyLXN1cHBvcnQtYXV0b21hdGlvbikqKiB8IEFJLXBvd2VyZWQgdGlja2V0IHRyaWFnZSwgYXV0by1yZXBseSwgRkFRIHJlc29sdXRpb24gfAp8ICoqW2FuYWx5dGljcy1kYXNoYm9hcmRdKHNraWxscy9hbmFseXRpY3MtZGFzaGJvYXJkKSoqIHwgSFRNTCBhbmFseXRpY3MgZGFzaGJvYXJkIOKAlCBHaXRIdWIgc3RhdHMsIE9wZW5DbGF3IHVzYWdlLCBaZXJvR1BVIHNhdmluZ3MgfAp8ICoqW2FiLXRlc3Rpbmctd29ya2Zsb3ddKHNraWxscy9hYi10ZXN0aW5nLXdvcmtmbG93KSoqIHwgQS9CIHRlc3QgZnJhbWV3b3JrIGZvciBuOG4gd29ya2Zsb3dzIGFuZCBPcGVuQ2xhdyBwcm9tcHRzIHwKfCAqKltzZW8tYXV0b21hdGlvbl0oc2tpbGxzL3Nlby1hdXRvbWF0aW9uKSoqIHwgR2l0SHViIFBhZ2VzIFNFTyDigJQgc2l0ZW1hcCwgcm9ib3RzLnR4dCwgT0cgdGFncywgSlNPTi1MRCB8CnwgKipbZGF0YS12aXN1YWxpemF0aW9uLWF1dG9tYXRpb25dKHNraWxscy9kYXRhLXZpc3VhbGl6YXRpb24tYXV0b21hdGlvbikqKiB8IEF1dG8tZ2VuZXJhdGUgY2hhcnRzICYgZGFzaGJvYXJkcyDigJQgUGxvdGx5LCBEMy5qcywgQ1NWL0pTT04g4oaSIEhUTUwgfAp8ICoqW2FpLWNvZGUtcmVmYWN0b3JpbmddKHNraWxscy9haS1jb2RlLXJlZmFjdG9yaW5nKSoqIHwgQUktcG93ZXJlZCBjb2RlIHJlZmFjdG9yaW5nIOKAlCBQeXRob24vSlMvVFMsIGJlZm9yZS9hZnRlciBkaWZmcywgcXVhbGl0eSBjaGVja3MgfAp8ICoqW2dyYXBocWwtYXBpLWF1dG9tYXRpb25dKHNraWxscy9ncmFwaHFsLWFwaS1hdXRvbWF0aW9uKSoqIHwgQUkgR3JhcGhRTCBBUEkgZGVzaWduIOKAlCBzY2hlbWEgZ2VuZXJhdGlvbiwgQXBvbGxvIFNlcnZlciwgRmVkZXJhdGlvbiwgbjhuIHBpcGVsaW5lIHwKfCAqKlthaS1kb2N1bWVudC1pbnRlbGxpZ2VuY2VdKHNraWxscy9haS1kb2N1bWVudC1pbnRlbGxpZ2VuY2UpKiogfCBMTE0tcG93ZXJlZCBkb2N1bWVudCBleHRyYWN0aW9uIOKAlCBQREZzLCBjb250cmFjdHMsIGludm9pY2VzLCBPQ1IgcGlwZWxpbmUgfAp8ICoqW2NvZGUtcmV2aWV3LWF1dG9tYXRpb25dKHNraWxscy9jb2RlLXJldmlldy1hdXRvbWF0aW9uKSoqIHwgQUkgUFIgY29kZSByZXZpZXcg4oCUIHNlY3VyaXR5LCBidWdzLCBwZXJmb3JtYW5jZSwgYXV0b21hdGVkIEdpdEh1YiBjb21tZW50cyB8CnwgKipbdmlkZW8tcHJvY2Vzc2luZy1hdXRvbWF0aW9uXShza2lsbHMvdmlkZW8tcHJvY2Vzc2luZy1hdXRvbWF0aW9uKSoqIHwgRkZtcGVnICsgV2hpc3BlciBBSSB2aWRlbyBwcm9jZXNzaW5nIOKAlCBhdXRvLWNhcHRpb25zLCB2ZXJ0aWNhbCBjcm9wLCBjb21wcmVzc2lvbiB8CnwgKipbZGF0YWJhc2UtbWlncmF0aW9uLWF1dG9tYXRpb25dKHNraWxscy9kYXRhYmFzZS1taWdyYXRpb24tYXV0b21hdGlvbikqKiB8IEFJIFNRTCBtaWdyYXRpb24gZ2VuZXJhdG9yIOKAlCBzY2hlbWEgZGlmZiwgemVyby1kb3dudGltZSwgcm9sbGJhY2ssIGRhdGEgaW50ZWdyaXR5IHwKfCAqKltzZW50aW1lbnQtYW5hbHlzaXMtYXV0b21hdGlvbl0oc2tpbGxzL3NlbnRpbWVudC1hbmFseXNpcy1hdXRvbWF0aW9uKSoqIHwgUmVhbC10aW1lIHNlbnRpbWVudCBhbmFseXNpcyDigJQgbXVsdGktbGFuZ3VhZ2UsIHRvcGljIGV4dHJhY3Rpb24sIHVyZ2VuY3kgYWxlcnRpbmcgfAp8ICoqW2Jsb2NrY2hhaW4tYXV0b21hdGlvbl0oc2tpbGxzL2Jsb2NrY2hhaW4tYXV0b21hdGlvbikqKiB8IE9uLWNoYWluIG1vbml0b3JpbmcsIHdhbGxldCB0cmFja2luZywgc21hcnQgY29udHJhY3QgZXZlbnRzLCBtdWx0aS1jaGFpbiBhbGVydHMgfAp8ICoqW3dvcmtmbG93LW9yY2hlc3RyYXRpb25dKHNraWxscy93b3JrZmxvdy1vcmNoZXN0cmF0aW9uKSoqIHwgTXVsdGktc3RlcCBBSSBwaXBlbGluZXMsIHJldHJ5IGxvZ2ljLCBkZWFkLWxldHRlciBxdWV1ZXMsIEFJIHJvdXRpbmcgZGVjaXNpb25zIHwKfCAqKlticm93c2VyLWF1dG9tYXRpb25dKHNraWxscy9icm93c2VyLWF1dG9tYXRpb24pKiogfCBQbGF5d3JpZ2h0ICsgQUkgYnJvd3NlciBhdXRvbWF0aW9uIOKAlCBzY3JhcGUsIHNjcmVlbnNob3QsIGZvcm0gZmlsbCwgd2ViIHdvcmtmbG93cyB8CnwgKipbaW5jaWRlbnQtcmVzcG9uc2UtYXV0b21hdGlvbl0oc2tpbGxzL2luY2lkZW50LXJlc3BvbnNlLWF1dG9tYXRpb24pKiogfCBBSSBpbmNpZGVudCB0cmlhZ2UsIFBhZ2VyRHV0eSBpbnRlZ3JhdGlvbiwgd2FyLXJvb20gc3VtbWFyaXplciwgYXV0byBwb3N0LW1vcnRlbSB8CnwgKipbY29tcGxpYW5jZS1hdXRvbWF0aW9uXShza2lsbHMvY29tcGxpYW5jZS1hdXRvbWF0aW9uKSoqIHwgR0RQUiwgU09DIDIsIEhJUEFBLCBQQ0ktRFNTIGNvbXBsaWFuY2Ug4oCUIGV2aWRlbmNlIGNvbGxlY3Rpb24sIGdhcCBhbmFseXNpcywgYXVkaXQgcmVwb3J0cyB8CnwgKipbdHJhbnNsYXRpb24tYXV0b21hdGlvbl0oc2tpbGxzL3RyYW5zbGF0aW9uLWF1dG9tYXRpb24pKiogfCBBSSBtdWx0aWxpbmd1YWwgdHJhbnNsYXRpb24g4oCUIERlZXBMLCBxdWFsaXR5IHNjb3JpbmcsIHRlcm1pbm9sb2d5IGxvY2ssIGJhdGNoIHByb2Nlc3NpbmcgfAp8ICoqW2ExMXktYXV0b21hdGlvbl0oc2tpbGxzL2ExMXktYXV0b21hdGlvbikqKiB8IFdDQUcgYWNjZXNzaWJpbGl0eSB0ZXN0aW5nIOKAlCBheGUtY29yZSwgTGlnaHRob3VzZSwgQUkgZml4IHN1Z2dlc3Rpb25zLCBDSSBlbmZvcmNlbWVudCB8CnwgKipbZmVhdHVyZS1mbGFnLWF1dG9tYXRpb25dKHNraWxscy9mZWF0dXJlLWZsYWctYXV0b21hdGlvbikqKiB8IExhdW5jaERhcmtseS9VbmxlYXNoIGZsYWcgbWFuYWdlbWVudCDigJQgZ3JhZHVhbCByb2xsb3V0cywgQS9CIHRhcmdldGluZywgQUkgcmVjb21tZW5kYXRpb25zIHwKfCAqKlthZ2VudC1tZW1vcnktYXV0b21hdGlvbl0oc2tpbGxzL2FnZW50LW1lbW9yeS1hdXRvbWF0aW9uKSoqIHwg6ZW/5pyf6K6w5b+G566h55CGIOKAlCBDaHJvbWFEQi9wZ3ZlY3RvciDlkJHph4/lrZjlgqjjgIHor63kuYnlj6zlm57jgIHkvJror53mkZjopoHjgIHpgZflv5jnrZbnlaUgfAp8ICoqW2Nyb3NzLXBsYXRmb3JtLW5vdGlmaWNhdGlvbl0oc2tpbGxzL2Nyb3NzLXBsYXRmb3JtLW5vdGlmaWNhdGlvbikqKiB8IEVtYWlsL1NsYWNrL0Rpc2NvcmQvVGVsZWdyYW0vU01TIOe7n+S4gOWRiuitpui3r+eUsSArIOWNh+e6p+etlueVpSArIOaZuuiDveiBmuWQiCB8CnwgKipbc3VwYWJhc2UtYXV0b21hdGlvbl0oc2tpbGxzL3N1cGFiYXNlLWF1dG9tYXRpb24pKiogfCBTdXBhYmFzZSDlkI7nq68g4oCUIEF1dGgvUmVhbHRpbWUvU3RvcmFnZS9FZGdlIEZ1bmN0aW9ucyArIFBvc3RncmVTUUwvcGd2ZWN0b3Ig6Ieq5Yqo5YyWIHwKfCAqKltwcm9tcHQtZW5naW5lZXJpbmctYXV0b21hdGlvbl0oc2tpbGxzL3Byb21wdC1lbmdpbmVlcmluZy1hdXRvbWF0aW9uKSoqIHwgUHJvbXB0IOeJiOacrOaOp+WItuOAgUEvQiDmtYvor5XjgIFDaGFpbi1vZi1UaG91Z2h0IOaooeadv+OAgeeDreivjeazqOWFpeOAgVRva2VuIOaIkOacrOWIhuaekCB8CnwgKipbZGlzdHJpYnV0ZWQtam9iLXF1ZXVlXShza2lsbHMvZGlzdHJpYnV0ZWQtam9iLXF1ZXVlKSoqIHwgUmVkaXMg5YiG5biD5byP5Lu75Yqh6Zif5YiXIOKAlCDlu7bov5/ku7vliqHjgIHkvJjlhYjnuqfot6/nlLHjgIHmrbvkv6HpmJ/liJfjgIFTTEEg55uR5o6nIHwKfCAqKltjb2RlLXNlYXJjaC1hdXRvbWF0aW9uXShza2lsbHMvY29kZS1zZWFyY2gtYXV0b21hdGlvbikqKiB8IEFJIOivreS5ieS7o+eggeaQnOe0oiDigJQg6Ieq54S26K+t6KiA5p+l5Luj56CB5bqT44CB5LiK5LiL5paH5rOo5YWl44CB5aSa6K+t6KiA5pSv5oyBIHwKfCAqKlthaS10ZXN0LWdlbmVyYXRvci1hdXRvbWF0aW9uXShza2lsbHMvYWktdGVzdC1nZW5lcmF0b3ItYXV0b21hdGlvbikqKiB8IEFJIOiHquWKqOeUn+aIkOa1i+ivleeUqOS+iyDigJQgcHl0ZXN0L0plc3QvUGxheXdyaWdodOOAgeimhueblueOh+WIhuaekOOAgeWPmOW8gua1i+ivlSB8CnwgKipbY29kZS1taWdyYXRpb24tYXV0b21hdGlvbl0oc2tpbGxzL2NvZGUtbWlncmF0aW9uLWF1dG9tYXRpb24pKiogfCDku6PnoIHov4Hnp7voh6rliqjljJYg4oCUIDEwKyDov4Hnp7vot6/lvoTjgIHliIbpmLbmrrXpg6jnvbLjgIHlm57mu5rorqHliJLjgIFTTE8g6Zeo5o6nIHwKfCAqKlthZ2VudC1vYnNlcnZhYmlsaXR5LWF1dG9tYXRpb25dKHNraWxscy9hZ2VudC1vYnNlcnZhYmlsaXR5LWF1dG9tYXRpb24pKiogfCBBZ2VudCDlj6/op4LmtYvmgKcg4oCUIOmTvui3r+i/vei4quOAgeaIkOacrOi/vei4quOAgVNMTyDku6rooajnm5jjgIFQcm9tZXRoZXVzICsgR3JhZmFuYSB8CgotLS0KCiMjIPCfmoAgUXVpY2sgU3RhcnQKCmBgYGJhc2gKIyBDbG9uZSB0aGUgcmVwbwpnaXQgY2xvbmUgaHR0cHM6Ly9naXRodWIuY29tL25pbWE1NDg1MS9hZ2VudC1zdHVkaW8uZ2l0CmNkIGFnZW50LXN0dWRpbwoKIyBSdW4gR2l0SHViIFRyZW5kaW5nIHRyYWNrZXIKcHl0aG9uMyBzY3JpcHRzL2dpdGh1Yl90cmVuZGluZy5weQoKIyBVc2UgYSBza2lsbCB3aXRoIE9wZW5DbGF3CiMgSnVzdCBjb3B5IHNraWxscy88bmFtZT4gdG8geW91ciBPcGVuQ2xhdyBza2lsbHMgZGlyZWN0b3J5CmBgYAoKLS0tCgojIyDwn5OWIEZlYXR1cmVkIFdvcmtmbG93cwoKIyMjIEdpdEh1YiBUcmVuZGluZyDihpIgQUkgRGlnZXN0IOKGkiBEYWlseSBSZXBvcnQKYGBgCkdpdEh1YiBBUEkg4oaSIEZpbHRlciBBSS9NTCByZXBvcyDihpIgQUkgc3VtbWFyaXplIOKGkiBSRVBPUlQubWQg4oaSIEdpdEh1YiBQYWdlcwpgYGAKUnVucyBkYWlseSB2aWEgR2l0SHViIEFjdGlvbnMgwrcgW1NlZSB3b3JrZmxvd10oLmdpdGh1Yi93b3JrZmxvd3MvZGFpbHktcmVwb3J0LnltbCkKCiMjIyBBSSBQcm9kdWN0IExhdW5jaCBQaXBlbGluZQpgYGAK5Lqn5ZOB5a6a5LmJIOKGkiDlj5HluIPmnZDmlpnljIUg4oaSIG44biDoh6rliqjljJYg4oaSIFR3aXR0ZXIvRW1haWwv56S+5Yy6IOWPkeW4gyDihpIg5pWw5o2u6L+96Liq5aSN55uYCmBgYApTY3JpcHQgKyBTa2lsbCArIENoZWNrbGlzdCDCtyBbU2VlIHNraWxsXShza2lsbHMvcHJvZHVjdC1sYXVuY2gtYXNzaXN0YW50LykgwrcgW1NlZSBjaGVja2xpc3RdKHdvcmtmbG93cy9wcm9kdWN0LWxhdW5jaC1jaGVja2xpc3QubWQpCgojIyMgU2xhY2sg4oaSIEFJIEFnZW50IOKGkiBUZWFtIE5vdGlmaWNhdGlvbgpgYGAKQG1lbnRpb24gaW4gU2xhY2sg4oaSIG44biByb3V0ZSBieSBpbnRlbnQg4oaSIEFJIEFnZW50IHByb2Nlc3Mg4oaSIFNsYWNrIHJlcGx5CmBgYApNdWx0aS1hZ2VudCByb3V0aW5nIGJ1aWx0LWluIMK3IFtTZWUgaW50ZWdyYXRpb25dKGludGVncmF0aW9ucy9zbGFjay1ib3QvKQoKIyMjIE5vdGlvbiDihpQgQUkgQWdlbnQgU3luYwpgYGAKTm90aW9uIERhdGFiYXNlIOKGkiBuOG4g4oaSIE9wZW5DbGF3IEFJIOKGkiBBbmFseXNpcyDihpIgTm90aW9uIFVwZGF0ZQpgYGAKQUktcG93ZXJlZCB0YWdnaW5nLCBwcmlvcml0eSBzY29yaW5nLCBhdXRvLXJlcGx5IMK3IFtTZWUgaW50ZWdyYXRpb25dKGludGVncmF0aW9ucy9ub3Rpb24tc3luYy8pCgojIyMgU0VPIEF1dG9tYXRpb24gZm9yIEdpdEh1YiBQYWdlcwpgYGAKUmVwbyDihpIgU0VPIGdlbmVyYXRvciDihpIgc2l0ZW1hcC54bWwgKyByb2JvdHMudHh0ICsgT0cgdGFncyDihpIgR2l0SHViIFBhZ2VzCmBgYApBdXRvbWF0ZWQgU0VPIG1haW50ZW5hbmNlIMK3IFtTZWUgc2tpbGxdKHNraWxscy9zZW8tYXV0b21hdGlvbi8pCgojIyMgQS9CIFRlc3QgWW91ciBXb3JrZmxvd3MKYGBgClZhcmlhbnQgQSB3b3JrZmxvdyDihpDihpIgVmFyaWFudCBCIHdvcmtmbG93IOKGkiBTdGF0cyDihpIgV2lubmVyCmBgYApTdGF0aXN0aWNhbCBzaWduaWZpY2FuY2UgdGVzdGluZyDCtyBbU2VlIHNraWxsXShza2lsbHMvYWItdGVzdGluZy13b3JrZmxvdy8pCgojIyMgQUkgQ29kZSBSZXZpZXcgUGlwZWxpbmUKYGBgClB1bGwgUmVxdWVzdCDihpIgV2ViaG9vayB0cmlnZ2VyIOKGkiBBSSBjb2RlIHJldmlldyDihpIgUG9zdCBjb21tZW50CmBgYApBdXRvbWF0ZSBjb2RlIHJldmlldyBvbiBhbnkgcmVwbyDCtyBbU2VlIHNraWxsXShza2lsbHMvKQoKLS0tCgojIyDwn5CzIE9uZS1Db21tYW5kIERlcGxveQoKYGBgYmFzaApjZCBkb2NrZXIKY3AgLmVudi5leGFtcGxlIC5lbnYKIyBFZGl0IC5lbnYgd2l0aCB5b3VyIEFQSSBrZXlzCmRvY2tlciBjb21wb3NlIHVwIC1kCmBgYAoKU3VwcG9ydGVkOiBuOG4gwrcgRGlzY29yZCBCb3QgwrcgVGVsZWdyYW0gQm90IMK3IFdlYmhvb2sgbGlzdGVuZXJzCgotLS0KCiMjIPCfk4ggTGl2ZSBEZW1vCgp8IHwgfAp8LS0tfC0tLXwKfCAqKkdpdEh1YiBQYWdlcyoqIHwgaHR0cHM6Ly9uaW1hNTQ4NTEuZ2l0aHViLmlvL2FnZW50LXN0dWRpbyB8CnwgKipQcm9kdWN0IFBhZ2UqKiB8IGh0dHBzOi8vbmltYTU0ODUxLmdpdGh1Yi5pby9hZ2VudC1zdHVkaW8vcHJvZHVjdC5odG1sIHwKCi0tLQoKIyMg8J+bkiBSZWFkeS10by1Vc2UgUHJvZHVjdHMKCldhbnQgYSAqKnByb2R1Y3Rpb24gQUkgYWdlbnQgYXV0b21hdGlvbiBzeXN0ZW0qKiB1cCBhbmQgcnVubmluZyB0b2RheT8KCnwgUHJvZHVjdCB8IERlc2NyaXB0aW9uIHwgUHJpY2UgfAp8LS0tLS0tLS0tfC0tLS0tLS0tLS0tLS18LS0tLS0tLXwKfCAqKkFJIOekvuS6pOWqkuS9k+iHquWKqOi/kOiQpeezu+e7nyoqIHwgbjhuIHdvcmtmbG93IOKAlCDoh6rliqjmipMgR2l0SHViIFRyZW5kaW5nIC8gQUkg6K+E6K66IC8gU3RhciAvIOaKpeWRiuaOqOmAgSB8ICoqwqU5OSoq77yI5LiA5qyh5oCn77yJIHwKfCDlkKvlhaXpl6jniYjvvIjlhY3otLnvvIkgfCDln7rnoYAgR2l0SHViIFRyZW5kaW5nICsgV2ViaG9va+aOqOmAgSB8IMKlMCB8Cnwg5ZCr5LyB5Lia54mIIHwg56eB5pyJ6YOo572yICsg5a6a5Yi2ICsg5peg6ZmQ5L2/55SoIHwgwqUzOTnvvIjkuIDmrKHmgKfvvIkgfAoKPiDwn46vIFvwn5GJIOafpeeci+WujOaVtOS6p+WTgemhte+8iOWQq+WFjei0ueeJiO+8iV0oaHR0cHM6Ly9uaW1hNTQ4NTEuZ2l0aHViLmlvL2FnZW50LXN0dWRpby9wcm9kdWN0Lmh0bWwpCgpGcmVlIHZlcnNpb246IGh0dHBzOi8vZ2l0aHViLmNvbS9uaW1hNTQ4NTEvYWdlbnQtc3R1ZGlvL3RyZWUvbWFpbi9wcm9kdWN0cy9naXRodWItYWdlbnQtYXV0b21hdGlvbgoKLS0tCgojIyDwn4yfIFdoeSBhZ2VudC1zdHVkaW8/Cgp8IFJlZ3VsYXIgVGVtcGxhdGUgUmVwbyB8IGFnZW50LXN0dWRpbyB8CnwtLS18LS0tfAp8IFJlYWRtZSBvbmx5LCBubyB0b29scyB8IEZ1bGwgd29ya2luZyBzY3JpcHRzIHwKfCBUaGVvcmV0aWNhbCBleGFtcGxlcyB8IFByb2R1Y3Rpb24tcmVhZHkgcGlwZWxpbmVzIHwKfCBPbmUgZnJhbWV3b3JrIHwgTXVsdGktZnJhbWV3b3JrIChPcGVuQ2xhdywgbjhuLCBMYW5nQ2hhaW7igKYpIHwKfCBObyBhdXRvbWF0aW9uIHwgR2l0SHViIEFjdGlvbnMgQ0kvQ0QgYnVpbHQtaW4gfAp8IFN0YXRpYyBkb2NzIHwgTGl2ZSBHaXRIdWIgUGFnZXMgZGVtb3MgfAoKLS0tCgojIyDwn6SdIENvbnRyaWJ1dGluZwoKQ29udHJpYnV0aW9ucyB3ZWxjb21lISBIZXJlJ3MgaG93OgoKMS4gKipBZGQgYSBza2lsbCoqIOKAlCBTZWUgW2Bza2lsbHMvc2tpbGwtYnVpbGRlcmBdKHNraWxscy9za2lsbC1idWlsZGVyKSBmb3IgdGhlIGZvcm1hdAoyLiAqKlNoYXJlIGEgd29ya2Zsb3cqKiDigJQgQWRkIHRvIFtgaW50ZWdyYXRpb25zL2BdKGludGVncmF0aW9ucy8pCjMuICoqSW1wcm92ZSBkb2NzKiog4oCUIFBScyBvbiBSRUFETUUgYW5kIGRvY3MvIGFyZSBhbHdheXMgb3Blbgo0LiAqKlN0YXIgJiBzaGFyZSoqIOKAlCBJdCBoZWxwcyBtb3JlIHRoYW4geW91IHRoaW5rIPCfmY8KCi0tLQoKIyMg8J+ThCBMaWNlbnNlCgpNSVQgwrcgVXNlIGl0LCBtb2RpZnkgaXQsIHNlbGwgaXQgKGp1c3Qga2VlcCB0aGUgY3JlZGl0KS4KCi0tLQoKPGggYWxpZ249ImNlbnRlciI+CgoqQnVpbHQgd2l0aCBb54G154qAIEFJXShodHRwczovL2dpdGh1Yi5jb20vbmltYTU0ODUxKSDCtyBbT3BlbiBhbiBJc3N1ZV0oaHR0cHM6Ly9naXRodWIuY29tL25pbWE1NDg1MS9hZ2VudC1zdHVkaW8vaXNzdWVzKSDCtyBbU3VibWl0IGEgUFJdKGh0dHBzOi8vZ2l0aHViLmNvbS9uaW1hNTQ4NTEvYWdlbnQtc3R1ZGlvL3B1bGxzKSoKCjwvaD4KCgojIyBOZXcgU2tpbGxzICgyMDI2LTA3LTIyKQp8IFthaS10ZXN0LWdlbmVyYXRvci1hdXRvbWF0aW9uXShza2lsbHMvYWktdGVzdC1nZW5lcmF0b3ItYXV0b21hdGlvbikgfCBBdXRvLWdlbmVyYXRlIHVuaXQvaW50ZWdyYXRpb24vRTJFIHRlc3RzIGZyb20gY29kZSB3aXRoIEFJIOKAlCBweXRlc3QsIEplc3QsIFBsYXl3cmlnaHQgfCDinIUgbjhuIHwKfCBbY29kZS1taWdyYXRpb24tYXV0b21hdGlvbl0oc2tpbGxzL2NvZGUtbWlncmF0aW9uLWF1dG9tYXRpb24pIHwgRnJhbWV3b3JrIHVwZ3JhZGVzLCBsYW5ndWFnZSBtaWdyYXRpb25zLCBsaWJyYXJ5IHJlcGxhY2VtZW50cyB3aXRoIHN0YWdlZCByb2xsb3V0IHwg4pyFIG44biB8CnwgW2FnZW50LW9ic2VydmFiaWxpdHktYXV0b21hdGlvbl0oc2tpbGxzL2FnZW50LW9ic2VydmFiaWxpdHktYXV0b21hdGlvbikgfCBUcmFjZXMsIG1ldHJpY3MsIGNvc3QgdHJhY2tpbmcsIFNMTyBkYXNoYm9hcmRzIGZvciBBSSBhZ2VudHMgfCDinIUgbjhuIHwK
+# agent-studio 🤖
+
+<h align="center">
+
+[![Stars](https://img.shields.io/github/stars/nima54851/agent-studio?style=flat&logo=github&color=24292e)](https://github.com/nima54851/agent-studio/stargazers)
+[![Forks](https://img.shields.io/github/forks/nima54851/agent-studio?style=flat&logo=github&color=24292e)](https://github.com/nima54851/agent-studio/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/nima54851/agent-studio?style=flat&color=238636)](https://github.com/nima54851/agent-studio/commits/main)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=flat)](https://nima54851.github.io/agent-studio)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat)](CONTRIBUTING.md)
+
+</h>
+
+> **The AI Agent developer's production toolkit.** Everything you need to build, deploy, and scale AI agents — in one repo.
+> Built by [灵犀 AI](https://github.com/nima54851) · Powered by [OpenClaw](https://github.com/openclaw/openclaw)
+
+---
+
+## 🎯 What Is This?
+
+A curated, **production-ready** collection of tools, workflows, and skill templates for AI Agent developers. Stop reinventing the wheel — clone, configure, ship.
+
+**What you get:**
+- ⚡ Skill templates that plug straight into OpenClaw
+- 🔄 Automation scripts (GitHub trending, daily reports, webhook pipelines)
+- 🤖 Integrations (Discord, Telegram, n8n, webhooks)
+- 🐳 Zero-config Docker deployments
+- 📋 Proven prompt patterns for code review, architecture, planning
+
+---
+
+## 📦 What's Inside
+
+| Category | Contents | Count |
+|----------|----------|-------|
+| **Skills** | OpenClaw-compatible agent skill templates | `skills/` |
+| **Scripts** | Python automation (GitHub trending, MCP, webhooks) | `scripts/` |
+| **Security** | Secret scanner, CVE audit, security reports | `skills/security-auditor/` |
+| **Documentation** | Auto-generate README, API docs, and changelogs from code | `skills/docs-generator/` |
+| **Analytics Dashboard** | GitHub stats, OpenClaw usage — live HTML dashboard | `skills/analytics-dashboard/` |
+| **SEO Automation** | sitemap.xml, robots.txt, OG tags, JSON-LD auto-gen | `skills/seo-automation/` |
+| **A/B Testing** | A/B test framework for n8n workflows and prompts | `skills/ab-testing-workflow/` |
+| **Voice AI Automation** | Whisper STT → LLM → TTS 语音 AI 自动化管道 | `skills/voice-ai-automation/` |
+| **Scheduled Tasks** | 跨平台定时任务调度（cron + n8n + 分布式锁） | `skills/scheduled-task-automation/` |
+| **Email Automation** | Gmail SMTP, drip campaigns, AI auto-reply | `skills/email-automation/` |
+| **Social Media** | Twitter/LinkedIn auto-post, content rewriting | `skills/social-media-automation/` |
+| **Product Launch** | AI-powered launch automation and checklist | `skills/product-launch-assistant/` |
+| **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
+| **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
+| **MCP Server** | Build MCP servers backed by n8n — any MCP-compatible AI can use your workflows as tools | `integrations/mcp-server-automation/` |
+| **Prompt Versioning** | Git-like version control for AI prompts — diff, rollback, A/B test, environment promotion | `integrations/prompt-versioning-automation/` |
+| **Testing Automation** | AI 生成 pytest/jest 测试用例 + coverage 跟踪 + CI 集成 | `skills/testing-automation/` |
+| **Infrastructure as Code** | AI 生成 Terraform / Pulumi / Ansible 配置文件 | `skills/infrastructure-as-code/` |
+| **Customer Support** | Ticket triage, auto-reply, escalation, FAQ resolver | `skills/customer-support-automation/` |
+| **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
+| **GitHub Actions** | AI-augmented PR review, auto-deploy, scheduled CI/CD | `skills/github-actions-automation/` |
+| **Monitoring & Alerting** | Prometheus + Grafana + AI anomaly detection + n8n alerts | `skills/monitoring-alerting-automation/` |
+| **Notion Sync** | Notion ↔ OpenClaw AI sync via n8n | `integrations/notion-sync/` |
+| **Linear Automation** | Linear project management + AI triage + Sprint planning | `integrations/linear-automation/` |
+| **Fine-Tuning Automation** | OpenAI/Axolotl/LLaMA-Factory 微调全流程 — 数据准备 → 训练 → 评估 → 部署 | `skills/fine-tuning-automation/` |
+| **Event-Driven Architecture** | Kafka / RabbitMQ / Redis Streams 事件驱动架构 + AI 事件流 | `skills/event-driven-architecture/` |
+| **AI Model Router** | 多模型智能路由 — OpenAI/Anthropic/Ollama 按成本/延迟自动选择最优模型 | `skills/ai-model-router/` |
+| **Data Visualization** | Plotly/D3.js — CSV/JSON → interactive charts & dashboards | `skills/data-visualization-automation/` |
+| **AI Code Refactoring** | AI refactor Python/JS/TS — type hints, async/await, DRY | `skills/ai-code-refactoring/` |
+| **Logging Automation** | 日志采集 + AI 异常检测 + 告警路由（Filebeat/Loki/Grafana/n8n） | `skills/logging-automation/` |
+| **LLM Ops Automation** | 统一 LLM 网关 + Token 成本追踪 + Prompt A/B 测试 + 预算告警 | `skills/llm-ops-automation/` |
+| **Resilience Patterns** | 熔断器 / 重试策略 / 滑动窗口限流 / 优雅降级 | `skills/resilience-patterns/` |
+| **Video Processing** | FFmpeg AI processing — auto-captions, vertical crop, multi-platform output | `skills/video-processing-automation/` |
+| **Database Migration** | AI SQL migration — schema diff, zero-downtime, rollback, data校验 | `skills/database-migration-automation/` |
+| **Sentiment Analysis** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerts | `skills/sentiment-analysis-automation/` |
+| **Blockchain Automation** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts | `skills/blockchain-automation/` |
+| **Workflow Orchestration** | Multi-step AI pipelines, retry logic, dead-letter queues, fan-out/fan-in patterns | `skills/workflow-orchestration/` |
+| **Browser Automation** | Playwright + AI — scrape, screenshot, form fill, multi-step web workflows | `skills/browser-automation/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review, Blockchain, Workflow Orchestration, Browser Automation | `integrations/` |
+| **Docker** | Docker Compose for instant deployment | `docker/` |
+| **Prompts** | Battle-tested prompt patterns | `prompts/` |
+| **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
+
+---
+
+## 🛠️ Featured Skills
+
+| Skill | Description |
+|-------|-------------|
+| **[skill-builder](skills/skill-builder)** | Create AI Agent skills from scratch — SKILL.md + scripts + packaging |
+| **[coding-tutor](skills/coding-tutor)** | Learn Python, JavaScript, React — with exercises and projects |
+| **[n8n-workflow-builder](skills/n8n-workflow-builder)** | Design and debug n8n workflows — AI-powered automation |
+| **[career-roadmap](skills/career-roadmap)** | Programmer growth path — from junior to architect |
+| **[agent-skills-kit](skills/agent-skills-kit)** | Agent skills development framework — tools, templates, best practices |
+| **[self-hosted-ai](skills/self-hosted-ai)** | Deploy Ollama, n8n, Open WebUI — full local AI stack |
+| **[agent-memory](skills/agent-memory)** | Long-term memory for AI agents |
+| **[test-master](skills/test-master)** | Automated testing patterns for AI agent outputs |
+| **[cloudflare-workers-ai](skills/cloudflare-workers-ai)** | Deploy AI inference on Cloudflare Workers AI globally |
+| **[email-automation](skills/email-automation)** | AI auto-reply, drip campaigns, Gmail/SMTP via n8n |
+| **[social-media-automation](skills/social-media-automation)** | Auto-post Twitter/LinkedIn, content repurposing, AI threads |
+| **[github-trending-monitor](skills/github-trending-monitor)** | Track GitHub trending in real time |
+| **[agent-health-monitor](skills/agent-health-monitor)** | Monitor agent health and uptime |
+| **[content-promoter](skills/content-promoter)** | AI-powered social media content generation & scheduling |
+| **[product-launch-assistant](skills/product-launch-assistant)** | End-to-end AI product launch automation — landing page, social posts, email templates |
+| **[performance-testing-toolkit](skills/performance-testing-toolkit)** | HTTP/WebSocket/API stress testing + benchmarks |
+| **[security-auditor](skills/security-auditor)** | Secret scanning, CVE detection, API security audit |
+| **[customer-support-automation](skills/customer-support-automation)** | AI-powered ticket triage, auto-reply, FAQ resolution |
+| **[analytics-dashboard](skills/analytics-dashboard)** | HTML analytics dashboard — GitHub stats, OpenClaw usage, ZeroGPU savings |
+| **[ab-testing-workflow](skills/ab-testing-workflow)** | A/B test framework for n8n workflows and OpenClaw prompts |
+| **[seo-automation](skills/seo-automation)** | GitHub Pages SEO — sitemap, robots.txt, OG tags, JSON-LD |
+| **[data-visualization-automation](skills/data-visualization-automation)** | Auto-generate charts & dashboards — Plotly, D3.js, CSV/JSON → HTML |
+| **[ai-code-refactoring](skills/ai-code-refactoring)** | AI-powered code refactoring — Python/JS/TS, before/after diffs, quality checks |
+| **[graphql-api-automation](skills/graphql-api-automation)** | AI GraphQL API design — schema generation, Apollo Server, Federation, n8n pipeline |
+| **[ai-document-intelligence](skills/ai-document-intelligence)** | LLM-powered document extraction — PDFs, contracts, invoices, OCR pipeline |
+| **[code-review-automation](skills/code-review-automation)** | AI PR code review — security, bugs, performance, automated GitHub comments |
+| **[video-processing-automation](skills/video-processing-automation)** | FFmpeg + Whisper AI video processing — auto-captions, vertical crop, compression |
+| **[database-migration-automation](skills/database-migration-automation)** | AI SQL migration generator — schema diff, zero-downtime, rollback, data integrity |
+| **[sentiment-analysis-automation](skills/sentiment-analysis-automation)** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerting |
+| **[blockchain-automation](skills/blockchain-automation)** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts |
+| **[workflow-orchestration](skills/workflow-orchestration)** | Multi-step AI pipelines, retry logic, dead-letter queues, AI routing decisions |
+| **[browser-automation](skills/browser-automation)** | Playwright + AI browser automation — scrape, screenshot, form fill, web workflows |
+| **[incident-response-automation](skills/incident-response-automation)** | AI incident triage, PagerDuty integration, war-room summarizer, auto post-mortem |
+| **[compliance-automation](skills/compliance-automation)** | GDPR, SOC 2, HIPAA, PCI-DSS compliance — evidence collection, gap analysis, audit reports |
+| **[translation-automation](skills/translation-automation)** | AI multilingual translation — DeepL, quality scoring, terminology lock, batch processing |
+| **[a11y-automation](skills/a11y-automation)** | WCAG accessibility testing — axe-core, Lighthouse, AI fix suggestions, CI enforcement |
+| **[feature-flag-automation](skills/feature-flag-automation)** | LaunchDarkly/Unleash flag management — gradual rollouts, A/B targeting, AI recommendations |
+| **[agent-memory-automation](skills/agent-memory-automation)** | 长期记忆管理 — ChromaDB/pgvector 向量存储、语义召回、会话摘要、遗忘策略 |
+| **[cross-platform-notification](skills/cross-platform-notification)** | Email/Slack/Discord/Telegram/SMS 统一告警路由 + 升级策略 + 智能聚合 |
+| **[supabase-automation](skills/supabase-automation)** | Supabase 后端 — Auth/Realtime/Storage/Edge Functions + PostgreSQL/pgvector 自动化 |
+| **[prompt-engineering-automation](skills/prompt-engineering-automation)** | Prompt 版本控制、A/B 测试、Chain-of-Thought 模板、热词注入、Token 成本分析 |
+| **[distributed-job-queue](skills/distributed-job-queue)** | Redis 分布式任务队列 — 延迟任务、优先级路由、死信队列、SLA 监控 |
+| **[code-search-automation](skills/code-search-automation)** | AI 语义代码搜索 — 自然语言查代码库、上下文注入、多语言支持 |
+| **[ai-test-generator-automation](skills/ai-test-generator-automation)** | AI 自动生成测试用例 — pytest/Jest/Playwright、覆盖率分析、变异测试 |
+| **[code-migration-automation](skills/code-migration-automation)** | 代码迁移自动化 — 10+ 迁移路径、分阶段部署、回滚计划、SLO 门控 |
+| **[agent-observability-automation](skills/agent-observability-automation)** | Agent 可观测性 — 链路追踪、成本追踪、SLO 仪表盘、Prometheus + Grafana |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/nima54851/agent-studio.git
+cd agent-studio
+
+# Run GitHub Trending tracker
+python3 scripts/github_trending.py
+
+# Use a skill with OpenClaw
+# Just copy skills/<name> to your OpenClaw skills directory
+```
+
+---
+
+## 📖 Featured Workflows
+
+### GitHub Trending → AI Digest → Daily Report
+```
+GitHub API → Filter AI/ML repos → AI summarize → REPORT.md → GitHub Pages
+```
+Runs daily via GitHub Actions · [See workflow](.github/workflows/daily-report.yml)
+
+### AI Product Launch Pipeline
+```
+产品定义 → 发布材料包 → n8n 自动化 → Twitter/Email/社区 发布 → 数据追踪复盘
+```
+Script + Skill + Checklist · [See skill](skills/product-launch-assistant/) · [See checklist](workflows/product-launch-checklist.md)
+
+### Slack → AI Agent → Team Notification
+```
+@mention in Slack → n8n route by intent → AI Agent process → Slack reply
+```
+Multi-agent routing built-in · [See integration](integrations/slack-bot/)
+
+### Notion ↔ AI Agent Sync
+```
+Notion Database → n8n → OpenClaw AI → Analysis → Notion Update
+```
+AI-powered tagging, priority scoring, auto-reply · [See integration](integrations/notion-sync/)
+
+### SEO Automation for GitHub Pages
+```
+Repo → SEO generator → sitemap.xml + robots.txt + OG tags → GitHub Pages
+```
+Automated SEO maintenance · [See skill](skills/seo-automation/)
+
+### A/B Test Your Workflows
+```
+Variant A workflow ←→ Variant B workflow → Stats → Winner
+```
+Statistical significance testing · [See skill](skills/ab-testing-workflow/)
+
+### AI Code Review Pipeline
+```
+Pull Request → Webhook trigger → AI code review → Post comment
+```
+Automate code review on any repo · [See skill](skills/)
+
+---
+
+## 🐳 One-Command Deploy
+
+```bash
+cd docker
+cp .env.example .env
+# Edit .env with your API keys
+docker compose up -d
+```
+
+Supported: n8n · Discord Bot · Telegram Bot · Webhook listeners
+
+---
+
+## 📈 Live Demo
+
+| | |
+|---|---|
+| **GitHub Pages** | https://nima54851.github.io/agent-studio |
+| **Product Page** | https://nima54851.github.io/agent-studio/product.html |
+
+---
+
+## 🛒 Ready-to-Use Products
+
+Want a **production AI agent automation system** up and running today?
+
+| Product | Description | Price |
+|---------|-------------|-------|
+| **AI 社交媒体自动运营系统** | n8n workflow — 自动抓 GitHub Trending / AI 评论 / Star / 报告推送 | **¥99**（一次性） |
+| 含入门版（免费） | 基础 GitHub Trending + Webhook推送 | ¥0 |
+| 含企业版 | 私有部署 + 定制 + 无限使用 | ¥399（一次性） |
+
+> 🎯 [👉 查看完整产品页（含免费版）](https://nima54851.github.io/agent-studio/product.html)
+
+Free version: https://github.com/nima54851/agent-studio/tree/main/products/github-agent-automation
+
+---
+
+## 🌟 Why agent-studio?
+
+| Regular Template Repo | agent-studio |
+|---|---|
+| Readme only, no tools | Full working scripts |
+| Theoretical examples | Production-ready pipelines |
+| One framework | Multi-framework (OpenClaw, n8n, LangChain…) |
+| No automation | GitHub Actions CI/CD built-in |
+| Static docs | Live GitHub Pages demos |
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Here's how:
+
+1. **Add a skill** — See [`skills/skill-builder`](skills/skill-builder) for the format
+2. **Share a workflow** — Add to [`integrations/`](integrations/)
+3. **Improve docs** — PRs on README and docs/ are always open
+4. **Star & share** — It helps more than you think 🙏
+
+---
+
+## 📄 License
+
+MIT · Use it, modify it, sell it (just keep the credit).
+
+---
+
+<h align="center">
+
+*Built with [灵犀 AI](https://github.com/nima54851) · [Open an Issue](https://github.com/nima54851/agent-studio/issues) · [Submit a PR](https://github.com/nima54851/agent-studio/pulls)*
+
+</h>
+
+
+## New Skills (2026-07-24)
+| Skill | Description | Status |
+|-------|-------------|--------|
+| [mobile-app-automation](skills/mobile-app-automation) | iOS Fastlane + Android Gradle + React Native/Flutter CI/CD + App Store 自动部署 | ✅ n8n |
+| [budget-management-automation](skills/budget-management-automation) | AI 财务预算 — 支出追踪、预测、异常告警、多币种、Slack 告警 | ✅ n8n |
+| [ai-content-moderation](skills/ai-content-moderation) | AI 内容审核 — 毒性检测、NSFW 过滤、政策执行、合规审计 | ✅ n8n |
+
+## New Skills (2026-07-22)
+| [ai-test-generator-automation](skills/ai-test-generator-automation) | Auto-generate unit/integration/E2E tests from code with AI — pytest, Jest, Playwright | ✅ n8n |
+| [code-migration-automation](skills/code-migration-automation) | Framework upgrades, language migrations, library replacements with staged rollout | ✅ n8n |
+| [agent-observability-automation](skills/agent-observability-automation) | Traces, metrics, cost tracking, SLO dashboards for AI agents | ✅ n8n |
