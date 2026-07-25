@@ -1,1 +1,11 @@
-ewogICJuYW1lIjogIlByb21wdCBFbmdpbmVlcmluZyBBdXRvbWF0aW9uIiwKICAibm9kZXMiOiBbCiAgICB7Im5hbWUiOiAiV2ViaG9vayBUcmlnZ2VyIiwgInR5cGUiOiAibjhuLW5vZGVzLWJhc2Uud2ViaG9vayJ9LAogICAgeyJuYW1lIjogIlByb21wdCBWZXJzaW9uIFN0b3JlIiwgInR5cGUiOiAibjhuLW5vZGVzLWJhc2UucmVkaXMifSwKICAgIHsibmFtZSI6ICJMTE0gQS9CIEV2YWx1YXRvciIsICJ0eXBlIjogIkBuOG4vbjhuLW5vZGVzLWxhbmdjaGFpbi5jaGF0T3BlbkFpIn0sCiAgICB7Im5hbWUiOiAiU2NvcmUgQWdncmVnYXRvciIsICJ0eXBlIjogIm44bi1ub2Rlcy1iYXNlLmNvZGUifSwKICAgIHsibmFtZSI6ICJSZXN1bHQgV3JpdGVyIiwgInR5cGUiOiAibjhuLW5vZGVzLWJhc2Uubm90aW9uIn0KICBdLAogICJkZXNjcmlwdGlvbiI6ICJBdXRvIEEvQiB0ZXN0IHByb21wdHMgYW5kIHRyYWNrIHBlcmZvcm1hbmNlIHNjb3JlcyIKfQo=
+{
+  "name": "Prompt Engineering Automation",
+  "nodes": [
+    {"name": "Webhook Trigger", "type": "n8n-nodes-base.webhook"},
+    {"name": "Prompt Version Store", "type": "n8n-nodes-base.redis"},
+    {"name": "LLM A/B Evaluator", "type": "@n8n/n8n-nodes-langchain.chatOpenAi"},
+    {"name": "Score Aggregator", "type": "n8n-nodes-base.code"},
+    {"name": "Result Writer", "type": "n8n-nodes-base.notion"}
+  ],
+  "description": "Auto A/B test prompts and track performance scores"
+}

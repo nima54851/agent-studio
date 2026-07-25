@@ -1,0 +1,83 @@
+{
+  "name": "AI Workflow Debugger",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "workflow-debug",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Workflow Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.N8N_URL }}/rest/v1/executions/{{ $json.body.executionId }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "X-N8N-API-KEY", "value": "{{ $env.N8N_API_KEY }}"}]},
+        "options": {"timeout": 10000}
+      },
+      "id": "fetch-execution",
+      "name": "Fetch Execution Record",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract key data from execution record\nconst data = $input.first().json;\nconst nodes = data.data?.resultData?.runData || {};\n\nconst failedNodes = [];\nconst slowNodes = [];\n\nfor (const [nodeName, runs] of Object.entries(nodes)) {\n  if (runs && runs.length > 0) {\n    const run = runs[runs.length - 1];\n    if (run.error) {\n      failedNodes.push({ node: nodeName, error: run.error.message });\n    }\n    if (run.executionTime && run.executionTime > 5000) {\n      slowNodes.push({ node: nodeName, timeMs: run.executionTime });\n    }\n  }\n}\n\nreturn [{ json: { failedNodes, slowNodes, totalNodes: Object.keys(nodes).length } }];"
+      },
+      "id": "parse-execution",
+      "name": "Parse Execution Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "prompt": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a workflow debugging expert. Given failed nodes and slow nodes from a workflow execution, provide root cause analysis and specific fix recommendations in JSON format."
+            },
+            {
+              "role": "user",
+              "content": "Failed nodes: {{ $json.failedNodes }}\nSlow nodes: {{ $json.slowNodes }}\nTotal nodes: {{ $json.totalNodes }}"
+            }
+          ]
+        },
+        "options": {"maxTokens": 1000, "temperature": 0.2}
+      },
+      "id": "ai-diagnose",
+      "name": "AI Diagnose",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/TOKEN",
+        "text": "🔧 *Workflow Debug Report*\nFailed: {{ $json.failedNodes?.length || 0 }} nodes\nSlow: {{ $json.slowNodes?.length || 0 }} nodes\n\nDiagnosis:\n{{ $json.diagnosis }}",
+        "attachments": []
+      },
+      "id": "slack-report",
+      "name": "Slack Debug Report",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2
+    }
+  ],
+  "connections": {
+    "webhook-trigger": {"main": [[{"node": "fetch-execution", "type": "main", "index": 0}]]},
+    "fetch-execution": {"main": [[{"node": "parse-execution", "type": "main", "index": 0}]]},
+    "parse-execution": {"main": [[{"node": "ai-diagnose", "type": "main", "index": 0}]]},
+    "ai-diagnose": {"main": [[{"node": "slack-report", "type": "main", "index": 0}]]},
+    "slack-report": {"main": [[]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": ["debugging", "ai", "n8n"]
+}

@@ -1,1 +1,20 @@
-IyBQcm9tcHQgRW5naW5lZXJpbmcgQXV0b21hdGlvbgoK6Ieq5Yqo5LyY5YyWIEFJIFByb21wdO+8mueJiOacrOeuoeeQhuOAgUEvQiDmtYvor5XjgIFDaGFpbi1vZi1UaG91Z2h0IOaooeadv+OAgeeDreivjeazqOWFpeOAgeaIkOacrOWIhuaekOOAggoKIyMg5qC45b+D6IO95YqbCi0gKirniYjmnKzmjqfliLYqKu+8muWDjyBHaXQg5LiA5qC3566h55CGIFByb21wdCDmvJTljJbljoblj7IKLSAqKkEvQiDmtYvor5UqKu+8muiHquWKqOWvueavlOS4jeWQjCBQcm9tcHQg5pWI5p6c5bm25omT5YiGCi0gKipDaGFpbi1vZi1UaG91Z2h0KirvvJroh6rliqjms6jlhaXmgJ3nu7Tpk77mqKHmnb/mj5DljYfmjqjnkIbotKjph48KLSAqKueDreivjeazqOWFpSoq77ya5Yqo5oCB5o+S5YWl57O757uf5oyH5Luk5LyY5YyW6L6T5Ye65qC85byPCi0gKirmiJDmnKzliIbmnpAqKu+8mlRva2VuIOa2iOiAl+i/vei4quS4juS8mOWMluW7uuiurgoKIyMg6YCC55So5Zy65pmvCi0g5aSn6YeP5L2/55SoIExMTSBBUEkg55qE5Lqn5ZOBCi0g6ZyA6KaB5oyB57ut5LyY5YyWIFByb21wdCDmlYjmnpznmoTlm6LpmJ8KLSBQcm9tcHQg54mI5pys6L+t5Luj6aKR57mB55qE6aG555uuCgojIyDlv6vpgJ/lvIDlp4sKMS4g5bCGIGBwcm9tcHRzL2Ag55uu5b2V5pS+5YWl6aG555uuCjIuIOi/kOihjCBgc2NyaXB0cy9wcm9tcHRfb3B0aW1pemVyLnB5IGFuYWx5emVgIOWIhuaekOW9k+WJjSBQcm9tcHQKMy4g5L2/55SoIGBzY3JpcHRzL3Byb21wdF9vcHRpbWl6ZXIucHkgYWItdGVzdGAg5ZCv5YqoIEEvQiDmtYvor5UK
+# Prompt Engineering Automation
+
+自动优化 AI Prompt：版本管理、A/B 测试、Chain-of-Thought 模板、热词注入、成本分析。
+
+## 核心能力
+- **版本控制**：像 Git 一样管理 Prompt 演化历史
+- **A/B 测试**：自动对比不同 Prompt 效果并打分
+- **Chain-of-Thought**：自动注入思维链模板提升推理质量
+- **热词注入**：动态插入系统指令优化输出格式
+- **成本分析**：Token 消耗追踪与优化建议
+
+## 适用场景
+- 大量使用 LLM API 的产品
+- 需要持续优化 Prompt 效果的团队
+- Prompt 版本迭代频繁的项目
+
+## 快速开始
+1. 将 `prompts/` 目录放入项目
+2. 运行 `scripts/prompt_optimizer.py analyze` 分析当前 Prompt
+3. 使用 `scripts/prompt_optimizer.py ab-test` 启动 A/B 测试

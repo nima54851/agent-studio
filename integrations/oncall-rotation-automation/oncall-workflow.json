@@ -1,0 +1,116 @@
+{
+  "name": "On-Call Rotation Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"event": "incident.triggered"},
+        "options": {}
+      },
+      "id": "pagerduty-trigger",
+      "name": "PagerDuty Webhook",
+      "type": "n8n-nodes-base.pagerDutyTrigger",
+      "typeVersion": 1,
+      "credentials": {"pagerDutyApi": {"id": "pagerduty", "name": "PagerDuty API"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const incident = $input.first().json;\nreturn [{ json: {\n  incidentId: incident.incident?.id,\n  title: incident.incident?.title,\n  urgency: incident.incident?.urgency,\n  service: incident.incident?.service?.name,\n  triggeredAt: incident.incident?.created_at\n}}];"
+      },
+      "id": "extract-incident",
+      "name": "Extract Incident",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "prompt": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are an SRE assistant. Given an incident title and service, provide a brief initial diagnosis, likely root cause areas, and a relevant Runbook URL if known."
+            },
+            {
+              "role": "user",
+              "content": "Incident: {{ $json.title }}\nService: {{ $json.service }}\nUrgency: {{ $json.urgency }}"
+            }
+          ]
+        },
+        "options": {"maxTokens": 500}
+      },
+      "id": "ai-diagnosis",
+      "name": "AI Initial Diagnosis",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/TOKEN",
+        "text": "🚨 *PagerDuty Incident*\nTitle: {{ $('extract-incident').item.json.title }}\nUrgency: {{ $('extract-incident').item.json.urgency }}\n\n🤖 AI Diagnosis:\n{{ $json.diagnosis }}",
+        "attachments": []
+      },
+      "id": "slack-alert",
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "rule": {"cron": {"expression": "0 9 * * 1"}},
+        "activationCron": true
+      },
+      "id": "schedule-handoff",
+      "name": "Weekly Handoff Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o",
+        "prompt": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "Generate a concise on-call handoff summary in Markdown. Include: ongoing incidents, pending tasks, key context for the incoming engineer."
+            },
+            {
+              "role": "user",
+              "content": "Generate handoff summary for week starting {{ $now.toISO() }}"
+            }
+          ]
+        },
+        "options": {"maxTokens": 800}
+      },
+      "id": "ai-handoff-summary",
+      "name": "AI Handoff Summary",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "calendar": "primary",
+        "start": "={{ $now }}",
+        "end": "={{ $now.plus({ days: 7 }) }}",
+        "title": "On-Call Week",
+        "options": {}
+      },
+      "id": "update-calendar",
+      "name": "Update Google Calendar",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 2,
+      "credentials": {"googleCalendarOAuth2": {"id": "google-cal", "name": "Google Calendar"}}
+    }
+  ],
+  "connections": {
+    "pagerduty-trigger": {"main": [[{"node": "extract-incident", "type": "main", "index": 0}]]},
+    "extract-incident": {"main": [[{"node": "ai-diagnosis", "type": "main", "index": 0}]]},
+    "ai-diagnosis": {"main": [[{"node": "slack-alert", "type": "main", "index": 0}]]},
+    "slack-alert": {"main": [[]]},
+    "schedule-handoff": {"main": [[{"node": "ai-handoff-summary", "type": "main", "index": 0}]]},
+    "ai-handoff-summary": {"main": [[{"node": "update-calendar", "type": "main", "index": 0}]]},
+    "update-calendar": {"main": [[]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": ["oncall", "pagerduty", "sre"]
+}

@@ -1,1 +1,19 @@
-IyBDb2RlIFNlYXJjaCBBdXRvbWF0aW9uCgpBSSDor63kuYnku6PnoIHmkJzntKLvvJroh6rnhLbor63oqIDmn6Xor6Lku6PnoIHlupPjgIHor63kuYnnm7jkvLzluqbmjpLluo/jgIHkuIrkuIvmlofms6jlhaXjgIHlpJror63oqIDmlK/mjIHjgIIKCiMjIOaguOW/g+iDveWKmwotICoq6Ieq54S26K+t6KiA5pCc57SiKirvvJrnlKjkuK3mlocv6Iux5paH5o+P6L+w5L2g5oOz5om+55qE5Luj56CBCi0gKiror63kuYnmjpLluo8qKu+8muWfuuS6juS7o+eggeivreS5ieebuOS8vOW6puiAjOmdnuWFs+mUruivjeWMuemFjQotICoq5LiK5LiL5paH5rOo5YWlKirvvJrmkJzntKLnu5Pmnpzoh6rliqjpmYTluKbosIPnlKjpk77lkozkvp3otZblm74KLSAqKuWkmuivreiogOaUr+aMgSoq77yaUHl0aG9uL0phdmFTY3JpcHQvVHlwZVNjcmlwdC9Hby9SdXN0L0phdmEKLSAqKuato+WImeWinuW8uioq77ya5pSv5oyBIEdsb2IgKyBSZWdleCDmt7flkIjnsr7noa7ljLnphY0KCiMjIOmAgueUqOWcuuaZrwotIOWkp+Wei+S7o+eggeW6k+WvvOiIqgotIOS7o+eggeWkjeeUqOWSjOacgOS9s+Wunui3teafpeaJvgotIOmBl+eVmeS7o+eggeeQhuino+WSjOmHjeaehAoKIyMg5b+r6YCf5byA5aeLCjEuIOe0ouW8leS7o+eggeW6k++8mmBweXRob24zIHNjcmlwdHMvY29kZV9pbmRleGVyLnB5IGluZGV4IC4vYAoyLiDoh6rnhLbor63oqIDmkJzntKLvvJpgcHl0aG9uMyBzY3JpcHRzL2NvZGVfc2VhcmNoLnB5ICLlpoLkvZXlrp7njrAgSldUIOmqjOivgSJgCg==
+# Code Search Automation
+
+AI 语义代码搜索：自然语言查询代码库、语义相似度排序、上下文注入、多语言支持。
+
+## 核心能力
+- **自然语言搜索**：用中文/英文描述你想找的代码
+- **语义排序**：基于代码语义相似度而非关键词匹配
+- **上下文注入**：搜索结果自动附带调用链和依赖图
+- **多语言支持**：Python/JavaScript/TypeScript/Go/Rust/Java
+- **正则增强**：支持 Glob + Regex 混合精确匹配
+
+## 适用场景
+- 大型代码库导航
+- 代码复用和最佳实践查找
+- 遗留代码理解和重构
+
+## 快速开始
+1. 索引代码库：`python3 scripts/code_indexer.py index ./`
+2. 自然语言搜索：`python3 scripts/code_search.py "如何实现 JWT 验证"`

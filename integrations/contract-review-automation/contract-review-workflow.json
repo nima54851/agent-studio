@@ -1,0 +1,109 @@
+{
+  "name": "Contract Review Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "mailbox": "contracts@example.com",
+        "download": true,
+        "downloadAttachments": true,
+        "options": {}
+      },
+      "id": "email-trigger",
+      "name": "Email Trigger",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 4,
+      "credentials": {"imap": {"id": "imap", "name": "IMAP Email"}}
+    },
+    {
+      "parameters": {
+        "jsCode": "const msg = $input.first().json;\nconst attachments = msg.attachments || [];\nconst pdf = attachments.find(a => a.fileType === 'pdf' || a.fileName?.endsWith('.pdf'));\nconst docx = attachments.find(a => a.fileName?.endsWith('.docx'));\nreturn [{ json: { hasAttachment: attachments.length > 0, pdf, docx, subject: msg.subject, from: msg.from } }];"
+      },
+      "id": "parse-email",
+      "name": "Parse Email",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "model": "claude",
+        "prompt": {
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a senior commercial lawyer. Analyze the contract text provided and return a JSON object with: summary (one sentence), risk_score (0-100 integer), high_risk_clauses (array of strings), missing_clauses (array of strings), payment_terms (string), termination (string), confidentiality (string), liability_cap (string)."
+            },
+            {
+              "role": "user",
+              "content": "Subject: {{ $json.subject }}\nFrom: {{ $json.from }}\nContract content: {{ $('parse-email').item.json.pdf?.content || $('parse-email').item.json.docx?.content || 'No attachment found' }}"
+            }
+          ]
+        },
+        "options": {"maxTokens": 2000, "temperature": 0.1}
+      },
+      "id": "ai-review",
+      "name": "AI Contract Review",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "risk-check",
+              "leftValue": "{{ $json.risk_score }}",
+              "rightValue": 60,
+              "operation": {"type": "number", "operation": "greater"}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "risk-check",
+      "name": "High Risk?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/TOKEN",
+        "text": "⚠️ *High Risk Contract*\nRisk Score: {{ $json.risk_score }}/100\nHigh Risk Clauses: {{ $json.high_risk_clauses?.join(', ') }}\nMissing: {{ $json.missing_clauses?.join(', ') }}",
+        "attachments": []
+      },
+      "id": "slack-legal",
+      "name": "Alert Legal Team",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "folderId": "contracts-folder-id",
+        "fileName": "={{ $('parse-email').item.json.subject }}_review.md",
+        "content": "=# Contract Review Report\n\n**Risk Score:** {{ $json.risk_score }}/100\n\n## Summary\n{{ $json.summary }}\n\n## High Risk Clauses\n{{ $json.high_risk_clauses?.map(c => '- ' + c).join('\\n') }}\n\n## Missing Clauses\n{{ $json.missing_clauses?.map(c => '- ' + c).join('\\n') }}\n\n## Key Terms\n- **Payment:** {{ $json.payment_terms }}\n- **Termination:** {{ $json.termination }}\n- **Confidentiality:** {{ $json.confidentiality }}\n- **Liability Cap:** {{ $json.liability_cap }}"
+      },
+      "id": "archive-drive",
+      "name": "Archive to Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "credentials": {"googleDriveOAuth2": {"id": "gdrive", "name": "Google Drive"}}
+    }
+  ],
+  "connections": {
+    "email-trigger": {"main": [[{"node": "parse-email", "type": "main", "index": 0}]]},
+    "parse-email": {"main": [[{"node": "ai-review", "type": "main", "index": 0}]]},
+    "ai-review": {"main": [[{"node": "risk-check", "type": "main", "index": 0}]]},
+    "risk-check": {
+      "main": [
+        [{"node": "slack-legal", "type": "main", "index": 0}],
+        [{"node": "archive-drive", "type": "main", "index": 0}]
+      ]
+    },
+    "slack-legal": {"main": [[{"node": "archive-drive", "type": "main", "index": 0}]]},
+    "archive-drive": {"main": [[]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": ["contracts", "legal", "ai"]
+}

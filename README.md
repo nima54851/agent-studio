@@ -128,6 +128,12 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[ai-test-generator-automation](skills/ai-test-generator-automation)** | AI 自动生成测试用例 — pytest/Jest/Playwright、覆盖率分析、变异测试 |
 | **[code-migration-automation](skills/code-migration-automation)** | 代码迁移自动化 — 10+ 迁移路径、分阶段部署、回滚计划、SLO 门控 |
 | **[agent-observability-automation](skills/agent-observability-automation)** | Agent 可观测性 — 链路追踪、成本追踪、SLO 仪表盘、Prometheus + Grafana |
+| **[api-gateway-automation](skills/api-gateway-automation)** | Kong/Traefik API 网关 — JWT 验证、限流、熔断路由、灰度发布 |
+| **[ai-workflow-debugger](skills/ai-workflow-debugger)** | AI 工作流调试 — 执行轨迹分析、根因定位、断点推荐、修复建议 |
+| **[multi-tenant-saas-automation](skills/multi-tenant-saas-automation)** | 多租户 SaaS — Stripe 订阅、用量计费、Schema 隔离、White-label |
+| **[oncall-rotation-automation](skills/oncall-rotation-automation)** | 值守轮班自动化 — PagerDuty 排班、升级链路、AI 交接摘要 |
+| **[contract-review-automation](skills/contract-review-automation)** | AI 合同审查 — 条款提取、风险评分、红线对比、批量审查 |
+| **[ci-cd-analytics-automation](skills/ci-cd-analytics-automation)** | CI/CD 流水线分析 — DORA 指标、Flaky Test 检测、构建优化建议 |
 
 ---
 
@@ -266,6 +272,16 @@ MIT · Use it, modify it, sell it (just keep the credit).
 
 </h>
 
+
+## New Skills (2026-07-25)
+| Skill | Description | Status |
+|-------|-------------|--------|
+| [api-gateway-automation](skills/api-gateway-automation) | Kong/Traefik API 网关 — JWT 验证、Redis 限流、熔断、Slack 告警 | ✅ n8n |
+| [ai-workflow-debugger](skills/ai-workflow-debugger) | AI 工作流调试 — 执行轨迹分析、根因定位、断点推荐、修复建议生成 | ✅ n8n |
+| [multi-tenant-saas-automation](skills/multi-tenant-saas-automation) | 多租户 SaaS — Stripe 订阅、Metered Billing、Schema 隔离、Onboarding | ✅ n8n |
+| [oncall-rotation-automation](skills/oncall-rotation-automation) | 值守轮班 — PagerDuty 排班、升级链路、AI 交接摘要、Google Calendar | ✅ n8n |
+| [contract-review-automation](skills/contract-review-automation) | AI 合同审查 — 条款提取、风险评分 0-100、红线对比、Google Drive 归档 | ✅ n8n |
+| [ci-cd-analytics-automation](skills/ci-cd-analytics-automation) | CI/CD 流水线分析 — DORA 指标追踪、Flaky Test 自动建 Issue、优化建议 | ✅ n8n |
 
 ## New Skills (2026-07-24)
 | Skill | Description | Status |

@@ -1,0 +1,97 @@
+{
+  "name": "Multi-Tenant SaaS Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"event": "stripe.customer.subscription.*"},
+        "options": {}
+      },
+      "id": "stripe-trigger",
+      "name": "Stripe Webhook",
+      "type": "n8n-nodes-base.stripeTrigger",
+      "typeVersion": 1,
+      "credentials": {"stripeApi": {"id": "stripe", "name": "Stripe API"}}
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "event-type",
+              "leftValue": "{{ $json.type }}",
+              "rightValue": "customer.subscription.created",
+              "operation": {"type": "string", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "if-new-subscription",
+      "name": "New Subscription?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract tenant info from Stripe event\nconst event = $input.first().json;\nconst sub = event.data?.object;\n\nreturn [{ json: {\n  customerId: sub.customer,\n  subscriptionId: sub.id,\n  plan: sub.items?.data?.[0]?.price?.nickname || 'unknown',\n  status: sub.status,\n  tenantEmail: sub.customer_details?.email || 'unknown@example.com'\n}}];"
+      },
+      "id": "extract-tenant",
+      "name": "Extract Tenant Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "operation": "execute",
+        "sql": "CREATE SCHEMA IF NOT EXISTS tenant_{{ $json.customerId }};\nCREATE TABLE IF NOT EXISTS tenant_{{ $json.customerId }}.usage (\n  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),\n  metric TEXT NOT NULL,\n  quantity INTEGER NOT NULL,\n  recorded_at TIMESTAMPTZ DEFAULT NOW()\n);"
+      },
+      "id": "create-tenant-schema",
+      "name": "Create Tenant Schema",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.3,
+      "credentials": {"postgres": {"id": "postgres", "name": "PostgreSQL"}}
+    },
+    {
+      "parameters": {
+        "from": "onboarding@yourproduct.com",
+        "to": "{{ $json.tenantEmail }}",
+        "subject": "Welcome to {{ $vars.PRODUCT_NAME }}! 🚀",
+        "html": "<h1>Welcome!</h1><p>Your tenant is ready. Get started at {{ $vars.APP_URL }}</p>",
+        "options": {}
+      },
+      "id": "welcome-email",
+      "name": "Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 4
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/TOKEN",
+        "text": "🎉 *New Tenant Activated*\nCustomer: {{ $json.tenantEmail }}\nPlan: {{ $json.plan }}\nSubscription ID: {{ $json.subscriptionId }}",
+        "attachments": []
+      },
+      "id": "slack-notify",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2
+    }
+  ],
+  "connections": {
+    "stripe-trigger": {"main": [[{"node": "if-new-subscription", "type": "main", "index": 0}]]},
+    "if-new-subscription": {
+      "main": [
+        [{"node": "extract-tenant", "type": "main", "index": 0}],
+        []
+      ]
+    },
+    "extract-tenant": {"main": [[{"node": "create-tenant-schema", "type": "main", "index": 0}]]},
+    "create-tenant-schema": {"main": [[{"node": "welcome-email", "type": "main", "index": 0}]]},
+    "welcome-email": {"main": [[{"node": "slack-notify", "type": "main", "index": 0}]]},
+    "slack-notify": {"main": [[]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": ["saas", "multi-tenant", "stripe"]
+}

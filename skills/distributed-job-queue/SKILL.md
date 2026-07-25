@@ -1,1 +1,20 @@
-IyBEaXN0cmlidXRlZCBKb2IgUXVldWUgQXV0b21hdGlvbgoK5Z+65LqOIFJlZGlzICsgUHl0aG9uIOeahOWIhuW4g+W8j+S7u+WKoemYn+WIl++8muW7tui/n+S7u+WKoeOAgeS8mOWFiOe6p+OAgemZkOa1geOAgeatu+S/oemYn+WIl+OAgVNMQSDnm5HmjqfjgIIKCiMjIOaguOW/g+iDveWKmwotICoq5bu26L+f5Lu75YqhKirvvJrmlK/mjIHnp5Lnuqflu7bov5/jgIFjcm9uIOmjjuagvOeahOWRqOacn+S7u+WKoQotICoq5LyY5YWI57qn6Zif5YiXKirvvJrpq5gv5LitL+S9juS4iee6p+S8mOWFiOe6p+iHquWKqOi3r+eUsQotICoq6ZmQ5rWB5L+d5oqkKirvvJrku6TniYzmobbnrpfms5XpmLLmraLkuIvmuLjmnI3liqHov4fovb0KLSAqKuatu+S/oemYn+WIlyoq77ya5aSx6LSl5Lu75Yqh6Ieq5Yqo6L+b5YWlIERMUe+8jOS+v+S6juaOkuafpQotICoqU0xBIOebkeaOpyoq77ya5Lu75Yqh5omn6KGM5pe26ZW/IFA1MC9QOTUvUDk5IOi/vei4qgoKIyMg6YCC55So5Zy65pmvCi0g6auY5bm25Y+R5ZCO56uv5Lu75Yqh5aSE55CGCi0g6ZyA6KaB5Lu75Yqh5Y+v6Z2g5oqV6YCS55qE57O757ufCi0g5aSad29ya2Vy5YiG5biD5byP5aSE55CG5p625p6ECgojIyDlv6vpgJ/lvIDlp4sKMS4g6YOo572yIFJlZGlz77yaYGRvY2tlciBydW4gLWQgLXAgNjM3OTo2Mzc5IHJlZGlzYAoyLiDphY3nva4gYGNvbmZpZy9xdWV1ZS55YW1sYCDkuK3nmoTov57mjqXkv6Hmga8KMy4g6L+Q6KGMIHdvcmtlcu+8mmBweXRob24zIHNjcmlwdHMvam9iX3dvcmtlci5weWAK
+# Distributed Job Queue Automation
+
+基于 Redis + Python 的分布式任务队列：延迟任务、优先级、限流、死信队列、SLA 监控。
+
+## 核心能力
+- **延迟任务**：支持秒级延迟、cron 风格的周期任务
+- **优先级队列**：高/中/低三级优先级自动路由
+- **限流保护**：令牌桶算法防止下游服务过载
+- **死信队列**：失败任务自动进入 DLQ，便于排查
+- **SLA 监控**：任务执行时长 P50/P95/P99 追踪
+
+## 适用场景
+- 高并发后端任务处理
+- 需要任务可靠投递的系统
+- 多worker分布式处理架构
+
+## 快速开始
+1. 部署 Redis：`docker run -d -p 6379:6379 redis`
+2. 配置 `config/queue.yaml` 中的连接信息
+3. 运行 worker：`python3 scripts/job_worker.py`

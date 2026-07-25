@@ -1,0 +1,80 @@
+{
+  "name": "API Gateway Automation Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"interval": [{"field": "minutes", "minutesInterval": 5}]}
+      },
+      "id": "schedule-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "http://kong:8001/status",
+        "options": {"timeout": 5000}
+      },
+      "id": "kong-status",
+      "name": "Kong Health Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "continueOnFail": true,
+      "notes": "Check Kong gateway status; continue if Kong unreachable"
+    },
+    {
+      "parameters": {
+        "url": "http://redis:6379/health",
+        "options": {"timeout": 3000}
+      },
+      "id": "redis-status",
+      "name": "Redis Health Check",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {"caseSensitive": true, "leftValue": "", "typeValidation": "strict"},
+          "conditions": [
+            {
+              "id": "kong-ok",
+              "leftValue": "{{ $json.status }}",
+              "rightValue": "200",
+              "operator": {"type": "string", "operation": "equals"}
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "health-cond",
+      "name": "Gateway Healthy?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "webhookUri": "https://hooks.slack.com/services/TOKEN",
+        "text": "🚨 *Kong Gateway Unreachable*\nTime: {{ $now.toISO() }}\nStatus code: {{ $json.statusCode }}",
+        "attachments": []
+      },
+      "id": "slack-alert",
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2,
+      "credentials": {"slackApi": {"id": "slack", "name": "Slack API"}}
+    }
+  ],
+  "connections": {
+    "schedule-trigger": {"main": [[{"node": "kong-status", "type": "main", "index": 0}]]},
+    "kong-status": {"main": [[{"node": "health-cond", "type": "main", "index": 0}]]},
+    "redis-status": {"main": [[]]},
+    "health-cond": {"main": [[{"node": "redis-status", "type": "main", "index": 0}], [{"node": "slack-alert", "type": "main", "index": 0}]]},
+    "slack-alert": {"main": [[]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": ["api-gateway", "kong", "automation"]
+}
