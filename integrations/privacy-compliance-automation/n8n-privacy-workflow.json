@@ -1,0 +1,53 @@
+{
+  "name": "Privacy Compliance Workflow",
+  "nodes": [
+    {
+      "id": "trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "httpMethod": "POST", "path": "privacy-dsr" },
+      "name": "DSR Webhook"
+    },
+    {
+      "id": "validator",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const body = $input.first().json;\nconst valid = ['access', 'delete', 'rectify', 'portability'].includes(body.action);\nreturn [{ valid, action: body.action, email: body.email, requestId: body.requestId }];"
+      },
+      "name": "DSR Validator"
+    },
+    {
+      "id": "scanner",
+      "type": "n8n-nodes-base.openAi",
+      "parameters": {
+        "operation": "complete",
+        "prompt": "=Find all personal data (PII) for user {{ $json.email }} in the database. List tables and record IDs."
+      },
+      "name": "PII Scanner"
+    },
+    {
+      "id": "processor",
+      "type": "n8n-nodes-base.postgres",
+      "parameters": {
+        "operation": "delete",
+        "table": "users",
+        "where": "email = '{{ $json.email }}'"
+      },
+      "name": "Data Processor"
+    },
+    {
+      "id": "confirm",
+      "type": "n8n-nodes-base.email",
+      "parameters": {
+        "to": "={{ $json.email }}",
+        "subject": "Your data request has been processed",
+        "body": "={{ 'Request ' + $json.requestId + ' has been completed.' }}"
+      },
+      "name": "Confirmation Email"
+    }
+  ],
+  "connections": {
+    "DSR Webhook": { "main": [[{ "node": "validator", "type": "main", "index": 0 }]] },
+    "PII Scanner": { "main": [[{ "node": "processor", "type": "main", "index": 0 }]] },
+    "Data Processor": { "main": [[{ "node": "confirm", "type": "main", "index": 0 }]] }
+  }
+}
