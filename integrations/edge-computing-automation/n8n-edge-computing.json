@@ -1,0 +1,42 @@
+{
+  "name": "Edge Computing Workflow",
+  "nodes": [
+    {
+      "id": "trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": { "httpMethod": "POST", "path": "edge-inference" },
+      "name": "Edge Request"
+    },
+    {
+      "id": "geo_router",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const ip = $input.first().json.ip;\nconst regions = {\n  'US': 'https://us-east-1.edge.example.com',\n  'EU': 'https://eu-west-1.edge.example.com',\n  'AP': 'https://ap-east-1.edge.example.com'\n};\nconst geo = $input.first().json.geo || 'US';\nreturn [{ url: regions[geo] || regions['US'], geo }];"
+      },
+      "name": "Geo Router"
+    },
+    {
+      "id": "edge_infer",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.url }}/infer",
+        "bodyParameters": {
+          "prompt": "={{ $json.prompt }}"
+        }
+      },
+      "name": "Edge AI Inference"
+    },
+    {
+      "id": "cache_check",
+      "type": "n8n-nodes-base.redis",
+      "parameters": { "operation": "get", "key": "={{ $('trigger').first().json.cacheKey }}" },
+      "name": "Cache Lookup"
+    }
+  ],
+  "connections": {
+    "Edge Request": { "main": [[{ "node": "geo_router", "type": "main", "index": 0 }]] },
+    "Geo Router": { "main": [[{ "node": "cache_check", "type": "main", "index": 0 }]] },
+    "Edge Inference": { "main": [[]] }
+  }
+}
