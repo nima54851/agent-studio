@@ -1,0 +1,45 @@
+{
+  "name": "Realtime Collaboration Workflow",
+  "nodes": [
+    {
+      "id": "trigger",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "collab-event"
+      },
+      "name": "Webhook Trigger"
+    },
+    {
+      "id": "classify",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const event = $json;\nconst type = event.type;\nconst actions = {\n  'meeting.start': 'schedule_summary',\n  'task.assign': 'notify_assignee',\n  'pr.review': 'trigger_code_review',\n  'standup.update': 'generate_standup_summary'\n};\nreturn [{ action: actions[type] || 'unknown', event }];"
+      },
+      "name": "Event Classifier"
+    },
+    {
+      "id": "ai_summarizer",
+      "type": "n8n-nodes-base.openAi",
+      "parameters": {
+        "operation": "complete",
+        "prompt": "=Summarize this team collaboration event concisely:\n{{ $json.event }}"
+      },
+      "name": "AI Summarizer"
+    },
+    {
+      "id": "notify",
+      "type": "n8n-nodes-base.slack",
+      "parameters": {
+        "channel": "#team-collab",
+        "text": "={{ $json.summary }}"
+      },
+      "name": "Slack Notification"
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": { "main": [[{ "node": "classify", "type": "main", "index": 0 }]] },
+    "Event Classifier": { "main": [[{ "node": "ai_summarizer", "type": "main", "index": 0 }]] },
+    "AI Summarizer": { "main": [[{ "node": "notify", "type": "main", "index": 0 }]] }
+  }
+}
