@@ -1,0 +1,15 @@
+{
+  "name": "Multi-Agent Orchestration Pipeline",
+  "nodes": [
+    {"type": "trigger", "position": [0, 300], "parameters": {}},
+    {"type": "n8n-nodes-base.code", "position": [250, 300], "parameters": {"jsCode": "// Task decomposition\nconst task = $input.first().json.task;\nreturn [{json: {subtasks: ['analyze', 'implement', 'test', 'document'], original: task}}];"}},
+    {"type": "n8n-nodes-base.splitInBatches", "position": [500, 300], "parameters": {"batchSize": 1}},
+    {"type": "n8n-nodes-base.code", "position": [750, 0], "parameters": {"jsCode": "// Agent-A: Code Review\nreturn [{json: {agent: 'code-review', result: 'Approved'}}];"}},
+    {"type": "n8n-nodes-base.code", "position": [750, 300], "parameters": {"jsCode": "// Agent-B: Test Generator\nreturn [{json: {agent: 'test-generator', result: '3 tests generated'}}];"}},
+    {"type": "n8n-nodes-base.code", "position": [750, 600], "parameters": {"jsCode": "// Agent-C: Document Writer\nreturn [{json: {agent: 'doc-writer', result: 'README updated'}}];"}}
+  ],
+  "connections": {"trigger": {"main": [["Code"]]}, "Code": {"main": [["SplitInBatches"]]}},
+  "active": true,
+  "settings": {},
+  "id": "multi-agent-orchestration-automation"
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Data Pipeline Automation",
+  "nodes": [
+    {"type": "n8n-nodes-base.postgres", "position": [0, 300], "parameters": {"operation": "executeQuery", "query": "SELECT * FROM events LIMIT 1000"}},
+    {"type": "n8n-nodes-base.code", "position": [250, 300], "parameters": {"jsCode": "// Transform: clean and normalize\nconst rows = $input.all();\nreturn rows.map(r => ({json: {...r.json, cleaned: true, timestamp: new Date().toISOString()}}));"}},
+    {"type": "n8n-nodes-base.httpRequest", "position": [500, 300], "parameters": {"url": "={{$env.DATA_WAREHOUSE_URL}}", "method": "POST", "body": "={{$json}}"}},
+    {"type": "n8n-nodes-base.slack", "position": [750, 300], "parameters": {"channel": "#data-alerts", "text": "Pipeline ✅ Loaded {{$input.length}} rows at " + new Date().toISOString()}}
+  ],
+  "connections": {"Postgres": {"main": [["Code"]]}, "Code": {"main": [["HTTP Request"]]}, "HTTP Request": {"main": [["Slack"]]}},
+  "active": true,
+  "settings": {},
+  "id": "data-pipeline-automation"
+}

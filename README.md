@@ -48,9 +48,6 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
 | **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
 | **MCP Server** | Build MCP servers backed by n8n — any MCP-compatible AI can use your workflows as tools | `integrations/mcp-server-automation/` |
-| **Realtime Collaboration** | 实时协作自动化 — 会议摘要、任务协调、WebSocket 实时状态 | `skills/realtime-collaboration-automation/` |
-| **Edge Computing** | Cloudflare Workers AI 边缘推理、数据主权合规 | `skills/edge-computing-automation/` |
-| **Privacy Compliance** | GDPR/CCPA/PIPL 合规 — PII 扫描、DSR 处理、DPIA 报告 | `skills/privacy-compliance-automation/` |
 | **Prompt Versioning** | Git-like version control for AI prompts — diff, rollback, A/B test, environment promotion | `integrations/prompt-versioning-automation/` |
 | **Testing Automation** | AI 生成 pytest/jest 测试用例 + coverage 跟踪 + CI 集成 | `skills/testing-automation/` |
 | **Infrastructure as Code** | AI 生成 Terraform / Pulumi / Ansible 配置文件 | `skills/infrastructure-as-code/` |
@@ -137,9 +134,22 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | **[oncall-rotation-automation](skills/oncall-rotation-automation)** | 值守轮班自动化 — PagerDuty 排班、升级链路、AI 交接摘要 |
 | **[contract-review-automation](skills/contract-review-automation)** | AI 合同审查 — 条款提取、风险评分、红线对比、批量审查 |
 | **[ci-cd-analytics-automation](skills/ci-cd-analytics-automation)** | CI/CD 流水线分析 — DORA 指标、Flaky Test 检测、构建优化建议 |
-| **[realtime-collaboration-automation](skills/realtime-collaboration-automation)** | 实时协作自动化 — 会议摘要、任务协调、实时状态同步、WebSocket 通知 |
-| **[edge-computing-automation](skills/edge-computing-automation)** | 边缘计算自动化 — Cloudflare Workers AI、低延迟推理、数据主权合规 |
-| **[privacy-compliance-automation](skills/privacy-compliance-automation)** | 隐私合规自动化 — GDPR/CCPA/PIPL、数据发现、DSR 处理、DPIA 报告 |
+| **[intelligent-routing-automation](skills/intelligent-routing-automation)** | AI 智能路由 — 意图分类、负载均衡、成本感知分发、优雅降级 |
+| **[quality-gate-automation](skills/quality-gate-automation)** | AI 质量门禁 — Semgrep/Gitleaks 扫描 + GPT-4 审查 + PR 合并管控 |
+| **[ai-playbook-generator](skills/ai-playbook-generator)** | AI 运营剧本生成器 — SOP 自动生成 + n8n 工作流导出 + Notion 同步 |
+| **[ai-security-pentest-automation](skills/ai-security-pentest-automation)** | AI 渗透测试 — OWASP Top 10 + CVSS 评分 + 自动报告生成 |
+| **[multi-agent-orchestration-automation](skills/multi-agent-orchestration-automation)** | 多 Agent 编排 — 任务分解 + 调度 + 结果聚合 + 容错重试 |
+| **[data-pipeline-automation](skills/data-pipeline-automation)** | 数据管道自动化 — ETL + 实时流处理 + Schema 管理 + 数据质量监控 |
+
+---
+
+## ✨ New Skills (2026-07-28)
+
+| Skill | Description | Category |
+|-------|-------------|----------|
+| [ai-security-pentest-automation](skills/ai-security-pentest-automation) | AI 渗透测试 + OWASP Top 10 扫描 + CVSS 评分 + 自动报告 | 🛡️ Security |
+| [multi-agent-orchestration-automation](skills/multi-agent-orchestration-automation) | 多 Agent 协调编排 + 任务分解 + 调度 + 结果聚合 | 🤖 Multi-Agent |
+| [data-pipeline-automation](skills/data-pipeline-automation) | ETL + 实时流处理 + Schema 演进 + 数据质量监控 | 📊 Data Engineering |
 
 ---
 
