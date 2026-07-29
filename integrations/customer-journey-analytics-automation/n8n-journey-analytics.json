@@ -1,0 +1,60 @@
+{
+  "name": "Customer Journey Analytics Pipeline",
+  "nodes": [
+    {
+      "id": "journey-trigger",
+      "type": "n8n-nodes-base.webhook",
+      "position": [100, 300],
+      "name": "Journey Event Webhook",
+      "webhookId": "customer-journey-events",
+      "httpMethod": "POST",
+      "path": "journey-events"
+    },
+    {
+      "id": "event-cleaner",
+      "type": "n8n-nodes-base.code",
+      "position": [300, 300],
+      "name": "Data Cleaner",
+      "code": "// 清洗事件数据\nconst events = $input.all();\nreturn events.map(e => {\n  const d = e.json;\n  return {\n    json: {\n      userId: d.userId,\n      eventType: d.eventType,\n      timestamp: new Date(d.timestamp).toISOString(),\n      properties: d.properties || {},\n      sessionId: d.sessionId || Math.random().toString(36).slice(2),\n      source: d.source || 'web'\n    }\n  };\n});"
+    },
+    {
+      "id": "funnel-calculator",
+      "type": "n8n-nodes-base.code",
+      "position": [500, 300],
+      "name": "Funnel Calculator",
+      "code": "// 漏斗计算逻辑\n// 支持：page_view → add_to_cart → checkout → purchase\nconst FUNNEL_STEPS = ['page_view', 'add_to_cart', 'checkout', 'purchase'];\n\nconst events = $input.all().map(e => e.json);\nconst funnelCounts = {};\n\nFUNNEL_STEPS.forEach(step => {\n  funnelCounts[step] = new Set(\n    events.filter(e => e.eventType === step).map(e => e.userId)\n  ).size;\n});\n\nreturn [{\n  json: {\n    timestamp: new Date().toISOString(),\n    funnelSteps: FUNNEL_STEPS,\n    counts: funnelCounts,\n    conversionRates: {\n      step1to2: funnelCounts['page_view'] > 0 \n        ? (funnelCounts['add_to_cart'] / funnelCounts['page_view'] * 100).toFixed(1) + '%' : 'N/A',\n      step2to3: funnelCounts['add_to_cart'] > 0 \n        ? (funnelCounts['checkout'] / funnelCounts['add_to_cart'] * 100).toFixed(1) + '%' : 'N/A',\n      step3to4: funnelCounts['checkout'] > 0 \n        ? (funnelCounts['purchase'] / funnelCounts['checkout'] * 100).toFixed(1) + '%' : 'N/A'\n    }\n  }\n}];"
+    },
+    {
+      "id": "churn-predictor",
+      "type": "n8n-nodes-base.openAi",
+      "position": [700, 200],
+      "name": "AI Churn Risk Predictor",
+      "operation": "complete",
+      "model: "gpt-4",
+      "prompt": "分析以下用户行为数据，判断流失风险等级（高/中/低）：\n\n{{ $json | json }}\n\n返回格式：\n{\"risk\": \"HIGH|MEDIUM|LOW\", \"reason\": \"...\", \"action\": \"...\"}"
+    },
+    {
+      "id": "slack-alert",
+      "type": "n8n-nodes-base.slack",
+      "position": [900, 200],
+      "name": "Slack Alert (High Risk)",
+      "operation": "postMessage",
+      "channel": "#product-analytics",
+      "message": "🚨 流失预警\n高风险用户数: {{ $json.risk === 'HIGH' ? $input.count() : 0 }}\n中风险用户数: {{ $json.risk === 'MEDIUM' ? $input.count() : 0 }}"
+    }
+  ],
+  "connections": {
+    "Journey Event Webhook": {
+      "main": [[{"node": "Data Cleaner", "type": "main", "index": 0}]]
+    },
+    "Data Cleaner": {
+      "main": [[{"node": "Funnel Calculator", "type": "main", "index": 0}]]
+    },
+    "Funnel Calculator": {
+      "main": [[{"node": "AI Churn Risk Predictor", "type": "main", "index": 0}]]
+    },
+    "AI Churn Risk Predictor": {
+      "main": [[{"node": "Slack Alert (High Risk)", "type": "main", "index": 0}]]
+    }
+  }
+}

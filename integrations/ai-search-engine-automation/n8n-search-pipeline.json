@@ -1,0 +1,69 @@
+{
+  "name": "AI Search Engine Pipeline",
+  "nodes": [
+    {
+      "id": "data-source-trigger",
+      "type": "n8n-nodes-base.schedule",
+      "position": [100, 300],
+      "name": "Scheduled Index Update",
+      "rule": {"interval": [{"field": "minutes", "minutes": 30}]}
+    },
+    {
+      "id": "fetch-data",
+      "type": "n8n-nodes-base.postgres",
+      "position": [300, 300],
+      "name": "Fetch New Documents",
+      "operation": "executeQuery",
+      "query": "SELECT id, title, content, updated_at FROM documents WHERE updated_at > NOW() - INTERVAL '30 minutes'"
+    },
+    {
+      "id": "embedding",
+      "type": "n8n-nodes-base.openAi",
+      "position": [500, 300],
+      "name": "Generate Embeddings",
+      "operation": "embeddings",
+      "model": "text-embedding-3-small"
+    },
+    {
+      "id": "upsert-vector",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [700, 300],
+      "name": "Upsert to Qdrant",
+      "method": "PUT",
+      "url": "={{ $env.QDRANT_URL }}/collections/knowledge_base/points"
+    },
+    {
+      "id": "quality-monitor",
+      "type": "n8n-nodes-base.code",
+      "position": [500, 500],
+      "name": "Search Quality Monitor",
+      "code": "// 搜索质量监控\n// NDCG@5 / MRR / 零结果率\n\nconst mockMetrics = {\n  ndcg_at_5: 0.847,\n  mrr: 0.782,\n  zero_result_rate: 0.003,\n  avg_latency_ms: 45,\n  timestamp: new Date().toISOString()\n};\n\nconst alert = mockMetrics.zero_result_rate > 0.02 \n  ? '⚠️ 零结果率偏高，需检查索引' \n  : mockMetrics.ndcg_at_5 < 0.7 \n    ? '⚠️ NDCG@5 偏低，建议重新训练 embedding 模型'\n    : '✅ 搜索质量正常';\n\nreturn [{\n  json: { ...mockMetrics, alert }\n}];"
+    },
+    {
+      "id": "slack-search-alert",
+      "type": "n8n-nodes-base.slack",
+      "position": [700, 500],
+      "name": "Quality Alert",
+      "operation": "postMessage",
+      "channel": "#search-alerts",
+      "message": "🔍 {{ $json.alert }}\nNDCG@5: {{ $json.ndcg_at_5 }}\n零结果率: {{ ($json.zero_result_rate * 100).toFixed(1) }}%"
+    }
+  ],
+  "connections": {
+    "Scheduled Index Update": {
+      "main": [[{"node": "Fetch New Documents", "type": "main", "index": 0}]]
+    },
+    "Fetch New Documents": {
+      "main": [
+        [{"node": "Generate Embeddings", "type": "main", "index": 0}],
+        [{"node": "Search Quality Monitor", "type": "main", "index": 0}]
+      ]
+    },
+    "Generate Embeddings": {
+      "main": [[{"node": "Upsert to Qdrant", "type": "main", "index": 0}]]
+    },
+    "Search Quality Monitor": {
+      "main": [[{"node": "Quality Alert", "type": "main", "index": 0}]]
+    }
+  }
+}

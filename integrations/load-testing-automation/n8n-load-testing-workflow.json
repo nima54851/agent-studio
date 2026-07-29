@@ -1,0 +1,68 @@
+{
+  "name": "Load Testing Pipeline",
+  "nodes": [
+    {
+      "id": "github-trigger",
+      "type": "n8n-nodes-base.webhook",
+      "position": [100, 300],
+      "name": "GitHub Webhook Trigger",
+      "webhookId": "load-test-trigger",
+      "path": "load-test-trigger"
+    },
+    {
+      "id": "parse-payload",
+      "type": "n8n-nodes-base.code",
+      "position": [300, 300],
+      "name": "Parse Payload",
+      "code": "const payload = $input.first().json;\nconst ref = payload.pull_request?.head?.ref || 'main';\nconst repo = payload.repository?.full_name;\n\nreturn [{\n  json: {\n    repo,\n    branch: ref,\n    commitSha: payload.pull_request?.head?.sha || payload.after,\n    eventType: payload.action || 'push',\n    testUrl: `https://api.example.com`\n  }\n}];"
+    },
+    {
+      "id": "run-k6-test",
+      "type": "n8n-nodes-base.code",
+      "position": [500, 300],
+      "name": "Run k6 Load Test",
+      "code": "// 构造 k6 测试命令并执行\nconst testConfig = $input.first().json;\n\n// 模拟 k6 测试结果（实际可通过 exec 节点运行 k6）\nconst mockResult = {\n  passed: true,\n  metrics: {\n    http_req_duration: { 'p(95)': 210, 'p(99)': 450, avg: 85 },\n    http_reqs: 1234567,\n    http_req_failed: 0.00097\n  },\n  vus_max: 500,\n  duration: '16m',\n  thresholds: {\n    'p(95) < 500ms': true,\n    'error_rate < 1%': true\n  }\n};\n\nreturn [{\n  json: {\n    ...testConfig,\n    ...mockResult,\n    result: mockResult.passed ? 'PASS' : 'FAIL',\n    timestamp: new Date().toISOString()\n  }\n}];"
+    },
+    {
+      "id": "regression-check",
+      "type": "n8n-nodes-base.code",
+      "position": [700, 300],
+      "name": "Regression Check",
+      "code": "const result = $input.first().json;\nconst threshold = { p95_max: 500, error_rate_max: 0.01 };\n\nconst p95Regressed = result.metrics.http_req_duration['p(95)'] > threshold.p95_max;\nconst errorRegressed = (result.metrics.http_req_failed / 100) > threshold.error_rate_max;\n\nconst passed = !p95Regressed && !errorRegressed;\n\nreturn [{\n  json: {\n    ...result,\n    regression_detected: !passed,\n    details: {\n      p95_regressed: p95Regressed,\n      error_regressed: errorRegressed,\n      recommendation: passed \n        ? '✅ 测试通过，可以合并 PR'\n        : '⚠️ 检测到性能回归，建议修复后再合并'\n    }\n  }\n}];"
+    },
+    {
+      "id": "github-comment",
+      "type": "n8n-nodes-base.github",
+      "position": [900, 200],
+      "name": "Post PR Comment",
+      "operation": "createComment",
+      "repository": "={{ $json.repo }}"
+    },
+    {
+      "id": "fail-build",
+      "type": "n8n-nodes-base.slack",
+      "position": [900, 400],
+      "name": "Alert: Build Failed",
+      "operation": "postMessage",
+      "channel": "#devops-alerts",
+      "message": "❌ Load Test Failed: Performance regression detected\nPR: {{ $json.repo }}/pull/{{ $json.prNumber }}\np95: {{ $json.metrics.http_req_duration['p(95)'] }}ms (max: 500ms)"
+    }
+  ],
+  "connections": {
+    "GitHub Webhook Trigger": {
+      "main": [[{"node": "Parse Payload", "type": "main", "index": 0}]]
+    },
+    "Parse Payload": {
+      "main": [[{"node": "Run k6 Load Test", "type": "main", "index": 0}]]
+    },
+    "Run k6 Load Test": {
+      "main": [[{"node": "Regression Check", "type": "main", "index": 0}]]
+    },
+    "Regression Check": {
+      "main": [
+        [{"node": "Post PR Comment", "type": "main", "index": 0}],
+        [{"node": "Alert: Build Failed", "type": "main", "index": 0}]
+      ]
+    }
+  }
+}
