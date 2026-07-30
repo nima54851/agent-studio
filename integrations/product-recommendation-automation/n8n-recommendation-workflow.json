@@ -1,0 +1,83 @@
+{
+  "name": "AI Product Recommendation Pipeline",
+  "nodes": [
+    {
+      "id": "shopify-trigger",
+      "name": "Shopify Trigger",
+      "type": "@n8n/n8n-nodes-base.shopify",
+      "position": [250, 300],
+      "parameters": {
+        "topic": "orders/create"
+      }
+    },
+    {
+      "id": "user-profile",
+      "name": "Get User Profile",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [500, 300],
+      "parameters": {
+        "url": "https://api.example.com/users/{{ $json.customer.id }}"
+      }
+    },
+    {
+      "id": "recommend",
+      "name": "AI Recommend Products",
+      "type": "n8n-nodes-base.code",
+      "position": [750, 300],
+      "parameters": {
+        "jsCode": "// Call recommendation API\nconst { HybridRecommender } = require('./recommendation_engine');\nconst rec = new HybridRecommender(0.6, 0.4);\nrec.fit(sampleMatrix, sampleFeatures);\nconst recs = rec.recommend($json.customer.id, {profile_tags: ['tech', 'ml']});\nreturn {recommendations: recs};"
+      }
+    },
+    {
+      "id": "slack-alert",
+      "name": "Slack Notification",
+      "type": "n8n-nodes-base.slack",
+      "position": [1000, 200],
+      "parameters": {
+        "channel": "#product-recommendations",
+        "text": "New recommendation generated for user {{ $json.customer.id }}"
+      }
+    },
+    {
+      "id": "email-rec",
+      "name": "Send Recommendation Email",
+      "type": "n8n-nodes-base.emailSend",
+      "position": [1000, 400],
+      "parameters": {
+        "to": "{{ $json.customer.email }}",
+        "subject": "You might love these products 🎯",
+        "html": "<h2>Personalized Picks for You</h2><ul>{{ $json.recommendations.map(r => '<li>' + r.product_id + ' (score: ' + r.score + ')</li>').join('') }}</ul>"
+      }
+    },
+    {
+      "id": "ab-record",
+      "name": "Record AB Event",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [500, 500],
+      "parameters": {
+        "url": "http://localhost:8001/event",
+        "method": "POST",
+        "bodyParameters": {
+          "user_id": "{{ $json.customer.id }}",
+          "product_id": "{{ $json.recommendations[0].product_id }}",
+          "event_type": "impression"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "shopify-trigger": {
+      "main": [[{"node": "user-profile"}]]
+    },
+    "user-profile": {
+      "main": [[{"node": "recommend"}]]
+    },
+    "recommend": {
+      "main": [
+        [{"node": "slack-alert"}],
+        [{"node": "email-rec"}],
+        [{"node": "ab-record"}]
+      ]
+    }
+  }
+}

@@ -1,80 +1,318 @@
-# 🤖 AI超市 - 一站式AI能力交易市场
+# agent-studio 🤖
 
-> 买AI能力，像买菜一样简单 | Buy AI Tools Like Groceries
+<h align="center">
 
-[![AI超市](https://img.shields.io/badge/AI%20超市-全息玻璃界面-6366f1?style=for-the-badge&logo=robot&logoColor=white)](https://nima54851.github.io/ai-supermarket)
-[![17+ AI产品](https://img.shields.io/badge/17%2B%20AI%E4%BA%A7%E5%93%81-涵盖10%E4%B8%AA%E9%A2%86%E5%9F%9F-blue?style=for-the-badge)](https://nima54851.github.io/ai-supermarket)
-[![PayPal安全支付](https://img.shields.io/badge/PayPal-安全支付-00457C?style=for-the-badge&logo=paypal)](https://nima54851.github.io/ai-supermarket)
-[![PWA安装](https://img.shields.io/badge/PWA-可安装到桌面-4CAF50?style=for-the-badge&logo=progressive-web-apps)](https://nima54851.github.io/ai-supermarket)
+[![Stars](https://img.shields.io/github/stars/nima54851/agent-studio?style=flat&logo=github&color=24292e)](https://github.com/nima54851/agent-studio/stargazers)
+[![Forks](https://img.shields.io/github/forks/nima54851/agent-studio?style=flat&logo=github&color=24292e)](https://github.com/nima54851/agent-studio/network/members)
+[![Last Commit](https://img.shields.io/github/last-commit/nima54851/agent-studio?style=flat&color=238636)](https://github.com/nima54851/agent-studio/commits/main)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat)](LICENSE)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-blue?style=flat)](https://nima54851.github.io/agent-studio)
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat)](CONTRIBUTING.md)
 
----
+</h>
 
-## 🎯 AI超市是什么？
-
-AI超市是一个**AI能力交易平台**，精选17款+实用AI工具，覆盖自动化、内容创作、电商、开发、数据、安全、设计、游戏等10大领域。所有产品均为**GitHub开源项目 + 完整使用文档**，买完即可上手。
-
-🛒 **在线访问**: [https://nima54851.github.io/ai-supermarket](https://nima54851.github.io/ai-supermarket)
-
----
-
-## 📦 全部产品
-
-| 产品 | 价格 | 分类 | 说明 |
-|------|------|------|------|
-| ⚡ GitHub Agent自动化系统 | ¥99 | 自动化 | n8n + GitHub API自动化工作流 |
-| 📣 AI内容推流系统 | ¥199 | 内容 | 多平台内容一键分发 |
-| 🔗 n8n工作流自动化系统 | ¥149 | 自动化 | 零代码自动化工作流 |
-| 🤖 Telegram号码查询机器人 | ¥29 | 开发 | Python开发Telegram Bot实战 |
-| 🎬 AI视频生成助手 | ¥99 | 内容 | AI短视频自动化生成 |
-| 📚 AI漫剧生成系统 | ¥149 | 内容 | AI漫画转视频动画 |
-| 💡 脑洞助手/创意生成器 | ¥39 | 效率 | AI创意灵感激发 |
-| 📊 PPT智能生成器 | ¥79 | 效率 | AI一键生成专业PPT |
-| ✍️ AI代写定制服务系统 | ¥59 | 内容 | AI写作助手完整方案 |
-| 🌍 跨境电商AI助手 | ¥199 | 电商 | 选品/翻译/运营AI工具 |
-| 🧠 多平台AI Agent助手 | ¥129 | AI | 多LLM统一调度Agent |
-| 🎨 3D模型生成系统 | ¥129 | 开发 | AI 3D建模自动化 |
-| 🕷️ AI智能网页爬虫 | ¥69 | 数据 | 可视化爬虫+AI分析 |
-| 🗄️ AI数据库管理工具包 | ¥89 | 数据 | DB管理+AI查询优化 |
-| 🔒 AI代码安全审计系统 | ¥149 | 安全 | 自动化代码安全扫描 |
-| 🎨 AI设计素材生成器 | ¥79 | 设计 | AI设计素材批量生成 |
-| 🎮 AI游戏开发工具包 | ¥199 | 游戏 | AI游戏原型快速开发 |
+> **The AI Agent developer's production toolkit.** Everything you need to build, deploy, and scale AI agents — in one repo.
+> Built by [灵犀 AI](https://github.com/nima54851) · Powered by [OpenClaw](https://github.com/openclaw/openclaw)
 
 ---
 
-## 🔥 核心特色
+## 🎯 What Is This?
 
-- 🖥️ **全息玻璃界面** — OLED深色主题，现代感十足
-- 📱 **PWA应用** — 一键安装到桌面，离线可用
-- 🔔 **实时通知** — 新品上架Push推送
-- 💳 **PayPal安全支付** — 全球通用，自动发货
-- 🌐 **jsDelivr CDN加速** — 全球毫秒级访问
-- 🔍 **智能搜索** — 10大分类即时筛选
+A curated, **production-ready** collection of tools, workflows, and skill templates for AI Agent developers. Stop reinventing the wheel — clone, configure, ship.
 
----
-
-## 🛠️ 技术栈
-
-- **前端**: 纯HTML/CSS/JS（零依赖，无构建步骤）
-- **PWA**: Service Worker + Web App Manifest
-- **CDN**: jsDelivr（全球加速）/ GitHub Pages
-- **支付**: PayPal IPN + Webhook自动通知
-- **客服**: Telegram Bot (@diquchaxun78_bot)
+**What you get:**
+- ⚡ Skill templates that plug straight into OpenClaw
+- 🔄 Automation scripts (GitHub trending, daily reports, webhook pipelines)
+- 🤖 Integrations (Discord, Telegram, n8n, webhooks)
+- 🐳 Zero-config Docker deployments
+- 📋 Proven prompt patterns for code review, architecture, planning
 
 ---
 
-## 🚀 快速访问
+## 📦 What's Inside
 
-- 🌐 **全球访问**: [https://nima54851.github.io/ai-supermarket](https://nima54851.github.io/ai-supermarket)
-- ⚡ **CDN极速**: [https://cdn.jsdelivr.net/gh/nima54851/ai-supermarket@main/index.html](https://cdn.jsdelivr.net/gh/nima54851/ai-supermarket@main/index.html)
-- 💬 **客服机器人**: [@diquchaxun78_bot](https://t.me/diquchaxun78_bot)
-- 📧 **联系邮箱**: paypalyinanzo@hotmail.com
+| Category | Contents | Count |
+|----------|----------|-------|
+| **Skills** | OpenClaw-compatible agent skill templates | `skills/` |
+| **Scripts** | Python automation (GitHub trending, MCP, webhooks) | `scripts/` |
+| **Security** | Secret scanner, CVE audit, security reports | `skills/security-auditor/` |
+| **Documentation** | Auto-generate README, API docs, and changelogs from code | `skills/docs-generator/` |
+| **Analytics Dashboard** | GitHub stats, OpenClaw usage — live HTML dashboard | `skills/analytics-dashboard/` |
+| **SEO Automation** | sitemap.xml, robots.txt, OG tags, JSON-LD auto-gen | `skills/seo-automation/` |
+| **A/B Testing** | A/B test framework for n8n workflows and prompts | `skills/ab-testing-workflow/` |
+| **Voice AI Automation** | Whisper STT → LLM → TTS 语音 AI 自动化管道 | `skills/voice-ai-automation/` |
+| **Scheduled Tasks** | 跨平台定时任务调度（cron + n8n + 分布式锁） | `skills/scheduled-task-automation/` |
+| **Email Automation** | Gmail SMTP, drip campaigns, AI auto-reply | `skills/email-automation/` |
+| **Social Media** | Twitter/LinkedIn auto-post, content rewriting | `skills/social-media-automation/` |
+| **Product Launch** | AI-powered launch automation and checklist | `skills/product-launch-assistant/` |
+| **Image Generation** | DALL·E 3, Stable Diffusion, Flux — 自动配图 pipeline | `skills/image-generation-automation/` |
+| **Video Automation** | Runway, Kling, Pika — AI 视频生成 + 自动剪辑 + 字幕 + YouTube 发布 | `skills/video-automation/` |
+| **MCP Server** | Build MCP servers backed by n8n — any MCP-compatible AI can use your workflows as tools | `integrations/mcp-server-automation/` |
+| **Prompt Versioning** | Git-like version control for AI prompts — diff, rollback, A/B test, environment promotion | `integrations/prompt-versioning-automation/` |
+| **Testing Automation** | AI 生成 pytest/jest 测试用例 + coverage 跟踪 + CI 集成 | `skills/testing-automation/` |
+| **Infrastructure as Code** | AI 生成 Terraform / Pulumi / Ansible 配置文件 | `skills/infrastructure-as-code/` |
+| **Customer Support** | Ticket triage, auto-reply, escalation, FAQ resolver | `skills/customer-support-automation/` |
+| **Performance** | HTTP stress test, WebSocket benchmarks | `skills/performance-testing-toolkit/` |
+| **GitHub Actions** | AI-augmented PR review, auto-deploy, scheduled CI/CD | `skills/github-actions-automation/` |
+| **Monitoring & Alerting** | Prometheus + Grafana + AI anomaly detection + n8n alerts | `skills/monitoring-alerting-automation/` |
+| **Notion Sync** | Notion ↔ OpenClaw AI sync via n8n | `integrations/notion-sync/` |
+| **Linear Automation** | Linear project management + AI triage + Sprint planning | `integrations/linear-automation/` |
+| **Fine-Tuning Automation** | OpenAI/Axolotl/LLaMA-Factory 微调全流程 — 数据准备 → 训练 → 评估 → 部署 | `skills/fine-tuning-automation/` |
+| **Event-Driven Architecture** | Kafka / RabbitMQ / Redis Streams 事件驱动架构 + AI 事件流 | `skills/event-driven-architecture/` |
+| **AI Model Router** | 多模型智能路由 — OpenAI/Anthropic/Ollama 按成本/延迟自动选择最优模型 | `skills/ai-model-router/` |
+| **Data Visualization** | Plotly/D3.js — CSV/JSON → interactive charts & dashboards | `skills/data-visualization-automation/` |
+| **AI Code Refactoring** | AI refactor Python/JS/TS — type hints, async/await, DRY | `skills/ai-code-refactoring/` |
+| **Logging Automation** | 日志采集 + AI 异常检测 + 告警路由（Filebeat/Loki/Grafana/n8n） | `skills/logging-automation/` |
+| **LLM Ops Automation** | 统一 LLM 网关 + Token 成本追踪 + Prompt A/B 测试 + 预算告警 | `skills/llm-ops-automation/` |
+| **Resilience Patterns** | 熔断器 / 重试策略 / 滑动窗口限流 / 优雅降级 | `skills/resilience-patterns/` |
+| **Video Processing** | FFmpeg AI processing — auto-captions, vertical crop, multi-platform output | `skills/video-processing-automation/` |
+| **Database Migration** | AI SQL migration — schema diff, zero-downtime, rollback, data校验 | `skills/database-migration-automation/` |
+| **Sentiment Analysis** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerts | `skills/sentiment-analysis-automation/` |
+| **Blockchain Automation** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts | `skills/blockchain-automation/` |
+| **Workflow Orchestration** | Multi-step AI pipelines, retry logic, dead-letter queues, fan-out/fan-in patterns | `skills/workflow-orchestration/` |
+| **Browser Automation** | Playwright + AI — scrape, screenshot, form fill, multi-step web workflows | `skills/browser-automation/` |
+| **Integrations** | Discord Bot, Telegram Bot, Slack Bot, WhatsApp Bot, Voice AI, Scheduled Tasks, Data Viz, AI Refactor, Fine-Tuning, Event-Driven, GraphQL, Document Intelligence, Code Review, Blockchain, Workflow Orchestration, Browser Automation | `integrations/` |
+
+| **Product Recommendation** | Hybrid CF + content + A/B testing — FastAPI serving, CTR/conversion tracking | `skills/product-recommendation-automation/` |
+| **Database Sharding** | AI shard strategy planner — range/hash/directory, zero-downtime migration, SLO gates | `skills/database-sharding-automation/` |
+| **AI Interview Automation** | Resume screening + coding challenges + live code evaluation + candidate scoring | `skills/ai-interview-automation/` |
+| **Docker** | Docker Compose for instant deployment | `docker/` |
+| **Prompts** | Battle-tested prompt patterns | `prompts/` |
+| **GitHub Actions** | Daily reports, CI/CD, GitHub Pages deploy | `.github/workflows/` |
 
 ---
 
-## 📊 SEO关键词
+## 🛠️ Featured Skills
 
-AI工具, AI超市, 买AI, AI能力交易, GitHub自动化, n8n工作流, AI内容创作, 电商AI, AI开发工具, AI安全, 自动化工具, Telegram Bot, AI Agent, AI视频生成, AI爬虫, AI数据库, 游戏开发AI, AI设计, AI效率工具, AI赚钱
+| Skill | Description |
+|-------|-------------|
+| **[skill-builder](skills/skill-builder)** | Create AI Agent skills from scratch — SKILL.md + scripts + packaging |
+| **[coding-tutor](skills/coding-tutor)** | Learn Python, JavaScript, React — with exercises and projects |
+| **[n8n-workflow-builder](skills/n8n-workflow-builder)** | Design and debug n8n workflows — AI-powered automation |
+| **[career-roadmap](skills/career-roadmap)** | Programmer growth path — from junior to architect |
+| **[agent-skills-kit](skills/agent-skills-kit)** | Agent skills development framework — tools, templates, best practices |
+| **[self-hosted-ai](skills/self-hosted-ai)** | Deploy Ollama, n8n, Open WebUI — full local AI stack |
+| **[agent-memory](skills/agent-memory)** | Long-term memory for AI agents |
+| **[test-master](skills/test-master)** | Automated testing patterns for AI agent outputs |
+| **[cloudflare-workers-ai](skills/cloudflare-workers-ai)** | Deploy AI inference on Cloudflare Workers AI globally |
+| **[email-automation](skills/email-automation)** | AI auto-reply, drip campaigns, Gmail/SMTP via n8n |
+| **[social-media-automation](skills/social-media-automation)** | Auto-post Twitter/LinkedIn, content repurposing, AI threads |
+| **[github-trending-monitor](skills/github-trending-monitor)** | Track GitHub trending in real time |
+| **[agent-health-monitor](skills/agent-health-monitor)** | Monitor agent health and uptime |
+| **[content-promoter](skills/content-promoter)** | AI-powered social media content generation & scheduling |
+| **[product-launch-assistant](skills/product-launch-assistant)** | End-to-end AI product launch automation — landing page, social posts, email templates |
+| **[performance-testing-toolkit](skills/performance-testing-toolkit)** | HTTP/WebSocket/API stress testing + benchmarks |
+| **[security-auditor](skills/security-auditor)** | Secret scanning, CVE detection, API security audit |
+| **[customer-support-automation](skills/customer-support-automation)** | AI-powered ticket triage, auto-reply, FAQ resolution |
+| **[analytics-dashboard](skills/analytics-dashboard)** | HTML analytics dashboard — GitHub stats, OpenClaw usage, ZeroGPU savings |
+| **[ab-testing-workflow](skills/ab-testing-workflow)** | A/B test framework for n8n workflows and OpenClaw prompts |
+| **[seo-automation](skills/seo-automation)** | GitHub Pages SEO — sitemap, robots.txt, OG tags, JSON-LD |
+| **[data-visualization-automation](skills/data-visualization-automation)** | Auto-generate charts & dashboards — Plotly, D3.js, CSV/JSON → HTML |
+| **[ai-code-refactoring](skills/ai-code-refactoring)** | AI-powered code refactoring — Python/JS/TS, before/after diffs, quality checks |
+| **[graphql-api-automation](skills/graphql-api-automation)** | AI GraphQL API design — schema generation, Apollo Server, Federation, n8n pipeline |
+| **[ai-document-intelligence](skills/ai-document-intelligence)** | LLM-powered document extraction — PDFs, contracts, invoices, OCR pipeline |
+| **[code-review-automation](skills/code-review-automation)** | AI PR code review — security, bugs, performance, automated GitHub comments |
+| **[video-processing-automation](skills/video-processing-automation)** | FFmpeg + Whisper AI video processing — auto-captions, vertical crop, compression |
+| **[database-migration-automation](skills/database-migration-automation)** | AI SQL migration generator — schema diff, zero-downtime, rollback, data integrity |
+| **[sentiment-analysis-automation](skills/sentiment-analysis-automation)** | Real-time sentiment analysis — multi-language, topic extraction, urgency alerting |
+| **[blockchain-automation](skills/blockchain-automation)** | On-chain monitoring, wallet tracking, smart contract events, multi-chain alerts |
+| **[workflow-orchestration](skills/workflow-orchestration)** | Multi-step AI pipelines, retry logic, dead-letter queues, AI routing decisions |
+| **[browser-automation](skills/browser-automation)** | Playwright + AI browser automation — scrape, screenshot, form fill, web workflows |
+| **[incident-response-automation](skills/incident-response-automation)** | AI incident triage, PagerDuty integration, war-room summarizer, auto post-mortem |
+| **[compliance-automation](skills/compliance-automation)** | GDPR, SOC 2, HIPAA, PCI-DSS compliance — evidence collection, gap analysis, audit reports |
+| **[translation-automation](skills/translation-automation)** | AI multilingual translation — DeepL, quality scoring, terminology lock, batch processing |
+| **[a11y-automation](skills/a11y-automation)** | WCAG accessibility testing — axe-core, Lighthouse, AI fix suggestions, CI enforcement |
+| **[feature-flag-automation](skills/feature-flag-automation)** | LaunchDarkly/Unleash flag management — gradual rollouts, A/B targeting, AI recommendations |
+| **[agent-memory-automation](skills/agent-memory-automation)** | 长期记忆管理 — ChromaDB/pgvector 向量存储、语义召回、会话摘要、遗忘策略 |
+| **[cross-platform-notification](skills/cross-platform-notification)** | Email/Slack/Discord/Telegram/SMS 统一告警路由 + 升级策略 + 智能聚合 |
+| **[supabase-automation](skills/supabase-automation)** | Supabase 后端 — Auth/Realtime/Storage/Edge Functions + PostgreSQL/pgvector 自动化 |
+| **[prompt-engineering-automation](skills/prompt-engineering-automation)** | Prompt 版本控制、A/B 测试、Chain-of-Thought 模板、热词注入、Token 成本分析 |
+| **[distributed-job-queue](skills/distributed-job-queue)** | Redis 分布式任务队列 — 延迟任务、优先级路由、死信队列、SLA 监控 |
+| **[code-search-automation](skills/code-search-automation)** | AI 语义代码搜索 — 自然语言查代码库、上下文注入、多语言支持 |
+| **[ai-test-generator-automation](skills/ai-test-generator-automation)** | AI 自动生成测试用例 — pytest/Jest/Playwright、覆盖率分析、变异测试 |
+| **[code-migration-automation](skills/code-migration-automation)** | 代码迁移自动化 — 10+ 迁移路径、分阶段部署、回滚计划、SLO 门控 |
+| **[agent-observability-automation](skills/agent-observability-automation)** | Agent 可观测性 — 链路追踪、成本追踪、SLO 仪表盘、Prometheus + Grafana |
+| **[api-gateway-automation](skills/api-gateway-automation)** | Kong/Traefik API 网关 — JWT 验证、限流、熔断路由、灰度发布 |
+| **[ai-workflow-debugger](skills/ai-workflow-debugger)** | AI 工作流调试 — 执行轨迹分析、根因定位、断点推荐、修复建议 |
+| **[multi-tenant-saas-automation](skills/multi-tenant-saas-automation)** | 多租户 SaaS — Stripe 订阅、用量计费、Schema 隔离、White-label |
+| **[oncall-rotation-automation](skills/oncall-rotation-automation)** | 值守轮班自动化 — PagerDuty 排班、升级链路、AI 交接摘要 |
+| **[contract-review-automation](skills/contract-review-automation)** | AI 合同审查 — 条款提取、风险评分、红线对比、批量审查 |
+| **[ci-cd-analytics-automation](skills/ci-cd-analytics-automation)** | CI/CD 流水线分析 — DORA 指标、Flaky Test 检测、构建优化建议 |
+| **[intelligent-routing-automation](skills/intelligent-routing-automation)** | AI 智能路由 — 意图分类、负载均衡、成本感知分发、优雅降级 |
+| **[quality-gate-automation](skills/quality-gate-automation)** | AI 质量门禁 — Semgrep/Gitleaks 扫描 + GPT-4 审查 + PR 合并管控 |
+| **[ai-playbook-generator](skills/ai-playbook-generator)** | AI 运营剧本生成器 — SOP 自动生成 + n8n 工作流导出 + Notion 同步 |
+| **[ai-security-pentest-automation](skills/ai-security-pentest-automation)** | AI 渗透测试 — OWASP Top 10 + CVSS 评分 + 自动报告生成 |
+| **[multi-agent-orchestration-automation](skills/multi-agent-orchestration-automation)** | 多 Agent 编排 — 任务分解 + 调度 + 结果聚合 + 容错重试 |
+| **[data-pipeline-automation](skills/data-pipeline-automation)** | 数据管道自动化 — ETL + 实时流处理 + Schema 管理 + 数据质量监控 |
 
 ---
 
-*© 2025-2026 AI超市 | AI能力交易市场 | [在线访问](https://nima54851.github.io/ai-supermarket)*
+## ✨ New Skills (2026-07-29)
+
+| Skill | Description | Category |
+|-------|-------------|----------|
+| [customer-journey-analytics-automation](skills/customer-journey-analytics-automation) | 用户旅程分析 — 漏斗追踪、用户分群、流失预测、RFM 模型、路径归因 | 📊 Analytics |
+| [load-testing-automation](skills/load-testing-automation) | 分布式压测 — k6 + Kubernetes 扩缩容、瓶颈定位、性能回归检测、CI/CD 门禁 | ⚡ Performance |
+| [ai-search-engine-automation](skills/ai-search-engine-automation) | AI 语义搜索 — 混合 BM25+向量检索、Cross-Encoder 重排、GPT-4 摘要、NDCG@K 监控 | 🔍 Search |
+
+## ✨ New Skills (2026-07-28)
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/nima54851/agent-studio.git
+cd agent-studio
+
+# Run GitHub Trending tracker
+python3 scripts/github_trending.py
+
+# Use a skill with OpenClaw
+# Just copy skills/<name> to your OpenClaw skills directory
+```
+
+---
+
+## 📖 Featured Workflows
+
+### GitHub Trending → AI Digest → Daily Report
+```
+GitHub API → Filter AI/ML repos → AI summarize → REPORT.md → GitHub Pages
+```
+Runs daily via GitHub Actions · [See workflow](.github/workflows/daily-report.yml)
+
+### AI Product Launch Pipeline
+```
+产品定义 → 发布材料包 → n8n 自动化 → Twitter/Email/社区 发布 → 数据追踪复盘
+```
+Script + Skill + Checklist · [See skill](skills/product-launch-assistant/) · [See checklist](workflows/product-launch-checklist.md)
+
+### Slack → AI Agent → Team Notification
+```
+@mention in Slack → n8n route by intent → AI Agent process → Slack reply
+```
+Multi-agent routing built-in · [See integration](integrations/slack-bot/)
+
+### Notion ↔ AI Agent Sync
+```
+Notion Database → n8n → OpenClaw AI → Analysis → Notion Update
+```
+AI-powered tagging, priority scoring, auto-reply · [See integration](integrations/notion-sync/)
+
+### SEO Automation for GitHub Pages
+```
+Repo → SEO generator → sitemap.xml + robots.txt + OG tags → GitHub Pages
+```
+Automated SEO maintenance · [See skill](skills/seo-automation/)
+
+### A/B Test Your Workflows
+```
+Variant A workflow ←→ Variant B workflow → Stats → Winner
+```
+Statistical significance testing · [See skill](skills/ab-testing-workflow/)
+
+### AI Code Review Pipeline
+```
+Pull Request → Webhook trigger → AI code review → Post comment
+```
+Automate code review on any repo · [See skill](skills/)
+
+---
+
+## 🐳 One-Command Deploy
+
+```bash
+cd docker
+cp .env.example .env
+# Edit .env with your API keys
+docker compose up -d
+```
+
+Supported: n8n · Discord Bot · Telegram Bot · Webhook listeners
+
+---
+
+## 📈 Live Demo
+
+| | |
+|---|---|
+| **GitHub Pages** | https://nima54851.github.io/agent-studio |
+| **Product Page** | https://nima54851.github.io/agent-studio/product.html |
+
+---
+
+## 🛒 Ready-to-Use Products
+
+Want a **production AI agent automation system** up and running today?
+
+| Product | Description | Price |
+|---------|-------------|-------|
+| **AI 社交媒体自动运营系统** | n8n workflow — 自动抓 GitHub Trending / AI 评论 / Star / 报告推送 | **¥99**（一次性） |
+| 含入门版（免费） | 基础 GitHub Trending + Webhook推送 | ¥0 |
+| 含企业版 | 私有部署 + 定制 + 无限使用 | ¥399（一次性） |
+
+> 🎯 [👉 查看完整产品页（含免费版）](https://nima54851.github.io/agent-studio/product.html)
+
+Free version: https://github.com/nima54851/agent-studio/tree/main/products/github-agent-automation
+
+---
+
+## 🌟 Why agent-studio?
+
+| Regular Template Repo | agent-studio |
+|---|---|
+| Readme only, no tools | Full working scripts |
+| Theoretical examples | Production-ready pipelines |
+| One framework | Multi-framework (OpenClaw, n8n, LangChain…) |
+| No automation | GitHub Actions CI/CD built-in |
+| Static docs | Live GitHub Pages demos |
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Here's how:
+
+1. **Add a skill** — See [`skills/skill-builder`](skills/skill-builder) for the format
+2. **Share a workflow** — Add to [`integrations/`](integrations/)
+3. **Improve docs** — PRs on README and docs/ are always open
+4. **Star & share** — It helps more than you think 🙏
+
+---
+
+## 📄 License
+
+MIT · Use it, modify it, sell it (just keep the credit).
+
+---
+
+<h align="center">
+
+*Built with [灵犀 AI](https://github.com/nima54851) · [Open an Issue](https://github.com/nima54851/agent-studio/issues) · [Submit a PR](https://github.com/nima54851/agent-studio/pulls)*
+
+</h>
+
+
+## New Skills (2026-07-25)
+| Skill | Description | Status |
+|-------|-------------|--------|
+| [api-gateway-automation](skills/api-gateway-automation) | Kong/Traefik API 网关 — JWT 验证、Redis 限流、熔断、Slack 告警 | ✅ n8n |
+| [ai-workflow-debugger](skills/ai-workflow-debugger) | AI 工作流调试 — 执行轨迹分析、根因定位、断点推荐、修复建议生成 | ✅ n8n |
+| [multi-tenant-saas-automation](skills/multi-tenant-saas-automation) | 多租户 SaaS — Stripe 订阅、Metered Billing、Schema 隔离、Onboarding | ✅ n8n |
+| [oncall-rotation-automation](skills/oncall-rotation-automation) | 值守轮班 — PagerDuty 排班、升级链路、AI 交接摘要、Google Calendar | ✅ n8n |
+| [contract-review-automation](skills/contract-review-automation) | AI 合同审查 — 条款提取、风险评分 0-100、红线对比、Google Drive 归档 | ✅ n8n |
+| [ci-cd-analytics-automation](skills/ci-cd-analytics-automation) | CI/CD 流水线分析 — DORA 指标追踪、Flaky Test 自动建 Issue、优化建议 | ✅ n8n |
+
+## New Skills (2026-07-24)
+| Skill | Description | Status |
+|-------|-------------|--------|
+| [mobile-app-automation](skills/mobile-app-automation) | iOS Fastlane + Android Gradle + React Native/Flutter CI/CD + App Store 自动部署 | ✅ n8n |
+| [budget-management-automation](skills/budget-management-automation) | AI 财务预算 — 支出追踪、预测、异常告警、多币种、Slack 告警 | ✅ n8n |
+| [ai-content-moderation](skills/ai-content-moderation) | AI 内容审核 — 毒性检测、NSFW 过滤、政策执行、合规审计 | ✅ n8n |
+
+## New Skills (2026-07-22)
+| [ai-test-generator-automation](skills/ai-test-generator-automation) | Auto-generate unit/integration/E2E tests from code with AI — pytest, Jest, Playwright | ✅ n8n |
+| [code-migration-automation](skills/code-migration-automation) | Framework upgrades, language migrations, library replacements with staged rollout | ✅ n8n |
+| [agent-observability-automation](skills/agent-observability-automation) | Traces, metrics, cost tracking, SLO dashboards for AI agents | ✅ n8n |
