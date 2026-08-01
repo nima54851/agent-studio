@@ -155,11 +155,21 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 | [load-testing-automation](skills/load-testing-automation) | 分布式压测 — k6 + Kubernetes 扩缩容、瓶颈定位、性能回归检测、CI/CD 门禁 | ⚡ Performance |
 | [ai-search-engine-automation](skills/ai-search-engine-automation) | AI 语义搜索 — 混合 BM25+向量检索、Cross-Encoder 重排、GPT-4 摘要、NDCG@K 监控 | 🔍 Search |
 
-## ✨ New Skills (2026-07-28)
+## ✨ New Skills (2026-08-01)
+
+| Skill | Description | Category |
+|-------|-------------|----------|
+| [ai-avatar-animation-automation](skills/ai-avatar-animation-automation) | AI 数字人动画 — D-ID/HeyGen/Synthesia 文本转视频 | 🎬 Media |
+| [automated-release-notes](skills/automated-release-notes) | 自动生成 Release Notes — Git commits → Semantic Versioning | 📦 DevOps |
+| [ai-image-manipulation-automation](skills/ai-image-manipulation-automation) | AI 图片处理 — Replicate/Adobe Firefly 风格迁移/扩图/OCR | 🖼️ Media |
+| [kubernetes-deployment-automation](skills/kubernetes-deployment-automation) | K8s 部署自动化 — Helm/HPA/金丝雀/蓝绿发布 | ☸️ Infra |
+| [backup-disaster-recovery-automation](skills/backup-disaster-recovery-automation) | 备份灾备 — Restic 增量备份 + S3 跨区域复制 + 恢复演练 | 🔒 Reliability |
+| [ai-code-review-advanced](skills/ai-code-review-advanced) | AI 进阶代码审查 — 安全/性能/架构三重扫描 + 修复代码 | 🔍 Quality |
+| [contextual-ai-assistant](skills/contextual-ai-assistant) | 上下文感知 AI — 记忆持久化 + 偏好学习 + 动态工具选择 | 🧠 Memory |
 
 ---
 
-## 🚀 Quick Start
+## ✨ New Skills (2026-07-28)
 
 ```bash
 # Clone the repo
