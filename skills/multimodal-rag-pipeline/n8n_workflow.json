@@ -1,0 +1,172 @@
+{
+  "name": "Multimodal RAG Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": "filesChanged",
+        "watchedFolders": ["/drive/multimodal-docs"]
+      },
+      "id": "trigger-drive",
+      "name": "Drive 文件触发",
+      "type": "@n8n/n8n-nodes-base.triggerOnFileNodeChange",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fileSelectionMode": "name",
+        "fileName": "={{$json.file}}"
+      },
+      "id": "read-file",
+      "name": "读取文件",
+      "type": "@n8n/n8n-nodes-base.readBinaryFile",
+      "typeVersion": 1,
+      "notes": "根据文件类型分发到不同处理管线"
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst { ext } = $input.first().json;\nconst modality = \n  ['.txt','.md','.pdf','.docx'].includes(ext) ? 'text' :\n  ['.png','.jpg','.jpeg','.gif'].includes(ext) ? 'image' :\n  ['.mp3','.wav','.m4a'].includes(ext) ? 'audio' : 'unknown';\nreturn [{json: {modality, file: $input.first().json}}];\n"
+      },
+      "id": "classify-modality",
+      "name": "识别模态类型",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+          "conditions": [
+            { "id": "modality-text", "leftValue": "{{$json.modality}}", "rightValue": "text", "operator": { "type": "equals", "operation": "equals" } }
+          ]
+        }
+      },
+      "id": "is-text",
+      "name": "是文本？",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            { "leftValue": "{{$json.modality}}", "rightValue": "image", "operator": { "type": "equals" } }
+          ]
+        }
+      },
+      "id": "is-image",
+      "name": "是图片？",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://api.openai.com/v1/embeddings",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{$env.OPENAI_API_KEY}}" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "input", "value": "{{$json.chunks}}" },
+            { "name": "model", "value": "text-embedding-3-small" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "embed-text",
+      "name": "文本向量化",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "url": "https://api.github.com/repos/Salesforce/blip-image-captioning",
+        "method": "POST",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "image_url", "value": "{{$json.fileUrl}}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "image-caption",
+      "name": "图片描述生成(BLIP)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "notes": "实际调用 BLIP 模型 API"
+    },
+    {
+      "parameters": {
+        "url": "https://api.openai.com/v1/audio/transcriptions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{$env.OPENAI_API_KEY}}" }
+          ]
+        },
+        "sendBody": true,
+        "options": {}
+      },
+      "id": "audio-transcribe",
+      "name": "Whisper 音频转录",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "url": "{{$env.QDRANT_URL}}/collections/multimodal-rag/points",
+        "method": "PUT",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "points", "value": "{{$json.points}}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "upsert-qdrant",
+      "name": "存入 Qdrant 向量库",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "channel": "#ai-rag",
+        "text": "✅ Multimodal RAG 更新完成：{{$json.modality}} - {{$json.file}}",
+        "attachments": []
+      },
+      "id": "notify-slack",
+      "name": "Slack 通知",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Drive 文件触发": { "main": [[{ "node": "读取文件", "type": "main", "index": 0 }]] },
+    "读取文件": { "main": [[{ "node": "识别模态类型", "type": "main", "index": 0 }]] },
+    "识别模态类型": { "main": [[{ "node": "是文本？", "type": "main", "index": 0 }]] },
+    "是文本？": {
+      "true": [[{ "node": "文本向量化", "type": "main", "index": 0 }]],
+      "false": [[{ "node": "是图片？", "type": "main", "index": 0 }]]
+    },
+    "是图片？": {
+      "true": [[{ "node": "图片描述生成(BLIP)", "type": "main", "index": 0 }]],
+      "false": [[{ "node": "Whisper 音频转录", "type": "main", "index": 0 }]]
+    },
+    "文本向量化": { "main": [[{ "node": "存入 Qdrant 向量库", "type": "main", "index": 0 }]] },
+    "图片描述生成(BLIP)": { "main": [[{ "node": "存入 Qdrant 向量库", "type": "main", "index": 0 }]] },
+    "Whisper 音频转录": { "main": [[{ "node": "存入 Qdrant 向量库", "type": "main", "index": 0 }]] },
+    "存入 Qdrant 向量库": { "main": [[{ "node": "Slack 通知", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
