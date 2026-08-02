@@ -1,0 +1,60 @@
+{
+  "presets": {
+    "corporate": {
+      "genre": "electronic",
+      "mood": "professional",
+      "bpm_range": [90, 110],
+      "instruments": ["piano", "synth", "soft_drums"],
+      "description": "专业商务风格，适合企业宣传、产品介绍",
+      "prompt_template": "{mood} {genre}, clean {instruments}, {bpm_range} BPM, modern"
+    },
+    "cinematic": {
+      "genre": "orchestral",
+      "mood": "epic",
+      "bpm_range": [70, 100],
+      "instruments": ["strings", "brass", "piano", "drums"],
+      "description": "电影配乐风格，戏剧性强，适合纪录片、预告片",
+      "prompt_template": "{mood} {genre}, dramatic {instruments}, {bpm_range} BPM, film score"
+    },
+    "lofi": {
+      "genre": "lofi",
+      "mood": "relaxed",
+      "bpm_range": [70, 90],
+      "instruments": ["piano", "vinyl", "drums", "bass"],
+      "description": "Lo-Fi 风格，适合学习/工作背景音",
+      "prompt_template": "{mood} {genre}, {instruments}, {bpm_range} BPM, chill vibes"
+    },
+    "electronic": {
+      "genre": "electronic",
+      "mood": "energetic",
+      "bpm_range": [120, 140],
+      "instruments": ["synth", "bass", "drums"],
+      "description": "电子舞曲风格，节奏强劲，适合运动/健身内容",
+      "prompt_template": "{mood} {genre}, driving {instruments}, {bpm_range} BPM, club"
+    },
+    "ambient": {
+      "genre": "ambient",
+      "mood": "calm",
+      "bpm_range": [40, 80],
+      "instruments": ["pad", "drone", "nature"],
+      "description": "氛围音乐，适合冥想/瑜伽/白噪音",
+      "prompt_template": "{mood} {genre}, {instruments}, {bpm_range} BPM, peaceful"
+    },
+    "pop": {
+      "genre": "pop",
+      "mood": "happy",
+      "bpm_range": [110, 130],
+      "instruments": ["vocals", "guitar", "drums", "synth"],
+      "description": "流行音乐，适合短视频/社交媒体",
+      "prompt_template": "{mood} {genre}, catchy {instruments}, {bpm_range} BPM"
+    },
+    "game": {
+      "genre": "chiptune",
+      "mood": "fun",
+      "bpm_range": [120, 160],
+      "instruments": ["synth", "drums", "bass"],
+      "description": "游戏音乐，8-bit / 像素风格",
+      "prompt_template": "{mood} {genre} game music, {instruments}, {bpm_range} BPM, retro"
+    }
+  }
+}
