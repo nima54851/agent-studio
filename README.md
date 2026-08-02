@@ -169,6 +169,16 @@ A curated, **production-ready** collection of tools, workflows, and skill templa
 
 ---
 
+## ✨ New Skills (2026-08-02)
+
+| Skill | Description | Category |
+|-------|-------------|----------|
+| [multimodal-rag-pipeline](skills/multimodal-rag-pipeline) | 多模态 RAG — 文本+图片+音频 混合向量检索，Cross-Encoder 重排，RRF 融合 | 🔍 RAG |
+| [ai-code-interpreter-automation](skills/ai-code-interpreter-automation) | AI 代码解释器 — Docker 沙箱执行、多语言支持、持久化会话、文件生成 | 💻 DevTools |
+| [ai-music-generation-automation](skills/ai-music-generation-automation) | AI 音乐生成 — Udio/Suno/MusicGen，风格预设，自动混音，多格式输出 | 🎵 Media |
+
+---
+
 ## ✨ New Skills (2026-07-28)
 
 ```bash
