@@ -1,0 +1,21 @@
+{
+  "text_embedding": {
+    "model": "text-embedding-3-small",
+    "dimensions": 1536,
+    "batch_size": 100,
+    "provider": "openai"
+  },
+  "chunking": {
+    "strategy": "recursive",
+    "chunk_size": 512,
+    "overlap": 50,
+    "min_chunk_size": 50
+  },
+  "supported_formats": [".txt", ".md", ".pdf", ".docx", ".html"],
+  "vector_store": {
+    "type": "qdrant",
+    "collection": "multimodal-rag-text",
+    "host": "localhost",
+    "port": 6333
+  }
+}
