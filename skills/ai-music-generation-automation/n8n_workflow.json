@@ -1,0 +1,109 @@
+{
+  "name": "AI Music Generation Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-music"
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook 触发",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst body = $input.first().json;\nconst { prompt, duration, mood, genre, bpm, preset } = body;\n\n// 应用风格预设\nconst presetMap = {\n  corporate: { mood: 'professional', genre: 'electronic', bpm: 100, instruments: ['piano','synth','soft_drums'] },\n  cinematic: { mood: 'epic', genre: 'orchestral', bpm: 85, instruments: ['strings','brass','piano'] },\n  lofi: { mood: 'relaxed', genre: 'lofi', bpm: 80, instruments: ['piano','vinyl','drums'] },\n  electronic: { mood: 'energetic', genre: 'electronic', bpm: 128, instruments: ['synth','bass','drums'] },\n  ambient: { mood: 'calm', genre: 'ambient', bpm: 60, instruments: ['pad','drone'] }\n};\n\nconst config = presetMap[preset] || { mood, genre, bpm, instruments: [] };\n\nreturn [{json: {\n  prompt: prompt || `${config.mood} ${config.genre}, ${config.instruments?.join(',')}, ${config.bpm} BPM`,\n  duration: duration || 30,\n  mood: config.mood,\n  genre: config.genre,\n  bpm: config.bpm,\n  requestId: `music_${Date.now()}`\n}}];\n"
+      },
+      "id": "build-prompt",
+      "name": "构建音乐 Prompt",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://api.udio.ai/v1/generate",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{$env.UDIO_API_KEY}}" },
+            { "name": "Content-Type", "value": "application/json" }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "prompt", "value": "{{$json.prompt}}" },
+            { "name": "duration", "value": "{{$json.duration}}" }
+          ]
+        },
+        "options": { "timeout": 60000 }
+      },
+      "id": "generate-music",
+      "name": "Udio 音乐生成",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst result = $input.first().json;\n// 模拟混音参数\nreturn [{json: {\n  input_file: result.audio_path || '/tmp/raw_music.wav',\n  fade_in: 2,\n  fade_out: 2,\n  normalize: true,\n  bitrate: '320k',\n  output_file: '/tmp/mixed_' + (result.requestId || 'music') + '.mp3'\n}}];\n"
+      },
+      "id": "prepare-mix",
+      "name": "准备混音参数",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "ffmpeg -y -i {{$json.input_file}} -af \"afade=t=in:st=0:d={{$json.fade_in}},afade=t=out:st={{$json.fade_out_start}}:d={{$json.fade_out}},loudnorm,volume=1.0\" -ar 44100 -ab 320k -ac 2 {{$json.output_file}}",
+        "description": "FFmpeg 混音处理"
+      },
+      "id": "audio-mix",
+      "name": "FFmpeg 混音",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst body = $input.first().json;\nreturn [\n  { json: { ...body, format: 'mp3_320', bitrate: '320k', filename: body.output_file } },\n  { json: { ...body, format: 'mp3_128', bitrate: '128k', filename: body.output_file.replace('320k','128k') } },\n  { json: { ...body, format: 'wav', bitrate: '1411k', filename: body.output_file.replace('.mp3','.wav') } }\n];\n"
+      },
+      "id": "multi-format",
+      "name": "多格式转换",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "{{$env.R2_UPLOAD_URL}}",
+        "method": "PUT",
+        "options": { "timeout": 30000 }
+      },
+      "id": "upload-cdn",
+      "name": "上传 CDN",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "channel": "#music-generation",
+        "text": "🎵 音乐生成完成！\n🎼 场景: {{$json.mood}} {{$json.genre}}\n⏱ 时长: {{$json.duration}}s\n🔗 下载: {{$json.download_url}}\n💰 请求ID: {{$json.requestId}}",
+        "attachments": []
+      },
+      "id": "slack-notify",
+      "name": "Slack 通知",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook 触发": { "main": [[{ "node": "构建音乐 Prompt", "type": "main", "index": 0 }]] },
+    "构建音乐 Prompt": { "main": [[{ "node": "Udio 音乐生成", "type": "main", "index": 0 }]] },
+    "Udio 音乐生成": { "main": [[{ "node": "准备混音参数", "type": "main", "index": 0 }]] },
+    "准备混音参数": { "main": [[{ "node": "FFmpeg 混音", "type": "main", "index": 0 }]] },
+    "FFmpeg 混音": { "main": [[{ "node": "多格式转换", "type": "main", "index": 0 }]] },
+    "多格式转换": { "main": [[{ "node": "上传 CDN", "type": "main", "index": 0 }]] },
+    "上传 CDN": { "main": [[{ "node": "Slack 通知", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
