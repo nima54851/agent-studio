@@ -1,0 +1,36 @@
+{
+  "name": "AI Code Interpreter Pipeline",
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "execute-code" },
+      "id": "webhook-trigger", "name": "Webhook 触发", "type": "n8n-nodes-base.webhook", "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "functionCode": "\nconst body = $input.first().json;\nconst { code, language, timeout, sandbox_mode } = body;\n\n// 安全扫描：检测危险导入\nconst dangerous = ['os','sys','subprocess','socket','__import__','eval','exec'];\nconst detected = dangerous.filter(d => code.includes(d));\n\nif (detected.length > 0) {\n  throw new Error('DANGEROUS: Blocked imports detected: ' + detected.join(', '));\n}\n\nreturn [{json: {\n  code,\n  language: language || 'python',\n  timeout: timeout || 30,\n  sandbox_mode: sandbox_mode || 'docker',\n  session_id: 'session_' + Date.now()\n}}];\n"
+      },
+      "id": "security-scan", "name": "安全扫描", "type": "n8n-nodes-base.function", "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "command": "docker run --rm --network none --memory={{$json.memory_limit || '512m'}} --cpus=0.5 python:3.11-slim python3 -c \"{{$json.code}}\"",
+        "description": "Docker 沙箱执行代码"
+      },
+      "id": "docker-execute", "name": "Docker 沙箱执行", "type": "n8n-nodes-base.executeCommand", "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "channel": "#code-execution",
+        "text": "✅ 代码执行完成\n⏱ 耗时: {{$json.elapsed_ms}}ms\n📤 输出:\n```\n{{$json.stdout}}\n```\n{{$json.stderr ? '❌ 错误:\\n```' + $json.stderr + '```' : ''}}",
+        "attachments": []
+      },
+      "id": "notify-result", "name": "Slack 通知结果", "type": "n8n-nodes-base.slack", "typeVersion": 1
+    }
+  ],
+  "connections": {
+    "Webhook 触发": { "main": [[{ "node": "安全扫描", "type": "main", "index": 0 }]] },
+    "安全扫描": { "main": [[{ "node": "Docker 沙箱执行", "type": "main", "index": 0 }]] },
+    "Docker 沙箱执行": { "main": [[{ "node": "Slack 通知结果", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" }
+}
