@@ -1,0 +1,8 @@
+{
+  "name": "AI Code Repair Pipeline",
+  "nodes": [
+    {"name": "Trigger", "type": "n8n-trigger", "parameters": {"rule": {"interval": [{"triggerAtHour": 9}]}}},
+    {"name": "Static Analysis", "type": "code", "parameters": {"jsCode": "const issues = require('child_process').execSync('pylint src/').toString(); return {issues};"}},
+    {"name": "LLM Fixer", "type": "openai", "parameters": {"operation": "chat", "messages": [{"role": "user", "content": "Fix these code issues: {{ $json.issues }}"}]}}
+  ]
+}
