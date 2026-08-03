@@ -336,3 +336,12 @@ MIT · Use it, modify it, sell it (just keep the credit).
 | [ai-test-generator-automation](skills/ai-test-generator-automation) | Auto-generate unit/integration/E2E tests from code with AI — pytest, Jest, Playwright | ✅ n8n |
 | [code-migration-automation](skills/code-migration-automation) | Framework upgrades, language migrations, library replacements with staged rollout | ✅ n8n |
 | [agent-observability-automation](skills/agent-observability-automation) | Traces, metrics, cost tracking, SLO dashboards for AI agents | ✅ n8n |
+
+## 🆕 2026-08-03 新增技能
+
+| 技能 | 描述 |
+|------|------|
+| `multi-agent-collaboration-automation` | 多智能体协作（Supervisor/Debate/Voting 模式） |
+| `ai-code-repair-automation` | AI 自动代码修复（静态分析 → LLM → 自动 PR） |
+
+> 更多技能见 [skills/](https://github.com/nima54851/agent-studio/tree/main/skills) 目录
