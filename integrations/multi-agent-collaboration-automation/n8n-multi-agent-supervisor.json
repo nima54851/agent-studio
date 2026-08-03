@@ -1,0 +1,17 @@
+{
+  "name": "Multi-Agent Supervisor Workflow",
+  "nodes": [
+    {
+      "name": "Supervisor Router",
+      "type": "n8n-nodes-chatgpt",
+      "parameters": {
+        "resource": "chat",
+        "messages": {
+          "values": [
+            {"role": "system", "content": "You are a Supervisor Agent. Decompose the user's task into subtasks and assign to specialized agents."}
+          ]
+        }
+      }
+    }
+  ]
+}
