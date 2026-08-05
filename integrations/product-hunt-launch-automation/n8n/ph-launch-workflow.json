@@ -1,0 +1,86 @@
+{
+  "name": "Product Hunt Launch Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {"field": "cron", "value": "0 9 * * *", "active": true}
+          ]
+        }
+      },
+      "name": "Daily Launch Check",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [100, 300]
+    },
+    {
+      "parameters": {
+        "httpRequestMethod": "POST",
+        "url": "https://api.producthunt.com/v2/api/graphql",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {"name": "Authorization", "value": "Bearer {{$env.PH_API_KEY}}"}
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {"name": "query", "value": "{ posts { edges { node { id name votesCount url createdAt } } } }"}
+          ]
+        }
+      },
+      "name": "Get Upcoming Launches",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// AI Generate launch post copy\nconst posts = $input.all();\nconst product = posts[0].json.data.posts.edges[0]?.node;\n\nconst copy = {\n  title: product?.name || 'My Product',\n  tagline: 'The AI-powered solution you need',\n  firstComment: '👋 We just launched on Product Hunt! Would love your feedback. AMA!',\n  twitterPost: `🚀 Just launched on @ProductHunt! Check out our launch and let us know what you think 👇\\n\\n#ProductHunt #AI #Startup`,\n  launchDate: new Date().toISOString()\n};\n\nreturn [{json: copy}];"
+      },
+      "name": "AI Generate Launch Copy",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://api.twitter.com/2/tweets",
+        "authentication": "oAuth2Api",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {"name": "text", "value": "{{ $json.twitterPost }}"}
+          ]
+        }
+      },
+      "name": "Post to Twitter/X",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [700, 200]
+    },
+    {
+      "parameters": {
+        "to": "{{$json.hunterEmail}}",
+        "subject": "Launching on Product Hunt – Would love your support!",
+        "emailHtml": "<h2>Hi {{$json.hunterName}},</h2><p>I just launched <strong>{{$json.productName}}</strong> on Product Hunt today.</p><p>Would love your support if it fits your audience.</p><p>Link: {{$json.phUrl}}</p><p>Thanks!<br/>The Maker</p>"
+      },
+      "name": "Send Hunter Outreach Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [700, 400]
+    }
+  ],
+  "connections": {
+    "Daily Launch Check": {"main": [[{"node": "Get Upcoming Launches", "type": "main", "index": 0}]]},
+    "Get Upcoming Launches": {"main": [[{"node": "AI Generate Launch Copy", "type": "main", "index": 0}]]},
+    "AI Generate Launch Copy": {"main": [
+      {"node": "Post to Twitter/X", "type": "main", "index": 0},
+      {"node": "Send Hunter Outreach Email", "type": "main", "index": 0}
+    ]}
+  }
+}
