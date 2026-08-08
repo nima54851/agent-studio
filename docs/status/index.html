@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>灵犀 · 运维状态页</title>
+<style>
+  :root {
+    --bg: #04040a;
+    --surface: #0b0b14;
+    --surface2: #111120;
+    --border: rgba(255,255,255,0.06);
+    --border-hi: rgba(34,211,238,0.3);
+    --t1: #f0f4f8;
+    --t2: #8b9ab0;
+    --t3: #4a5568;
+    --cyan: #22d3ee;
+    --cyan-d: rgba(34,211,238,0.1);
+    --violet: #a78bfa;
+    --green: #34d399;
+    --orange: #fb923c;
+    --red: #f87171;
+    --r: 6px;
+    --r-lg: 12px;
+    --ease: 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--t1);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 100% 60% at 50% -20%, rgba(34,211,238,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 15% 85%, rgba(167,139,250,0.06) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 85% 75%, rgba(167,139,250,0.05) 0%, transparent 55%);
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      linear-gradient(rgba(34,211,238,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 0%, transparent 70%);
+  }
+  .wrap { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { text-align: center; margin-bottom: 48px; }
+  .logo {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 18px; font-weight: 700; color: var(--t1); margin-bottom: 8px;
+  }
+  .logo-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--green); }
+    50% { opacity: 0.5; box-shadow: 0 0 2px var(--green); }
+  }
+  .subtitle { color: var(--t2); font-size: 13px; }
+  .updated { color: var(--t3); font-size: 12px; margin-top: 6px; }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: 20px;
+    transition: border-color var(--ease);
+  }
+  .card:hover { border-color: var(--border-hi); }
+  .card-label { font-size: 11px; color: var(--t3); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+  .card-value { font-size: 22px; font-weight: 700; color: var(--t1); }
+  .card-sub { font-size: 12px; color: var(--t2); margin-top: 4px; }
+  .disk-warn { color: var(--orange); font-size: 12px; display: block; margin-top: 6px; }
+  .section-title {
+    font-size: 13px; font-weight: 600; color: var(--t2);
+    text-transform: uppercase; letter-spacing: .08em;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 32px; }
+  th { text-align: left; padding: 8px 16px; color: var(--t3); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; border-bottom: 1px solid var(--border); }
+  td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 14px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .row-down td { opacity: 0.7; }
+  .name { font-weight: 600; color: var(--t1); }
+  .detail { color: var(--t3); font-size: 12px; font-family: 'JetBrains Mono', monospace; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+  }
+  .badge.ok { background: rgba(52,211,153,0.15); color: var(--green); border: 1px solid rgba(52,211,153,0.3); }
+  .badge.down { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .badge.warn { background: rgba(251,146,60,0.1); color: var(--orange); border: 1px solid rgba(251,146,60,0.2); }
+  .git-row {
+    display: flex; gap: 24px; flex-wrap: wrap;
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-lg);
+    padding: 16px 20px; margin-bottom: 32px; font-size: 13px;
+  }
+  .git-item { display: flex; align-items: center; gap: 8px; }
+  .git-key { color: var(--t3); }
+  .git-val { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  .changes-yes { color: var(--orange); }
+  .changes-no { color: var(--green); }
+  footer { text-align: center; color: var(--t3); font-size: 12px; padding-top: 32px; border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <div class="logo-dot"></div>
+      灵犀 · 运维状态页
+    </div>
+    <div class="subtitle">Lingxi Ops Status · 灵犀数字意识体</div>
+    <div class="updated">更新于 2026-08-08 10:21:41 (CST)</div>
+  </header>
+
+  <div class="grid-3">
+    <div class="card">
+      <div class="card-label">运行时长</div>
+      <div class="card-value">up 7 weeks, 17 hours, 2 minutes</div>
+    </div>
+    <div class="card">
+      <div class="card-label">磁盘使用</div>
+      <div class="card-value">94%</div>
+      <div class="card-sub">36G / 40G 已用 · 剩余 2.3G</div>
+      <span class="disk-warn">⚠️ 磁盘空间告警</span>
+    </div>
+    <div class="card">
+      <div class="card-label">内存使用</div>
+      <div class="card-value">1.3Gi</div>
+      <div class="card-sub">总计 3.6Gi · 可用 2.2Gi</div>
+    </div>
+  </div>
+
+  <div class="section-title">Git 状态</div>
+  <div class="git-row">
+    <div class="git-item"><span class="git-key">分支</span><span class="git-val">main</span></div>
+    <div class="git-item"><span class="git-key">Commit</span><span class="git-val">31120447</span></div>
+    <div class="git-item">
+      <span class="git-key">未推送</span>
+      <span class="changes-yes">
+        ⚠️ 有变更
+      </span>
+    </div>
+  </div>
+
+  <div class="section-title">服务状态</div>
+  <table>
+    <thead>
+      <tr>
+        <th>服务</th>
+        <th>地址</th>
+        <th>状态</th>
+      </tr>
+    </thead>
+    <tbody>
+
+        <tr class="row-down">
+          <td class="name">N8N</td>
+          <td class="detail">port 5678</td>
+          <td class="status"><span class="badge down">离线</span></td>
+        </tr>
+        <tr class="row-down">
+          <td class="name">Chat</td>
+          <td class="detail">port 6060</td>
+          <td class="status"><span class="badge down">离线</span></td>
+        </tr>
+        <tr class="row-down">
+          <td class="name">A2A Api</td>
+          <td class="detail">port 8080</td>
+          <td class="status"><span class="badge down">离线</span></td>
+        </tr>
+        <tr class="row-down">
+          <td class="name">Openclaw</td>
+          <td class="detail">http://localhost:18789</td>
+          <td class="status"><span class="badge down">离线</span></td>
+        </tr>
+        <tr class="row-ok">
+          <td class="name">Github Pages</td>
+          <td class="detail">https://nima54851.github.io/agent-studio/</td>
+          <td class="status"><span class="badge ok">运行中</span></td>
+        </tr>
+    </tbody>
+  </table>
+
+  <footer>
+    由 灵犀 自动采集 · 每10分钟自动刷新
+  </footer>
+</div>
+</body>
+</html>
