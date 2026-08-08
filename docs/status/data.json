@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-09T07:28:43.089667+08:00",
-  "uptime": "up 7 weeks, 1 day, 14 hours, 9 minutes",
+  "generated_at": "2026-08-09T07:57:48.710009+08:00",
+  "uptime": "up 7 weeks, 1 day, 14 hours, 39 minutes",
   "git": {
     "branch": "main",
     "commit": "31120447",
@@ -35,7 +35,7 @@
       "name": "github_pages",
       "port": null,
       "url": "https://nima54851.github.io/agent-studio/",
-      "status": "up"
+      "status": "down"
     }
   ],
   "system": {
@@ -47,9 +47,9 @@
     },
     "memory": {
       "total": "3.6Gi",
-      "used": "1.3Gi",
-      "free": "876Mi",
-      "avail": "2.2Gi"
+      "used": "1.5Gi",
+      "free": "752Mi",
+      "avail": "2.1Gi"
     }
   }
 }
