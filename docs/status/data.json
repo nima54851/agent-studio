@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-08-08T10:21:41.061568+08:00",
+  "uptime": "up 7 weeks, 17 hours, 2 minutes",
+  "git": {
+    "branch": "main",
+    "commit": "31120447",
+    "has_changes": "yes"
+  },
+  "services": [
+    {
+      "name": "n8n",
+      "port": 5678,
+      "url": null,
+      "status": "down"
+    },
+    {
+      "name": "chat",
+      "port": 6060,
+      "url": null,
+      "status": "down"
+    },
+    {
+      "name": "a2a_api",
+      "port": 8080,
+      "url": null,
+      "status": "down"
+    },
+    {
+      "name": "openclaw",
+      "port": null,
+      "url": "http://localhost:18789",
+      "status": "down"
+    },
+    {
+      "name": "github_pages",
+      "port": null,
+      "url": "https://nima54851.github.io/agent-studio/",
+      "status": "up"
+    }
+  ],
+  "system": {
+    "disk": {
+      "total": "40G",
+      "used": "36G",
+      "free": "2.3G",
+      "pct": "94%"
+    },
+    "memory": {
+      "total": "3.6Gi",
+      "used": "1.3Gi",
+      "free": "1.4Gi",
+      "avail": "2.2Gi"
+    }
+  }
+}
