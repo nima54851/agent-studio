@@ -1,0 +1,9 @@
+{
+  "name": "AI Gateway Router",
+  "nodes": [
+    {"name": "HTTP Request", "type": "httpRequest", "parameters": {"url": "={{$json.model}}"}},
+    {"name": "Cost Tracker", "type": "code", "parameters": {"js": "return { tokens: $json.usage.total_tokens, cost: $json.usage.total_tokens * 0.00001 }"}},
+    {"name": "Fallback Router", "type": "if", "parameters": {"conditions": [{"value1": "={{$json.error}}", "operation": "isEmpty"}]}}
+  ],
+  "settings": {"errorWorkflow": "fallback-handler"}
+}
