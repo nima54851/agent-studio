@@ -1,0 +1,88 @@
+{
+  "name": "agent-studio-payment",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "payment-notify",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "webhook-payment",
+      "name": "💰 付款通知 Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [250, 300],
+      "webhookId": "payment-notify"
+    },
+    {
+      "parameters": {
+        "expression": "={{ $json.product_key }}",
+        "to": "={{ $json.email }}",
+        "subject": "={{ '✅ 你的 ' + $json.product + ' 激活密钥已发送' }}",
+        "emailHtml": "=<h2>支付确认</h2>\n<p>你好，感谢购买！你的激活密钥：</p>\n<h3 style=\"color:#22d3ee;font-family:monospace\">{{ $json.product_key }}</h3>\n<p>下载：<a href=\"https://github.com/nima54851/agent-studio/releases/tag/v1.0.0\">{{ $json.download_url }}</a></p>",
+        "options": {}
+      },
+      "id": "send-email",
+      "name": "📧 发送密钥邮件",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [550, 200],
+      "credentials": { "smtp": "=配置你的SMTP凭证=" },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.TG_CHAT_ID }}",
+        "text": "=🛒 新订单！\n产品：{{ $json.product }}\n密钥：`{{ $json.product_key }}`\n邮箱：{{ $json.email }}",
+        "additionalFields": {}
+      },
+      "id": "tg-notify",
+      "name": "📱 Telegram 通知（万）",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [550, 400],
+      "credentials": { "telegramApi": "=配置TG Bot凭证=" },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// 记录日志\nconst order = $input.first().json;\nconsole.log('订单已处理:', JSON.stringify(order));\nreturn [{ json: order }];"
+      },
+      "id": "log",
+      "name": "📝 记录日志",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 300]
+    }
+  ],
+  "connections": {
+    "💰 付款通知 Webhook": {
+      "main": [
+        [
+          { "node": "📧 发送密钥邮件", "type": "main", "index": 0 },
+          { "node": "📱 Telegram 通知（万）", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "📧 发送密钥邮件": {
+      "main": [
+        [{ "node": "📝 记录日志", "type": "main", "index": 0 }]
+      ]
+    },
+    "📱 Telegram 通知（万）": {
+      "main": [
+        [{ "node": "📝 记录日志", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "meta": {
+    "templateCredsSetup": true,
+    "templateId": "agent-studio-payment"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "name": "agent-studio-voice-clone",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "voice-clone",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse request: { source_audio_base64, text, emotion, language }\nconst data = $input.item.json;\nreturn [{json: {\n  source_audio: data.source_audio_base64,\n  text: data.text,\n  emotion: data.emotion || 'warm',\n  language: data.language || 'zh',\n  output_format: data.output_format || 'wav'\n}}];"
+      },
+      "id": "parse-request",
+      "name": "Parse Request",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.ELEVENLABS_API_URL}}/v1/voices/clone",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "xi-api-key", "value": "={{$vars.ELEVENLABS_API_KEY}}"}]},
+        "sendBody": true,
+        "bodyContentType": "multipart-form-data",
+        "options": {}
+      },
+      "id": "clone-voice",
+      "name": "Clone Voice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "notes": "Clone voice using ElevenLabs API. Alternatively use Coqui/xtts for self-hosted."
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.ELEVENLABS_API_URL}}/v1/text-to-speech/={{$input.item.json.voice_id}}",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "xi-api-key", "value": "={{$vars.ELEVENLABS_API_KEY}}"}]},
+        "sendBody": true,
+        "bodyContentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "text", "value": "={{ $json.text }}"},
+            {"name": "voice_settings", "value": "={\"stability\": 0.5, \"similarity_boost\": 0.8, \"style\": 0.5, \"use_speaker_boost\": true}"}
+          ]
+        },
+        "options": {"response": {"response": {"responseFormat": "file"}}}
+      },
+      "id": "tts-generate",
+      "name": "Generate TTS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Return audio file URL or base64\nconst audio = $input.item.binary;\nreturn [{json: {\n  status: 'success',\n  message: 'Audio generated successfully',\n  audio_format: $('Parse Request').item.json.output_format,\n  duration_seconds: $input.item.json.estimated_duration || 5\n}}];"
+      },
+      "id": "return-result",
+      "name": "Return Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {"main": [[{"node": "Parse Request", "type": "main", "index": 0}]]},
+    "Parse Request": {"main": [[{"node": "Clone Voice", "type": "main", "index": 0}]]},
+    "Clone Voice": {"main": [[{"node": "TTS Generate", "type": "main", "index": 0}]]},
+    "TTS Generate": {"main": [[{"node": "Return Result", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": []
+}

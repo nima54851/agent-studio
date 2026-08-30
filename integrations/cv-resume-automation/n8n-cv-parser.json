@@ -1,0 +1,79 @@
+{
+  "name": "agent-studio-cv-parser",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "cv-upload",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-trigger",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract PDF buffer from multipart form\nconst body = $input.item.json.body;\nconst fileBuffer = Buffer.from(body, 'base64');\nreturn [{json: {file: fileBuffer, filename: $input.item.json.filename}}];"
+      },
+      "id": "parse-file",
+      "name": "Parse File",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.OPENAI_API_URL}}/chat/completions",
+        "method": "POST",
+        "sendHeaders": true,
+        "headerParameters": {"parameters": [{"name": "Authorization", "value": "Bearer {{$vars.OPENAI_API_KEY}}"}]},
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "model", "value": "={{$vars.GPT_MODEL || 'gpt-4o-mini'}}"},
+            {"name": "messages", "value": "=[{\"role\":\"user\",\"content\":\"Extract structured data from this resume. Return JSON with fields: name, email, phone, skills (array), experience_years, education, summary. JSON only, no explanation.\\n\" + Buffer.from($input.item.json.body, 'base64').toString('utf-8').substring(0, 8000)}]"}
+          ]
+        },
+        "options": {"response": {"response": {"responseFormat": "json"}}}
+      },
+      "id": "ai-extract",
+      "name": "AI Extract Resume",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "jsCode": "// Score candidate against job description\nconst resume = JSON.parse($input.item.json.content);\nconst jd = $('Set JD').item.json.job_description || '';\n\nconst techKeywords = ['Python', 'JavaScript', 'React', 'Node.js', 'PostgreSQL', 'AWS', 'Docker', 'Kubernetes'];\nconst matched = resume.skills.filter(s => jd.includes(s));\nconst techScore = Math.round((matched.length / Math.max(techKeywords.filter(k => jd.includes(k)).length, 1)) * 100);\nconst expScore = resume.experience_years >= 3 ? 90 : resume.experience_years >= 1 ? 70 : 50;\nconst overall = Math.round(techScore * 0.6 + expScore * 0.4);\n\nreturn [{json: {...resume, overall_score: overall, tech_score: techScore, matched_skills: matched, recommendation: overall >= 80 ? 'Strong Hire' : overall >= 60 ? 'Consider' : 'Pass'}}];"
+      },
+      "id": "score-candidate",
+      "name": "Score Candidate",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.NOTIFICATION_WEBHOOK}}",
+        "method": "POST",
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "text", "value": "=?New candidate scored: {{ $json.name }} - {{ $json.recommendation }} ({{ $json.overall_score }}分)"}
+          ]
+        }
+      },
+      "id": "notify-hr",
+      "name": "Notify HR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {"main": [[{"node": "AI Extract Resume", "type": "main", "index": 0}]]},
+    "AI Extract Resume": {"main": [[{"node": "Score Candidate", "type": "main", "index": 0}]]},
+    "Score Candidate": {"main": [[{"node": "Notify HR", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": []
+}

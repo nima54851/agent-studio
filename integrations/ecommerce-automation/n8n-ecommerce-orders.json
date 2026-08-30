@@ -1,0 +1,77 @@
+{
+  "name": "agent-studio-ecommerce-orders",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {"interval": [{"field": "cron", "expression": "*/5 * * * *"}]}
+      },
+      "id": "order-trigger",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.ECOMMERCE_API_URL}}/orders",
+        "options": {"response": {"response": {"responseFormat": "json"}}}
+      },
+      "id": "fetch-orders",
+      "name": "Fetch New Orders",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "executeOnce": false,
+      "notes": "Fetches orders from e-commerce platform API"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Filter unprocessed orders\nconst orders = $input.all();\nconst processed = $vars.processed_order_ids || [];\nreturn orders.filter(order => !processed.includes(order.json.order_id));"
+      },
+      "id": "filter-new",
+      "name": "Filter New Orders",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.ECOMMERCE_API_URL}}/inventory/decrement",
+        "method": "POST",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "sku", "value": "={{ $json.items[0].sku }}"},
+            {"name": "qty", "value": "={{ $json.items[0].quantity }}"}
+          ]
+        }
+      },
+      "id": "decrement-stock",
+      "name": "Decrement Inventory",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1
+    },
+    {
+      "parameters": {
+        "url": "={{$vars.ALERT_WEBHOOK_URL}}",
+        "method": "POST",
+        "contentType": "json",
+        "bodyParameters": {
+          "parameters": [
+            {"name": "text", "value": "=?order_processed={{ $json.order_id }}"}
+          ]
+        }
+      },
+      "id": "notify-success",
+      "name": "Notify Success",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "notes": "Slack/Discord/Telegram notification"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {"main": [[{"node": "Fetch New Orders", "type": "main", "index": 0}]]},
+    "Fetch New Orders": {"main": [[{"node": "Filter New Orders", "type": "main", "index": 0}]]},
+    "Filter New Orders": {"main": [[{"node": "Decrement Inventory", "type": "main", "index": 0}]]},
+    "Decrement Inventory": {"main": [[{"node": "Notify Success", "type": "main", "index": 0}]]}
+  },
+  "settings": {"executionOrder": "v1"},
+  "staticData": null,
+  "tags": []
+}
