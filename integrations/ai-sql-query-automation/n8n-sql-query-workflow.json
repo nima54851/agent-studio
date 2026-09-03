@@ -1,0 +1,13 @@
+{
+  "name": "AI SQL Query Workflow",
+  "nodes": [
+    {"type": "trigger", "parameters": {"operation": "scheduled", "rule": {"interval": [{"field": "cron", "value": "0 9 * * 1-5"}]}}},
+    {"type": "HTTP Request", "parameters": {"url": "={{$json.body.natural_language_query}}", "method": "POST", "body": "={{$json}", "specifyBody": "json"}},
+    {"type": "Code", "parameters": {"jsCode": "const query = $input.item.json.natural_language_query;\nconst schema = $input.item.json.schema;\n// Use LLM to generate SQL from natural language\nreturn [{json: {query, schema, generated_sql: 'SELECT ...'}}];"}},
+    {"type": "Slack", "parameters": {"channel": "={{$json.channel}}", "text": "={{$json.generated_sql}}"}}
+  ],
+  "connections": {
+    "trigger": {"main": [[{"node": "Code", "type": "main", "index": 0}]]},
+    "Code": {"main": [[{"node": "Slack", "type": "main", "index": 0}]]}
+  }
+}

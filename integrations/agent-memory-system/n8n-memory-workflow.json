@@ -1,0 +1,12 @@
+{
+  "name": "Agent Memory System Workflow",
+  "nodes": [
+    {"type": "Webhook", "parameters": {"httpMethod": "POST", "path": "agent-memory"}},
+    {"type": "Code", "parameters": {"jsCode": "// 1. Store semantic memory (vector)\n// 2. Store structured fact\n// 3. Retrieve relevant memories\n// 4. Inject into context\nreturn [{json: {memory_context: '...'}}];"}},
+    {"type": "Redis", "parameters": {"operation": "set", "key": "agent_memory", "value": "={{$json.memory_context}}"}}
+  ],
+  "connections": {
+    "Webhook": {"main": [[{"node": "Code", "type": "main", "index": 0}]]},
+    "Code": {"main": [[{"node": "Redis", "type": "main", "index": 0}]]}
+  }
+}

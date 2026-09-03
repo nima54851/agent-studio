@@ -1,0 +1,14 @@
+{
+  "name": "AI Meeting Notes Workflow",
+  "nodes": [
+    {"type": "Webhook", "parameters": {"httpMethod": "POST", "path": "meeting-notes"}},
+    {"type": "HTTP Request", "parameters": {"url": "={{$json.body.recording_url}}", "method": "GET"}},
+    {"type": "Code", "parameters": {"jsCode": "// Whisper STT\n// LLM Summary\nreturn [{json: {summary: '...', action_items: [], decisions: []}}];"}},
+    {"type": "Notion", "parameters": {"operation": "createPage", "database": "={{$env.NOTION_DB_ID}}", "title": "={{$json.body.meeting_title}}", "content": "={{$json.summary}}"}}
+  ],
+  "connections": {
+    "Webhook": {"main": [[{"node": "HTTP Request", "type": "main", "index": 0}]]},
+    "HTTP Request": {"main": [[{"node": "Code", "type": "main", "index": 0}]]},
+    "Code": {"main": [[{"node": "Notion", "type": "main", "index": 0}]]}
+  }
+}
