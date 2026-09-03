@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-03T16:27:31.074643+08:00",
-  "uptime": "up 10 weeks, 5 days, 23 hours, 8 minutes",
+  "generated_at": "2026-09-03T16:56:57.440812+08:00",
+  "uptime": "up 10 weeks, 5 days, 23 hours, 38 minutes",
   "git": {
     "branch": "main",
     "commit": "31120447",
@@ -35,7 +35,7 @@
       "name": "github_pages",
       "port": null,
       "url": "https://nima54851.github.io/agent-studio/",
-      "status": "up"
+      "status": "down"
     }
   ],
   "system": {
