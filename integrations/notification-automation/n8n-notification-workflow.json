@@ -1,0 +1,68 @@
+{
+  "name": "notification-automation",
+  "nodes": [
+    {
+      "id": "trigger",
+      "type": "trigger",
+      "parameters": {
+        "rule": { "kind": "webhook" }
+      }
+    },
+    {
+      "id": "template",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// Render Jinja2 notification template\nconst data = $input.first().json;\nconst template = $('trigger').parameter('template') || 'default';\n\nconst templates = {\n  incident_alert: `🚨 [${data.service}] ${data.error}\\nSeverity: ${data.severity}\\nTime: ${new Date().toISOString()}`,\n  deployment_success: `✅ Deployed ${data.service} v${data.version} to ${data.env}`,\n  digest: `📬 Daily Digest\\n${data.items.map(i => `• ${i}`).join('\\n')}`\n};\n\nreturn { template: templates[template] || template, data, channel: data.channel || 'slack' };"
+      }
+    },
+    {
+      "id": "rate_limit",
+      "type": "n8n-nodes-base.if",
+      "parameters": {
+        "conditions": {
+          "options": {},
+          "conditions": [
+            { "id": "rate", "leftValue": "{{ $json.channel }}", "operation": "equals", "rightValue": "slack" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "send_slack",
+      "type": "n8n-nodes-base.slack",
+      "parameters": {
+        "resource": "message",
+        "channel": "{{ $json.data.to || '#alerts' }}",
+        "text": "{{ $json.template }}"
+      }
+    },
+    {
+      "id": "send_email",
+      "type": "n8n-nodes-base.emailSend",
+      "parameters": {
+        "to": "{{ $json.data.email || 'ops@example.com' }}",
+        "subject": "{{ $json.data.subject || 'Notification' }}",
+        "text": "{{ $json.template }}"
+      }
+    },
+    {
+      "id": "receipt",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// Record delivery receipt\nreturn [{ json: { delivered: true, channel: $('template').first().json.channel, ts: new Date().toISOString() } }];"
+      }
+    }
+  ],
+  "connections": {
+    "trigger": { "main": [[{ "node": "template" }]] },
+    "template": { "main": [[{ "node": "rate_limit" }]] },
+    "rate_limit": { "main": [[{ "node": "send_slack" }], [{ "node": "send_email" }]] },
+    "send_slack": { "main": [[{ "node": "receipt" }]] },
+    "send_email": { "main": [[{ "node": "receipt" }]] }
+  },
+  "active": true,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "1.0.0",
+  "id": "notification-automation",
+  "tags": ["automation", "notifications", "slack", "email"]
+}
