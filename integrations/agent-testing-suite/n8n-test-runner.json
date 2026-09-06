@@ -1,0 +1,55 @@
+{
+  "name": "agent-testing-suite",
+  "nodes": [
+    {
+      "id": "trigger",
+      "type": "trigger",
+      "parameters": { "rule": { "kind": "schedule", "triggerAt": "09:00" } }
+    },
+    {
+      "id": "clone",
+      "type": "n8n-nodes-base.splitInBatches",
+      "parameters": {
+        "batchSize": 1,
+        "options": { "reset": true }
+      }
+    },
+    {
+      "id": "run_test",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// Execute agent test suite\nconst skill = $('clone').first().json.skill;\nreturn [{ json: { skill, status: 'running', ts: new Date().toISOString() } }];"
+      }
+    },
+    {
+      "id": "validate",
+      "type": "n8n-nodes-base.openAi",
+      "parameters": {
+        "resource": "chat",
+        "messages": [
+          { "role": "system", "content": "You are a test evaluator. Rate the output: pass/fail with reasoning." },
+          { "role": "user", "content": "Skill: {{ $('run_test').first().json.skill }}\nOutput: {{ $json.output || 'test output' }}" }
+        ]
+      }
+    },
+    {
+      "id": "report",
+      "type": "n8n-nodes-base.writeBinaryFile",
+      "parameters": {
+        "fileName": "/tmp/test-reports/{{ $now.format('YYYY-MM-DD') }}.json",
+        "data": "={{ $json }}"
+      }
+    }
+  ],
+  "connections": {
+    "trigger": { "main": [[{ "node": "clone" }]] },
+    "clone": { "main": [[{ "node": "run_test" }]] },
+    "run_test": { "main": [[{ "node": "validate" }]] },
+    "validate": { "main": [[{ "node": "report" }]] }
+  },
+  "active": true,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "1.0.0",
+  "id": "agent-testing-suite",
+  "tags": ["testing", "automation", "agent", "ci-cd"]
+}
