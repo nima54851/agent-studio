@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-16T07:26:39.726076+08:00",
-  "uptime": "up 12 weeks, 4 days, 14 hours, 7 minutes",
+  "generated_at": "2026-09-16T13:57:08.991836+08:00",
+  "uptime": "up 12 weeks, 4 days, 20 hours, 38 minutes",
   "git": {
     "branch": "main",
     "commit": "3112044",
@@ -11,13 +11,13 @@
       "name": "n8n",
       "port": 5678,
       "url": null,
-      "status": "down"
+      "status": "up"
     },
     {
       "name": "chat",
       "port": 6060,
       "url": null,
-      "status": "down"
+      "status": "up"
     },
     {
       "name": "a2a_api",
@@ -47,9 +47,9 @@
     },
     "memory": {
       "total": "3.6Gi",
-      "used": "1.7Gi",
-      "free": "638Mi",
-      "avail": "1.9Gi"
+      "used": "1.9Gi",
+      "free": "640Mi",
+      "avail": "1.7Gi"
     }
   }
 }
