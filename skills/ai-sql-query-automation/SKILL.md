@@ -1,29 +1,41 @@
 # AI SQL Query Automation
 
-## 描述
-自然语言转 SQL 查询，支持 PostgreSQL / MySQL / SQLite / MongoDB，自动生成 JOIN、聚合、窗口函数，附查询解释与性能建议。
+> Describe your data need in plain English — AI generates optimized SQL, executes it, and returns results.
 
-## 触发条件
-- 用户要求查询数据库
-- 提供 schema 或表结构描述
-- 需要生成 SELECT / INSERT / UPDATE / DELETE / ALTER 语句
+## What It Does
 
-## 核心能力
-- 自然语言 → SQL（支持 5 种方言）
-- SQL 解释：告诉用户每句在做什么
-- 性能评估：指出 N+1、全表扫描风险
-- 自动加索引建议
-- 支持复杂查询：CTE、窗口函数、子查询
+Natural language → SQL query → execution → formatted results. Supports PostgreSQL, MySQL, SQLite, BigQuery.
 
-## 使用方式
+## Core Capabilities
+
+- **NL to SQL**: GPT-4/Claude generates SQL from English descriptions
+- **Query Validation**: Syntax check + explain plan before execution
+- **Auto-index Hints**: Suggests indexes based on query patterns
+- **Result Formatting**: JSON, CSV, markdown table, or chart
+- **Query History**: Track all queries with timestamps and results
+
+## Usage
+
 ```bash
-# 1. 提供表结构
-# 2. 描述需求："找出过去30天订单金额超过1000的用户"
-# 3. 生成 SQL 并解释
+# Interactive mode
+python3 sql_query.py ask --question "Show daily revenue for last 7 days"
+
+# Direct SQL
+python3 sql_query.py exec --sql "SELECT * FROM orders LIMIT 10"
+
+# Schema introspection
+python3 sql_query.py schema --tables orders,customers
 ```
 
-## n8n 工作流
-`integrations/ai-sql-query-automation/n8n-sql-query-workflow.json`
+## n8n Workflow
 
-## 来源
-本技能参考 AI sqli / SQLGlot / Vanna.ai 思路构建
+See `../integrations/ai-sql-query-automation/` for the full workflow:
+- User input → LLM → SQL generation → validation → execution → result formatting → notification
+
+## Security
+
+- **Never** expose DB credentials in plain text — use n8n credentials
+- All queries are logged with user, timestamp, SQL, and execution time
+- Rate limiting: max 10 queries/minute per user
+
+> Part of [agent-studio](https://github.com/nima54851/agent-studio) — AI Agent Skills Marketplace
