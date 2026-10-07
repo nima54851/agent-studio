@@ -1,49 +1,55 @@
-# 📊 GitHub Daily Report — 2026-07-13
+# 📊 GitHub Trending Report — 2026-10-07
 
-## 🔗 Links
-- **Repository:** https://github.com/nima54851/agent-studio
-- **GitHub Pages:** https://nima54851.github.io/agent-studio
-- **Product Page:** https://nima54851.github.io/agent-studio/product.html
+## 🤖 AI/ML 热门
 
-## 📈 Stats
-| Metric | Value |
-|--------|-------|
-| ⭐ Stars | 1 |
-| 🍴 Forks | 0 |
-| 👁 Watchers | 1 |
-| 🐛 Open Issues | 2 (#1 Roadmap, #3 Cloudflare) |
-| 🌐 GitHub Pages | ✅ 200 OK |
+| # | 项目 | ⭐ | 🍴 | 简介 |
+|---|------|----|----|------|
+| 1 | [Significant-Gravitas/AutoGPT](https://github.com/Significant-Gravitas/AutoGPT) | 187,675 | 45,940 | AutoGPT is the vision of accessible AI f |
+| 2 | [f/prompts.chat](https://github.com/f/prompts.chat) | 172,202 | 22,049 | f.k.a. Awesome ChatGPT Prompts. Share, d |
+| 3 | [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch) | 106,140 | 16,329 | Implement a ChatGPT-like LLM in PyTorch  |
+| 4 | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | 97,186 | 8,561 | Persistent Context Across Sessions for E |
+| 5 | [hacksider/Deep-Live-Cam](https://github.com/hacksider/Deep-Live-Cam) | 96,923 | 14,120 | real time face swap and one-click video  |
+| 6 | [OpenHands/OpenHands](https://github.com/OpenHands/OpenHands) | 90,120 | 11,924 | 🙌 OpenHands: AI-Driven Development |
+| 7 | [microsoft/AI-For-Beginners](https://github.com/microsoft/AI-For-Beginners) | 69,504 | 13,470 | 12 Weeks, 24 Lessons, AI for All! |
+| 8 | [usestrix/strix](https://github.com/usestrix/strix) | 66,896 | 7,336 | Open-source AI penetration testing tool  |
 
-## 🆕 Today's New Content (2026-07-13)
+## 🐍 Python 新势力
 
-### 1. Error Tracking Automation
-Sentry → n8n → AI error classification → Slack/Discord/GitHub Alerts
-- `skills/error-tracking-automation/SKILL.md`
-- `integrations/error-tracking-automation/n8n-sentry-workflow.json`
-- `integrations/error-tracking-automation/sentry_webhook_handler.py`
+| # | 项目 | ⭐ | 🍴 | 简介 |
+|---|------|----|----|------|
+| 1 | [public-apis/public-apis](https://github.com/public-apis/public-apis) | 486,575 | 53,810 | A collective list of free APIs |
+| 2 | [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | 398,609 | 66,886 | :books: Freely available programming boo |
+| 3 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | 373,411 | 58,767 | Learn how to design large-scale systems. |
+| 4 | [vinta/awesome-python](https://github.com/vinta/awesome-python) | 325,671 | 28,895 | The definitive list that answers "I want |
+| 5 | [practical-tutorials/project-based-learning](https://github.com/practical-tutorials/project-based-learning) | 286,098 | 36,549 | Curated list of project-based tutorials |
+| 6 | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) | 251,705 | 54,117 | The agent that grows with you |
+| 7 | [TheAlgorithms/Python](https://github.com/TheAlgorithms/Python) | 225,262 | 51,158 | All Algorithms implemented in Python |
+| 8 | [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) | 195,991 | 17,030 | A feature-rich command-line audio/video  |
 
-### 2. Testing Automation
-AI pytest/jest test generation + coverage tracking + GitHub Actions CI
-- `skills/testing-automation/SKILL.md`
-- `integrations/testing-automation/n8n-test-gen-workflow.json`
-- `integrations/testing-automation/pytest_runner.py`
+## 🔥 全站上升项目
 
-### 3. Infrastructure as Code
-AI Terraform / Pulumi / Ansible generation from requirements
-- `skills/infrastructure-as-code/SKILL.md`
-- `integrations/infrastructure-as-code/n8n-iac-workflow.json`
-- `integrations/infrastructure-as-code/terraform_gen.py`
+| # | 项目 | ⭐ | 🍴 | 简介 |
+|---|------|----|----|------|
+| 1 | [codecrafters-io/build-your-own-x](https://github.com/codecrafters-io/build-your-own-x) | 551,888 | 51,777 | Master programming by recreating your fa |
+| 2 | [sindresorhus/awesome](https://github.com/sindresorhus/awesome) | 515,634 | 37,303 | 😎 Awesome lists about all kinds of inter |
+| 3 | [public-apis/public-apis](https://github.com/public-apis/public-apis) | 486,575 | 53,810 | A collective list of free APIs |
+| 4 | [freeCodeCamp/freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) | 456,858 | 48,380 | freeCodeCamp.org's open-source codebase  |
+| 5 | [EbookFoundation/free-programming-books](https://github.com/EbookFoundation/free-programming-books) | 398,609 | 66,886 | :books: Freely available programming boo |
+| 6 | [openclaw/openclaw](https://github.com/openclaw/openclaw) | 391,520 | 82,287 | The AI that really does things. Any OS.  |
+| 7 | [donnemartin/system-design-primer](https://github.com/donnemartin/system-design-primer) | 373,411 | 58,767 | Learn how to design large-scale systems. |
+| 8 | [nilbuild/developer-roadmap](https://github.com/nilbuild/developer-roadmap) | 369,038 | 45,048 | Interactive roadmaps, guides and other e |
+| 9 | [jwasham/coding-interview-university](https://github.com/jwasham/coding-interview-university) | 362,461 | 84,910 | A complete computer science study plan t |
+| 10 | [vinta/awesome-python](https://github.com/vinta/awesome-python) | 325,671 | 28,895 | The definitive list that answers "I want |
 
-### Also Included (Previously Pending)
-- `skills/logging-automation/`, `skills/llm-ops-automation/`
-- `skills/resilience-patterns/`, `skills/workflow-orchestration/`
-- `skills/blockchain-automation/`
+## 🆕 近期新项目
 
-## ✅ Actions Today
-- GitHub Pages health check ✅
-- New content: 6 new skills + 7 integration files ✅
-- Pushed via GitHub API (24 files) ✅
-- Commit: e99136b1 ✅
+| # | 项目 | ⭐ | 🍴 | 简介 |
+|---|------|----|----|------|
+| 1 | [Niko1221/Strata](https://github.com/Niko1221/Strata) | 15,774 | 1,347 | Qwen3.8-Flash-Next on any consumer hardw |
+| 2 | [storytold/photocraft](https://github.com/storytold/photocraft) | 6,855 | 852 | An open-source, clean-room reimplementat |
+| 3 | [KKKKhazix/AIHOT](https://github.com/KKKKhazix/AIHOT) | 6,185 | 1,548 | 一个自己找热点、自己写日报的网站框架。把信源和精选标准换成你的，它就是你的行业热 |
+| 4 | [shihabal3amri/DiPlay](https://github.com/shihabal3amri/DiPlay) | 5,361 | 694 | Independent CarPlay receiver for compati |
+| 5 | [rehan-remade/universal-modder](https://github.com/rehan-remade/universal-modder) | 4,619 | 408 | Point Claude at any game. Skills, tools  |
+| 6 | [CopilotKit/OpenDots](https://github.com/CopilotKit/OpenDots) | 3,938 | 540 | Your always-on AI coworkers that move be |
 
----
-*Generated by 灵犀 AI · OpenClaw Agent*
+*Generated by agent-studio · 2026-10-07T09:10:43.471362*
