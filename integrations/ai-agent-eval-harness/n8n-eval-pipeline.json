@@ -1,0 +1,60 @@
+{
+  "name": "AI Agent Eval Pipeline",
+  "nodes": [
+    {
+      "name": "GitHub Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agent-eval"
+      }
+    },
+    {
+      "name": "Clone Repository",
+      "type": "n8n-nodes-base.httpRequest",
+      "parameters": {
+        "method": "GET",
+        "url": "={{$json.body.repository.clone_url}}"
+      }
+    },
+    {
+      "name": "Run Evaluation",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 调用 eval_runner.py\nconst { execSync } = require('child_process');\nconst result = execSync('python3 eval_runner.py --tasks gaia --model gpt-4o', { cwd: '/tmp/agent-eval' });\nreturn JSON.parse(result.toString());"
+      }
+    },
+    {
+      "name": "LLM Judge",
+      "type": "openAi",
+      "parameters": {
+        "resource": "chat",
+        "operation": "complete",
+        "prompt": "评分（0-100）此 Agent 输出质量：{{ $json.agent_output }}，期望：{{ $json.expected }}"
+      }
+    },
+    {
+      "name": "Detect Regression",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "const baseline = 78.5;\nconst current = $json.score;\nreturn { regression: current < baseline, diff: (current - baseline).toFixed(2) };"
+      }
+    },
+    {
+      "name": "Post PR Comment",
+      "type": "github",
+      "parameters": {
+        "operation": "createComment",
+        "repository": "={{$json.body.repository.name}}",
+        "issueNumber": "={{$json.body.number}}",
+        "body": "## 📊 Eval Report\n\n| Task | Score |\n|------|-------|\n| GAIA | {{ $json.score }} |\n\n{{ $json.regression ? '⚠️ **回归检测**: ' + $json.diff + '分' : '✅ 无回归' }}"
+      }
+    }
+  ],
+  "connections": {
+    "GitHub Webhook": { "main": [[{ "node": "Run Evaluation" }]] },
+    "Run Evaluation": { "main": [[{ "node": "LLM Judge" }]] },
+    "LLM Judge": { "main": [[{ "node": "Detect Regression" }]] },
+    "Detect Regression": { "main": [[{ "node": "Post PR Comment" }]] }
+  }
+}
