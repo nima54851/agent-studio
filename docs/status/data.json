@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-08T19:26:40.596591+08:00",
-  "uptime": "up 15 weeks, 6 days, 2 hours, 7 minutes",
+  "generated_at": "2026-10-09T03:56:38.735831+08:00",
+  "uptime": "up 15 weeks, 6 days, 10 hours, 37 minutes",
   "git": {
     "branch": "main",
     "commit": "3112044",
@@ -23,7 +23,7 @@
       "name": "a2a_api",
       "port": 8080,
       "url": null,
-      "status": "up"
+      "status": "down"
     },
     {
       "name": "openclaw",
@@ -48,7 +48,7 @@
     "memory": {
       "total": "3.6Gi",
       "used": "1.6Gi",
-      "free": "997Mi",
+      "free": "1.1Gi",
       "avail": "2.0Gi"
     }
   }
