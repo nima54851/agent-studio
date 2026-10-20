@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-20T08:26:38.536265+08:00",
-  "uptime": "up 17 weeks, 3 days, 15 hours, 7 minutes",
+  "generated_at": "2026-10-20T11:27:04.314455+08:00",
+  "uptime": "up 17 weeks, 3 days, 18 hours, 8 minutes",
   "git": {
     "branch": "main",
     "commit": "3112044",
@@ -47,8 +47,8 @@
     },
     "memory": {
       "total": "3.6Gi",
-      "used": "1.6Gi",
-      "free": "884Mi",
+      "used": "1.5Gi",
+      "free": "1.4Gi",
       "avail": "2.0Gi"
     }
   }
