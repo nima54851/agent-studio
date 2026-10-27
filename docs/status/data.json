@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T20:57:29.328568+08:00",
-  "uptime": "up 18 weeks, 4 days, 3 hours, 38 minutes",
+  "generated_at": "2026-10-28T02:27:59.936950+08:00",
+  "uptime": "up 18 weeks, 4 days, 9 hours, 9 minutes",
   "git": {
     "branch": "main",
     "commit": "3112044",
@@ -11,7 +11,7 @@
       "name": "n8n",
       "port": 5678,
       "url": null,
-      "status": "up"
+      "status": "down"
     },
     {
       "name": "chat",
@@ -23,7 +23,7 @@
       "name": "a2a_api",
       "port": 8080,
       "url": null,
-      "status": "up"
+      "status": "down"
     },
     {
       "name": "openclaw",
@@ -47,9 +47,9 @@
     },
     "memory": {
       "total": "3.6Gi",
-      "used": "2.0Gi",
-      "free": "369Mi",
-      "avail": "1.6Gi"
+      "used": "1.6Gi",
+      "free": "1.0Gi",
+      "avail": "2.0Gi"
     }
   }
 }
