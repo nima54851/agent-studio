@@ -1,38 +1,81 @@
 # Agent Observability Automation
 
-## What It Does
-Complete observability stack for AI agents: traces, metrics, logs, cost tracking, and performance dashboards — so you know exactly what your agents are doing and spending.
+> 全面监控 AI Agent 的健康状态、性能指标、错误率与成本追踪
 
-## Capabilities
-- **Distributed tracing**: LangSmith / OpenTelemetry traces for every agent run
-- **Cost tracking**: Per-agent, per-task, per-model cost with budget alerts
-- **Latency monitoring**: P50/P95/P99 response times per skill/tool
-- **Error rate tracking**: Failure classification (rate limit, auth, logic, timeout)
-- **Token usage dashboard**: Daily/weekly/monthly token consumption by agent
-- **Human-in-the-loop flags**: Detect when agent requests human approval
-- **A/B performance comparison**: Compare agent versions by success rate + cost
-- **Alerting**: PagerDuty/Slack alerts on anomalies (error spike, cost overrun, latency blowout)
-- **SLO tracking**: Define SLOs (e.g., "95% of tasks complete in <30s") and track adherence
+## 概述
 
-## Metrics Collected
-| Metric | Description |
-|--------|-------------|
-| `agent.tasks.total` | Total tasks processed |
-| `agent.tasks.success` | Successful completions |
-| `agent.tasks.failed` | Failed tasks by error type |
-| `agent.duration_ms` | Task duration histogram |
-| `agent.tokens.used` | Total tokens per task |
-| `agent.cost.usd` | Estimated cost in USD |
-| `agent.hitl.count` | Human-in-the-loop triggers |
+Agent Observability Automation 提供端到端的 AI Agent 可观测性解决方案，涵盖日志采集、指标暴露、追踪关联和告警通知。
 
-## Stack
-- **Tracing**: LangSmith, OpenTelemetry, Jaeger
-- **Metrics**: Prometheus + Grafana
-- **Logs**: Loki / ELK
-- **Alerts**: PagerDuty, Slack, Discord
-- **Dashboards**: Grafana pre-built panels
+## 核心功能
 
-## Setup
+- **指标采集**: 请求量、延迟分布、Token 消耗、成本估算、错误率
+- **日志聚合**: 结构化日志 → OpenTelemetry → 统一存储
+- **追踪关联**: Trace ID 贯穿 LLM 调用全链路
+- **健康检查**: /health, /ready, /metrics 端点
+- **告警规则**: 错误率阈值、延迟 P99、成本超限自动告警
+- **Grafana 仪表盘**: 预置面板，快速上手
+
+## 技术栈
+
+- Prometheus + node-exporter（指标）
+- Loki + Grafana（可观测性面板）
+- OpenTelemetry SDK（追踪）
+- n8n（告警路由 → Slack/Discord/Email）
+- Python/JS（Instrumentation 库）
+
+## 快速开始
+
 ```bash
-cp -r skills/agent-observability-automation $AGENT_SKILLS_DIR/
+# 1. 启动监控栈
+docker-compose up -d prometheus loki grafana
+
+# 2. 安装 Python instrumentation
+pip install otel-sdk observability-kit
+
+# 3. 接入现有 Agent
+from observability import AgentObserver
+observer = AgentObserver(endpoint="http://localhost:9090")
 ```
+
+## 目录结构
+
+```
+skills/agent-observability-automation/
+  SKILL.md              # 本文件
+integrations/agent-observability-automation/
+  docker-compose.yml    # 监控栈
+  prometheus.yml        # 采集规则
+  grafana-dashboard.json # 预置面板
+  n8n-observability-workflow.json # 告警工作流
+  py_instrument.py      # Python Agent 埋点
+  js_instrument.js      # JS/TS Agent 埋点
+```
+
+## 告警规则示例
+
+| 规则 | 阈值 | 动作 |
+|------|------|------|
+| 错误率 | > 5% / 5min | Slack @here |
+| P99 延迟 | > 3000ms | PagerDuty |
+| Token 超额 | > $10/天 | Email |
+| Agent 无响应 | > 60s | Discord |
+
+## 集成方式
+
+```yaml
+# prometheus.yml scrape target
+- job_name: 'ai-agent'
+  static_configs:
+    - targets: ['agent:8000']
+  metrics_path: '/metrics'
+```
+
+## 相关技能
+
+- `logging-automation` — 日志采集
+- `llm-ops-automation` — LLM 成本追踪
+- `monitoring-alerting-automation` — 告警规则
+
+---
+
+*由 agent-studio 自动生成 | 2026-10-27*
