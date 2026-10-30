@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-30T06:26:54.776597+08:00",
-  "uptime": "up 18 weeks, 6 days, 13 hours, 8 minutes",
+  "generated_at": "2026-10-30T09:26:54.695964+08:00",
+  "uptime": "up 18 weeks, 6 days, 16 hours, 8 minutes",
   "git": {
     "branch": "main",
     "commit": "3112044",
@@ -11,7 +11,7 @@
       "name": "n8n",
       "port": 5678,
       "url": null,
-      "status": "down"
+      "status": "up"
     },
     {
       "name": "chat",
@@ -47,9 +47,9 @@
     },
     "memory": {
       "total": "3.6Gi",
-      "used": "1.6Gi",
-      "free": "481Mi",
-      "avail": "2.0Gi"
+      "used": "1.9Gi",
+      "free": "140Mi",
+      "avail": "1.7Gi"
     }
   }
 }
