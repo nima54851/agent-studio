@@ -1,0 +1,71 @@
+{
+  "name": "AI Safety Guard Pipeline",
+  "nodes": [
+    {
+      "name": "Agent Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "agent-guard"
+      }
+    },
+    {
+      "name": "Input Guard",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 输入护栏：提示注入 / 越狱 / PII 预脱敏\nconst input = $json.body.prompt || '';\nconst injectionPatterns = [/ignore\\s+(all\\s+)?previous\\s+instructions/i, /you\\s+are\\s+now\\s+dan\\b/i, /developer\\s+mode/i, /pretend\\s+you\\s+are/i, /reveal\\s+(your\\s+)?system\\s+prompt/i];\nlet risk = 0.0;\nconst reasons = [];\nfor (const re of injectionPatterns) { if (re.test(input)) { risk = Math.max(risk, 0.9); reasons.push('injection:' + re.source); } }\nconst sanitized = input\n  .replace(/[\\w.+-]+@[\\w-]+\\.[\\w.]+/g, '[EMAIL]')\n  .replace(/\\b\\d{17}[\\dXx]\\b/g, '[ID_CARD]')\n  .replace(/\\b(?:\\d[ -]*?){13,19}\\b/g, '[CARD]');\nreturn [{ json: { sanitized, risk, reasons, action: risk >= 0.85 ? 'BLOCK' : (risk >= 0.6 ? 'REVIEW' : 'PASS') } }];"
+      }
+    },
+    {
+      "name": "LLM Call",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "messages": {
+          "values": [
+            {
+              "message": "={{ '用户输入: ' + $json.sanitized }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Output Guard",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 输出护栏：密钥 / PII / 有害内容扫描\nconst text = $json.text || JSON.stringify($json);\nconst secretPatterns = [/sk-[A-Za-z0-9]{16,}/g, /ghp_[A-Za-z0-9]{20,}/g, /AKIA[0-9A-Z]{16}/g, /-----BEGIN [A-Z ]*PRIVATE KEY-----/g];\nlet out = text;\nlet risk = 0.0;\nconst reasons = [];\nfor (const re of secretPatterns) { if (re.test(out)) { out = out.replace(re, '[REDACTED]'); risk = Math.max(risk, 0.9); reasons.push('secret_leak'); } }\nif (/rm\\s+-rf\\s+\\/|sudo\\s+su\\b/i.test(out)) { risk = Math.max(risk, 0.8); reasons.push('dangerous_command'); }\nreturn [{ json: { sanitized: out, risk, reasons, action: risk >= 0.85 ? 'BLOCK' : (risk >= 0.6 ? 'REVIEW' : 'PASS') } }];"
+      }
+    },
+    {
+      "name": "Tool Policy Check",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 工具权限校验\nconst deny = ['shell_exec', 'sudo', 'file_delete', 'credential_dump'];\nconst requested = ($json.body.requested_tools || []);\nconst blocked = requested.filter(t => deny.includes(t));\nreturn [{ json: { blocked_tools: blocked, allowed: blocked.length === 0 } }];"
+      }
+    },
+    {
+      "name": "Write Audit Log",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 审计留痕（追加写）\nconst entry = { ts: new Date().toISOString(), risk: $json.risk, action: $json.action, reasons: $json.reasons };\nrequire('fs').appendFileSync('/tmp/safety_audit.jsonl', JSON.stringify(entry) + '\\n');\nreturn [{ json: entry }];"
+      }
+    },
+    {
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ action: $json.action, output: $json.sanitized, risk: $json.risk, reasons: $json.reasons }) }}"
+      }
+    }
+  ],
+  "connections": {
+    "Agent Webhook": { "main": [[{ "node": "Input Guard", "type": "main", "index": 0 }]] },
+    "Input Guard": { "main": [[{ "node": "LLM Call", "type": "main", "index": 0 }]] },
+    "LLM Call": { "main": [[{ "node": "Output Guard", "type": "main", "index": 0 }]] },
+    "Output Guard": { "main": [[{ "node": "Tool Policy Check", "type": "main", "index": 0 }]] },
+    "Tool Policy Check": { "main": [[{ "node": "Write Audit Log", "type": "main", "index": 0 }]] },
+    "Write Audit Log": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  }
+}
