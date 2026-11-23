@@ -1,0 +1,74 @@
+{
+  "name": "Sandbox Execution Pipeline",
+  "nodes": [
+    {
+      "name": "Sandbox Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "sandbox-exec"
+      },
+      "position": [0, 0]
+    },
+    {
+      "name": "Policy Builder",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 组装沙箱策略：命令白名单 / 参数黑名单 / 网络白名单 / 配额\nconst body = $json.body || {};\nconst allowed = (process.env.SANDBOX_ALLOWED_COMMANDS || 'ls,cat,git,python3,node,grep,find').split(',');\nconst netAllow = (process.env.SANDBOX_NETWORK_ALLOWLIST || 'api.openai.com,api.github.com').split(',');\nconst policy = {\n  allowed_commands: allowed,\n  blocked_patterns: [/rm\\s+-rf/i, /curl[^|]*\\|\\s*(sh|bash)/i, /chmod\\s+777/i, /mkfs/i, /:\\(\\)\\{.*\\};:/i],\n  network_allowlist: netAllow,\n  network_enabled: !!body.network,\n  max_seconds: parseInt(process.env.SANDBOX_MAX_SECONDS || '300', 10),\n  max_output_bytes: parseInt(process.env.SANDBOX_MAX_OUTPUT_BYTES || String(50 * 1024 * 1024), 10),\n  workdir: body.workdir || './workspace'\n};\nconst cmd = String(body.command || '');\nlet risk = 0.0; const reasons = [];\nconst head = cmd.trim().split(/\\s+/)[0] || '';\nif (!allowed.includes(head)) { risk = Math.max(risk, 0.9); reasons.push('cmd_not_allowed:' + head); }\nfor (const re of policy.blocked_patterns) { if (re.test(cmd)) { risk = Math.max(risk, 0.95); reasons.push('blocked_pattern:' + re.source); } }\nconst action = risk >= 0.85 ? 'BLOCK' : (risk >= 0.6 ? 'REVIEW' : 'PASS');\nreturn [{ json: { command: cmd, policy, risk, reasons, action } }];"
+      },
+      "position": [220, 0]
+    },
+    {
+      "name": "Sandbox Exec",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 在临时沙箱中执行命令（受限实现示例：命令白名单 + 超时 + 输出截断）\nconst { command, policy } = $json;\nif ($json.action === 'BLOCK') {\n  return [{ json: { ok: false, stdout: '', stderr: 'blocked by policy', exit_code: 126, duration_ms: 0, truncated: false, action: 'BLOCK' } }];\n}\nconst { execFileSync } = require('child_process');\nconst head = command.trim().split(/\\s+/)[0];\nconst args = command.trim().split(/\\s+/).slice(1);\nconst started = Date.now();\nlet stdout = '', stderr = '', exit_code = 0, truncated = false;\ntry {\n  stdout = execFileSync(head, args, { timeout: policy.max_seconds * 1000, encoding: 'utf8', maxBuffer: policy.max_output_bytes });\n} catch (e) {\n  stdout = (e.stdout || '').toString(); stderr = (e.stderr || '').toString();\n  exit_code = typeof e.status === 'number' ? e.status : 1;\n  if (e.signal) stderr += '\\n[signal] ' + e.signal;\n}\nif (stdout.length > policy.max_output_bytes) { stdout = stdout.slice(0, policy.max_output_bytes); truncated = true; }\nreturn [{ json: { ok: exit_code === 0, stdout, stderr, exit_code, duration_ms: Date.now() - started, truncated, action: $json.action } }];"
+      },
+      "position": [440, 0]
+    },
+    {
+      "name": "Quota Check",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 校验实际耗时与输出大小，超限即熔断\nconst r = $json;\nconst policy = $('Policy Builder').first().json.policy;\nlet action = r.action || 'PASS';\nconst reasons = $('Policy Builder').first().json.reasons || [];\nif (r.duration_ms > policy.max_seconds * 1000) { action = 'BLOCK'; reasons.push('timeout'); }\nif (r.stdout && r.stdout.length >= policy.max_output_bytes) { action = 'REVIEW'; reasons.push('output_truncated'); }\nif (r.exit_code !== 0) { action = action === 'BLOCK' ? 'BLOCK' : 'REVIEW'; reasons.push('exit_' + r.exit_code); }\nreturn [{ json: { ...r, action, reasons } }];"
+      },
+      "position": [660, 0]
+    },
+    {
+      "name": "Audit Writer",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 审计留痕（JSONL）\nconst fs = require('fs');\nconst path = process.env.SANDBOX_AUDIT_PATH || '/tmp/sandbox_audit.jsonl';\nconst r = $json;\nconst rec = {\n  ts: new Date().toISOString(),\n  task_id: $('Sandbox Webhook').first().json.body.task_id || null,\n  command: $('Policy Builder').first().json.command,\n  exit_code: r.exit_code,\n  duration_ms: r.duration_ms,\n  truncated: !!r.truncated,\n  action: r.action,\n  reasons: r.reasons || []\n};\ntry { fs.appendFileSync(path, JSON.stringify(rec) + '\\n'); } catch (e) { /* ignore */ }\nreturn [{ json: { ...r, audit_path: path } }];"
+      },
+      "position": [880, 0]
+    },
+    {
+      "name": "Cleanup",
+      "type": "n8n-nodes-base.code",
+      "parameters": {
+        "jsCode": "// 用完即焚：清理沙箱工作目录，仅保留审计元数据\nconst fs = require('fs');\nconst path = require('path');\nconst base = process.env.SANDBOX_BASE_DIR || '/tmp/agent-sandbox';\nconst dir = path.join(base, 'task-' + Date.now());\nlet cleaned = false;\ntry { if (fs.existsSync(dir)) { fs.rmSync(dir, { recursive: true, force: true }); cleaned = true; } } catch (e) { /* ignore */ }\nreturn [{ json: { ...$json, sandbox_cleaned: cleaned } }];"
+      },
+      "position": [1100, 0]
+    },
+    {
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: $json.ok, stdout: $json.stdout, stderr: $json.stderr, exit_code: $json.exit_code, duration_ms: $json.duration_ms, truncated: $json.truncated, action: $json.action } }}",
+        "options": {}
+      },
+      "position": [1320, 0]
+    }
+  ],
+  "connections": {
+    "Sandbox Webhook": { "main": [[{ "node": "Policy Builder", "type": "main", "index": 0 }]] },
+    "Policy Builder": { "main": [[{ "node": "Sandbox Exec", "type": "main", "index": 0 }]] },
+    "Sandbox Exec": { "main": [[{ "node": "Quota Check", "type": "main", "index": 0 }]] },
+    "Quota Check": { "main": [[{ "node": "Audit Writer", "type": "main", "index": 0 }]] },
+    "Audit Writer": { "main": [[{ "node": "Cleanup", "type": "main", "index": 0 }]] },
+    "Cleanup": { "main": [[{ "node": "Respond", "type": "main", "index": 0 }]] }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}
